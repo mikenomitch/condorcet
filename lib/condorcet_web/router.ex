@@ -17,18 +17,14 @@ defmodule CondorcetWeb.Router do
     pipe_through :api
 
     resources("/polls", PollController) do
-      get("/results", ResultController, :show)
+      post("/respond", ResponseController, :create)
+      resources("/responses", ResponseController)
+      get("/results", PollController, :results)
     end
   end
 
   scope "/", CondorcetWeb do
     pipe_through :browser
-
     get "/", PageController, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", CondorcetWeb do
-  #   pipe_through :api
-  # end
 end

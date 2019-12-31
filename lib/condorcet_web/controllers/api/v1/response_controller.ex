@@ -1,15 +1,29 @@
 defmodule CondorcetWeb.Api.V1.ResponseController do
-  alias Condorcet.{Poll, Result}
+  import Ecto.Query
+  alias Condorcet.{Repo, Response}
 
   use CondorcetWeb, :controller
   @type conn_t :: Plug.Conn.t()
 
   @spec show(conn_t, map) :: {:error, :not_found} | conn_t
-  def show(conn, %{"poll_id" => poll_id}) do
-    IO.puts("TEST - Response")
+  def show(conn, %{"id" => id}) do
+    response = Repo.get(Response, id)
+    render(conn, "show.json", response: response)
+  end
 
-    poll = %Poll{id: poll_id, question: "What is this?", choices: ["1", "2", "3"]}
-    result = %Result{winners: %{}, response_count: 10}
-    render(conn, "show.json", result: result)
+  @doc false
+  def index(conn, %{"poll_id" => poll_id}) do
+    query = from(Response, where: [poll_id: ^poll_id])
+    responses = Repo.all(query)
+    render(conn, "index.json", responses: responses)
+  end
+
+  @doc false
+  def create(conn, %{"poll_id" => poll_id, "response" => attrs}) do
+    with {:ok, response} <- Response.create_for_poll(poll_id, attrs) do
+      conn
+      |> put_status(:created)
+      |> render("show.json", response: response)
+    end
   end
 end

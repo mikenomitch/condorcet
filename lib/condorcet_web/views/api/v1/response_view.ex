@@ -5,7 +5,11 @@ defmodule CondorcetWeb.Api.V1.ResponseView do
     render_one(response, __MODULE__, "response.json")
   end
 
+  def render("index.json", %{responses: responses}) do
+    render_many(responses, __MODULE__, "response.json")
+  end
+
   def render("response.json", %{response: response}) do
-    %{id: response.id, order: response.order}
+    %{id: response.id, name: response.name, order: response.order}
   end
 end

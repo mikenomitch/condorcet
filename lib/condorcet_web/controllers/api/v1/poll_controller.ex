@@ -1,25 +1,28 @@
 defmodule CondorcetWeb.Api.V1.PollController do
-  alias Condorcet.{Poll}
+  alias Condorcet.{Repo, Poll, Result}
 
   use CondorcetWeb, :controller
   @type conn_t :: Plug.Conn.t()
 
-  @spec show(conn_t, map) :: {:error, :not_found} | conn_t
+  @doc false
   def show(conn, %{"id" => id}) do
-    IO.puts("TEST - Poll")
-
-    poll = %Poll{id: id, question: "What is this?", choices: ["1", "2", "3"]}
+    poll = Repo.get(Poll, id)
     render(conn, "show.json", poll: poll)
   end
 
-  def create(conn, %{"poll" => poll_params}) do
-    IO.puts(poll_params)
-    %{question: question, choices: choices} = poll_params
-
-    with poll <- %Poll{id: 2, question: question, choices: choices} do
+  @doc false
+  def create(conn, %{"poll" => params}) do
+    with {:ok, %Poll{} = poll} <- Poll.create(params) do
       conn
       |> put_status(:created)
       |> render("show.json", poll: poll)
     end
+  end
+
+  @doc false
+  def results(conn, %{"poll_id" => id}) do
+    poll = Repo.get(Poll, id)
+    result = Repo.get_by(Result, poll_id: id) || %Result{response_count: 0}
+    render(conn, "results.json", poll: poll, result: result)
   end
 end
