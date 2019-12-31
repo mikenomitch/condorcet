@@ -16,7 +16,9 @@ defmodule Condorcet.Tally do
 
   def calculate_plurality(responses) do
     first_place_counts = get_first_place_counts(responses)
-    highest_vote_count = first_place_counts |> Map.values |> Enum.max
+    highest_vote_count = get_highest_vote_count(responses)
+    get_choices_with_count(first_place_counts, highest_vote_count)
+
     first_place_counts |> Enum.filter(
       fn ({_, count}) -> count == highest_vote_count end
     ) |> Enum.map(
@@ -24,13 +26,8 @@ defmodule Condorcet.Tally do
     )
   end
 
-  def calculate_irv(responses) do
-    hd(responses).order
-  end
-
   def calculate_borda(responses) do
-    example_order = hd(responses).order
-    choices_count = Enum.count(example_order)
+    choices_count = get_choices_count(responses)
 
     responses
     |> Enum.map(&(&1.order))
@@ -46,11 +43,72 @@ defmodule Condorcet.Tally do
     )
   end
 
+  # TODO: THIS IS WRONG
+  def calculate_irv(responses) do
+    hd(responses).order
+    # choices_count = get_choices_count(responses)
+    # first_place_counts = get_first_place_counts(responses)
+    # highest_vote_count = get_highest_vote_count(responses)
+    # needed_to_win = ((choices_count / 2) + 1) |> Float.floor()
+
+    # if highest_vote_count >= needed_to_win do
+    #   get_choices_with_count(first_place_counts, highest_vote_count)
+    # else
+    #   if Enum.count(first_place_counts) == Enum.count(responses) do
+    #     # return them all since there is no way to break the tie
+    #     get_choices_with_count(first_place_counts, highest_vote_count)
+    #   end
+    #     # run it again without the worst option
+    #     responses
+    #     |> remove_fewest_first_place_votes()
+    #     |> calculate_irv()
+    # end
+  end
+
   def calculate_condorcet(responses) do
     hd(responses).order
   end
 
   # PRIVATE
+
+  # TODO: FIGURE THIS OUT - PSEUDO CODE IT FIRST
+  # def do_calculate_irv(orders_list, first_place_votes_to_win) do
+  #   orders_list
+  #   # TODO
+  # end
+
+  def remove_fewest_first_place_votes(responses) do
+    first_place_counts = get_first_place_counts(responses)
+    lowest_vote_count = get_lowest_vote_count(responses)
+
+    first_place_counts |> Enum.filter(
+      fn ({_, count}) -> count != lowest_vote_count end
+    ) |> Enum.map(fn ({choice, _}) -> choice end)
+  end
+
+  def get_choices_with_count(choices_with_counts, count_to_get) do
+    choices_with_counts |> Enum.filter(
+      fn ({_, count}) -> count == count_to_get end
+    ) |> Enum.map(fn ({choice, _}) -> choice end)
+  end
+
+  def get_choices_count(responses) do
+    hd(responses).order |> Enum.count()
+  end
+
+  def get_highest_vote_count(responses) do
+    responses
+    |> get_first_place_counts()
+    |> Map.values
+    |> Enum.max
+  end
+
+  def get_lowest_vote_count(responses) do
+    responses
+    |> get_first_place_counts()
+    |> Map.values
+    |> Enum.min
+  end
 
   defp get_first_place_counts(responses) do
     responses
