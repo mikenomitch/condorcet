@@ -22,7 +22,7 @@ function dResponse(json) {
                   return Json_decode.field("id", Json_decode.$$int, param);
                 }), json),
           name: Json_decode.field("name", Json_decode.string, json),
-          choices: Json_decode.field("choices", (function (param) {
+          order: Json_decode.field("order", (function (param) {
                   return Json_decode.list(Json_decode.string, param);
                 }), json)
         };
@@ -68,10 +68,10 @@ function encodeResponse(response) {
               ],
               /* :: */[
                 /* tuple */[
-                  "choices",
+                  "order",
                   Json_encode.list((function (prim) {
                           return prim;
-                        }), response.choices)
+                        }), response.order)
                 ],
                 /* [] */0
               ]
@@ -97,6 +97,26 @@ function encodeResult(result) {
                   /* [] */0
                 ]
               ]
+            ]);
+}
+
+function encodePollPost(poll) {
+  return Json_encode.object_(/* :: */[
+              /* tuple */[
+                "poll",
+                encodePoll(poll)
+              ],
+              /* [] */0
+            ]);
+}
+
+function encodeResponsePost(poll) {
+  return Json_encode.object_(/* :: */[
+              /* tuple */[
+                "response",
+                encodeResponse(poll)
+              ],
+              /* [] */0
             ]);
 }
 
@@ -132,6 +152,8 @@ exports.Decode = Decode;
 exports.encodePoll = encodePoll;
 exports.encodeResponse = encodeResponse;
 exports.encodeResult = encodeResult;
+exports.encodePollPost = encodePollPost;
+exports.encodeResponsePost = encodeResponsePost;
 exports.examplePoll = examplePoll;
 exports.winner = winner;
 exports._rest = _rest;

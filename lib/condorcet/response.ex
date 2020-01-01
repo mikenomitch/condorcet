@@ -20,7 +20,7 @@ defmodule Condorcet.Response do
 
   def create_for_poll(poll_id, attrs) do
     Repo.get(Poll, poll_id)
-      |> Ecto.build_assoc(:response)
+      |> Ecto.build_assoc(:response, attrs)
       |> changeset(attrs)
       |> Repo.insert()
   end

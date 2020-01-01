@@ -1,6 +1,8 @@
 defmodule CondorcetWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :condorcet
 
+  plug CORSPlug, origin: ~r/.*$/
+
   socket "/socket", CondorcetWeb.UserSocket,
     websocket: true,
     longpoll: false

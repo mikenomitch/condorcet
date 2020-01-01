@@ -7,7 +7,7 @@ type poll = {
 type response = {
   id: option(int),
   name: string,
-  choices: list(string),
+  order: list(string),
 };
 
 type result = {
@@ -30,7 +30,7 @@ module Decode = {
     Json.Decode.{
       id: json |> optional(field("id", int)),
       name: json |> field("name", string),
-      choices: json |> field("choices", list(string)),
+      order: json |> field("order", list(string)),
     };
 
   let dResult = (json): result =>
@@ -52,7 +52,7 @@ let encodePoll = poll =>
 let encodeResponse = response =>
   Json.Encode.object_([
     ("name", Json.Encode.string(response.name)),
-    ("choices", Json.Encode.list(Json.Encode.string, response.choices)),
+    ("order", Json.Encode.list(Json.Encode.string, response.order)),
   ]);
 
 let encodeResult = result =>
@@ -61,6 +61,12 @@ let encodeResult = result =>
     ("winner", Json.Encode.string(result.winner)),
     ("responseCount", Json.Encode.int(result.responseCount)),
   ]);
+
+let encodePollPost = poll =>
+  Json.Encode.object_([("poll", encodePoll(poll))]);
+
+let encodeResponsePost = poll =>
+  Json.Encode.object_([("response", encodeResponse(poll))]);
 
 // === EXAMPLE DATA ===
 

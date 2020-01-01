@@ -7,7 +7,7 @@ var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var Data$Condorcet = require("./Data.bs.js");
 
 function fetchPoll(id, cb) {
-  fetch("/api/v1/polls/" + id).then((function (prim) {
+  fetch("http://localhost:4000/api/v1/polls/" + id).then((function (prim) {
             return prim.json();
           })).then((function (json) {
           var poll = Data$Condorcet.Decode.dPoll(json);
@@ -19,7 +19,7 @@ function fetchPoll(id, cb) {
 }
 
 function fetchResult(id, cb) {
-  fetch("/api/v1/polls/" + (id + "/results")).then((function (prim) {
+  fetch("http://localhost:4000/api/v1/polls/" + (id + "/results")).then((function (prim) {
             return prim.json();
           })).then((function (json) {
           var result = Data$Condorcet.Decode.dResult(json);
@@ -31,8 +31,8 @@ function fetchResult(id, cb) {
 }
 
 function createPoll(poll) {
-  var payload = Data$Condorcet.encodePoll(poll);
-  return fetch("/api/v1/polls/", Fetch.RequestInit.make(/* Post */2, {
+  var payload = Data$Condorcet.encodePollPost(poll);
+  return fetch("http://localhost:4000/api/v1/polls/", Fetch.RequestInit.make(/* Post */2, {
                       "Content-Type": "application/json"
                     }, Caml_option.some(JSON.stringify(payload)), undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined)(/* () */0)).then((function (prim) {
                 return prim.json();
@@ -40,8 +40,8 @@ function createPoll(poll) {
 }
 
 function submitPoll(id, response) {
-  var payload = Data$Condorcet.encodeResponse(response);
-  return fetch("/api/v1/polls/" + (id + "/respond"), Fetch.RequestInit.make(/* Post */2, {
+  var payload = Data$Condorcet.encodeResponsePost(response);
+  return fetch("http://localhost:4000/api/v1/polls/" + (id + "/respond"), Fetch.RequestInit.make(/* Post */2, {
                       "Content-Type": "application/json"
                     }, Caml_option.some(JSON.stringify(payload)), undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined)(/* () */0)).then((function (prim) {
                 return prim.json();

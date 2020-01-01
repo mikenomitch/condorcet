@@ -4,7 +4,7 @@ let fetchPoll = (id, cb) => {
   };
 
   Js.Promise.(
-    Fetch.fetch("/api/v1/polls/" ++ id)
+    Fetch.fetch("http://localhost:4000/api/v1/polls/" ++ id)
     |> then_(Fetch.Response.json)
     |> then_(json => json |> Data.Decode.dPoll |> callCb |> resolve)
     // |> catch(_err => {cb(_ => None)})
@@ -18,7 +18,7 @@ let fetchResult = (id, cb) => {
   };
 
   Js.Promise.(
-    Fetch.fetch("/api/v1/polls/" ++ id ++ "/results")
+    Fetch.fetch("http://localhost:4000/api/v1/polls/" ++ id ++ "/results")
     |> then_(Fetch.Response.json)
     |> then_(json => json |> Data.Decode.dResult |> callCb |> resolve)
     // |> catch(_err => {cb(_ => None)})
@@ -27,10 +27,10 @@ let fetchResult = (id, cb) => {
 };
 
 let createPoll = poll => {
-  let payload = Data.encodePoll(poll);
+  let payload = Data.encodePollPost(poll);
   Js.Promise.(
     Fetch.fetchWithInit(
-      "/api/v1/polls/",
+      "http://localhost:4000/api/v1/polls/",
       Fetch.RequestInit.make(
         ~method_=Post,
         ~body=Fetch.BodyInit.make(Js.Json.stringify(payload)),
@@ -43,10 +43,10 @@ let createPoll = poll => {
 };
 
 let submitPoll = (id, response) => {
-  let payload = Data.encodeResponse(response);
+  let payload = Data.encodeResponsePost(response);
   Js.Promise.(
     Fetch.fetchWithInit(
-      "/api/v1/polls/" ++ id ++ "/respond",
+      "http://localhost:4000/api/v1/polls/" ++ id ++ "/respond",
       Fetch.RequestInit.make(
         ~method_=Post,
         ~body=Fetch.BodyInit.make(Js.Json.stringify(payload)),

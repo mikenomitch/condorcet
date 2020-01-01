@@ -13,12 +13,18 @@ let make = (~poll: Data.poll) => {
     changeOrdering(_ => newList);
   };
 
-  let response: Data.response = {id: None, name, choices: choiceOrder};
+  let response: Data.response = {id: None, name, order: choiceOrder};
 
   let submitChoices = _ => {
-    Js.Promise.(
-      Api.submitPoll("10", response)
-      |> then_(_ => ReasonReactRouter.push("/results/1") |> resolve)
+    (
+      switch (poll.id) {
+      | None => Js.Promise.(resolve())
+      | Some(id) =>
+        Js.Promise.(
+          Api.submitPoll(string_of_int(id), response)
+          |> then_(_ => ReasonReactRouter.push("/results/1") |> resolve)
+        )
+      }
     )
     |> ignore;
   };

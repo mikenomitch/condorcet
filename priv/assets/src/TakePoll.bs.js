@@ -36,12 +36,17 @@ function TakePoll(Props) {
   var response = {
     id: undefined,
     name: name,
-    choices: choiceOrder
+    order: choiceOrder
   };
   var submitChoices = function (param) {
-    Api$Condorcet.submitPoll("10", response).then((function (param) {
-            return Promise.resolve(ReasonReactRouter.push("/results/1"));
-          }));
+    var match = poll.id;
+    if (match !== undefined) {
+      Api$Condorcet.submitPoll(String(match), response).then((function (param) {
+              return Promise.resolve(ReasonReactRouter.push("/results/1"));
+            }));
+    } else {
+      Promise.resolve(/* () */0);
+    }
     return /* () */0;
   };
   var renderChoice = function (idx, choice) {

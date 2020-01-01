@@ -41419,7 +41419,7 @@ function dResponse(json) {
       return Json_decode.field("id", Json_decode.$$int, param);
     }, json),
     name: Json_decode.field("name", Json_decode.string, json),
-    choices: Json_decode.field("choices", function (param) {
+    order: Json_decode.field("order", function (param) {
       return Json_decode.list(Json_decode.string, param);
     }, json)
   };
@@ -41464,9 +41464,9 @@ function encodeResponse(response) {
   /* :: */
   [
   /* tuple */
-  ["choices", Json_encode.list(function (prim) {
+  ["order", Json_encode.list(function (prim) {
     return prim;
-  }, response.choices)],
+  }, response.order)],
   /* [] */
   0]]);
 }
@@ -41487,6 +41487,26 @@ function encodeResult(result) {
   ["responseCount", result.responseCount],
   /* [] */
   0]]]);
+}
+
+function encodePollPost(poll) {
+  return Json_encode.object_(
+  /* :: */
+  [
+  /* tuple */
+  ["poll", encodePoll(poll)],
+  /* [] */
+  0]);
+}
+
+function encodeResponsePost(poll) {
+  return Json_encode.object_(
+  /* :: */
+  [
+  /* tuple */
+  ["response", encodeResponse(poll)],
+  /* [] */
+  0]);
 }
 
 var examplePoll = {
@@ -41517,6 +41537,8 @@ exports.Decode = Decode;
 exports.encodePoll = encodePoll;
 exports.encodeResponse = encodeResponse;
 exports.encodeResult = encodeResult;
+exports.encodePollPost = encodePollPost;
+exports.encodeResponsePost = encodeResponsePost;
 exports.examplePoll = examplePoll;
 exports.winner = winner;
 exports._rest = _rest;
@@ -41535,7 +41557,7 @@ var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var Data$Condorcet = require("./Data.bs.js");
 
 function fetchPoll(id, cb) {
-  fetch("/api/v1/polls/" + id).then(function (prim) {
+  fetch("http://localhost:4000/api/v1/polls/" + id).then(function (prim) {
     return prim.json();
   }).then(function (json) {
     var poll = Data$Condorcet.Decode.dPoll(json);
@@ -41550,7 +41572,7 @@ function fetchPoll(id, cb) {
 }
 
 function fetchResult(id, cb) {
-  fetch("/api/v1/polls/" + (id + "/results")).then(function (prim) {
+  fetch("http://localhost:4000/api/v1/polls/" + (id + "/results")).then(function (prim) {
     return prim.json();
   }).then(function (json) {
     var result = Data$Condorcet.Decode.dResult(json);
@@ -41565,8 +41587,8 @@ function fetchResult(id, cb) {
 }
 
 function createPoll(poll) {
-  var payload = Data$Condorcet.encodePoll(poll);
-  return fetch("/api/v1/polls/", Fetch.RequestInit.make(
+  var payload = Data$Condorcet.encodePollPost(poll);
+  return fetch("http://localhost:4000/api/v1/polls/", Fetch.RequestInit.make(
   /* Post */
   2, {
     "Content-Type": "application/json"
@@ -41578,8 +41600,8 @@ function createPoll(poll) {
 }
 
 function submitPoll(id, response) {
-  var payload = Data$Condorcet.encodeResponse(response);
-  return fetch("/api/v1/polls/" + (id + "/respond"), Fetch.RequestInit.make(
+  var payload = Data$Condorcet.encodeResponsePost(response);
+  return fetch("http://localhost:4000/api/v1/polls/" + (id + "/respond"), Fetch.RequestInit.make(
   /* Post */
   2, {
     "Content-Type": "application/json"
@@ -41767,13 +41789,22 @@ function TakePoll(Props) {
   var response = {
     id: undefined,
     name: name,
-    choices: choiceOrder
+    order: choiceOrder
   };
 
   var submitChoices = function submitChoices(param) {
-    Api$Condorcet.submitPoll("10", response).then(function (param) {
-      return Promise.resolve(ReasonReactRouter.push("/results/1"));
-    });
+    var match = poll.id;
+
+    if (match !== undefined) {
+      Api$Condorcet.submitPoll(String(match), response).then(function (param) {
+        return Promise.resolve(ReasonReactRouter.push("/results/1"));
+      });
+    } else {
+      Promise.resolve(
+      /* () */
+      0);
+    }
+
     return (
       /* () */
       0
@@ -42097,7 +42128,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52309" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49336" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
