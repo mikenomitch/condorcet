@@ -33617,7 +33617,7 @@ function Layout(Props) {
 var make = Layout;
 exports.make = make;
 /* react Not a pure module */
-},{"react":"node_modules/react/index.js","./R.bs.js":"src/R.bs.js","./Style.bs.js":"src/Style.bs.js","reason-react/src/ReasonReactRouter.js":"node_modules/reason-react/src/ReasonReactRouter.js"}],"../../../.asdf/installs/nodejs/10.16.0/.npm/lib/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./R.bs.js":"src/R.bs.js","./Style.bs.js":"src/Style.bs.js","reason-react/src/ReasonReactRouter.js":"node_modules/reason-react/src/ReasonReactRouter.js"}],"../../../../.asdf/installs/nodejs/10.16.0/.npm/lib/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
 var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
@@ -33915,7 +33915,7 @@ exports.caml_ml_output_char = caml_ml_output_char;
 exports.caml_ml_out_channels_list = caml_ml_out_channels_list;
 /* No side effect */
 
-},{"./curry.js":"node_modules/bs-platform/lib/js/curry.js","process":"../../../.asdf/installs/nodejs/10.16.0/.npm/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"node_modules/bs-platform/lib/js/caml_sys.js":[function(require,module,exports) {
+},{"./curry.js":"node_modules/bs-platform/lib/js/curry.js","process":"../../../../.asdf/installs/nodejs/10.16.0/.npm/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"node_modules/bs-platform/lib/js/caml_sys.js":[function(require,module,exports) {
 var process = require("process");
 'use strict';
 
@@ -34012,7 +34012,7 @@ exports.caml_sys_is_directory = caml_sys_is_directory;
 exports.caml_sys_file_exists = caml_sys_file_exists;
 /* No side effect */
 
-},{"./caml_builtin_exceptions.js":"node_modules/bs-platform/lib/js/caml_builtin_exceptions.js","process":"../../../.asdf/installs/nodejs/10.16.0/.npm/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"node_modules/bs-platform/lib/js/caml_bytes.js":[function(require,module,exports) {
+},{"./caml_builtin_exceptions.js":"node_modules/bs-platform/lib/js/caml_builtin_exceptions.js","process":"../../../../.asdf/installs/nodejs/10.16.0/.npm/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"node_modules/bs-platform/lib/js/caml_bytes.js":[function(require,module,exports) {
 'use strict';
 
 var Caml_builtin_exceptions = require("./caml_builtin_exceptions.js");
@@ -41535,7 +41535,7 @@ var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var Data$Condorcet = require("./Data.bs.js");
 
 function fetchPoll(id, cb) {
-  fetch("http://localhost:4000/api/polls/" + id).then(function (prim) {
+  fetch("/api/v1/polls/" + id).then(function (prim) {
     return prim.json();
   }).then(function (json) {
     var poll = Data$Condorcet.Decode.dPoll(json);
@@ -41550,7 +41550,7 @@ function fetchPoll(id, cb) {
 }
 
 function fetchResult(id, cb) {
-  fetch("http://localhost:4000/api/polls/" + (id + "/results")).then(function (prim) {
+  fetch("/api/v1/polls/" + (id + "/results")).then(function (prim) {
     return prim.json();
   }).then(function (json) {
     var result = Data$Condorcet.Decode.dResult(json);
@@ -41566,7 +41566,7 @@ function fetchResult(id, cb) {
 
 function createPoll(poll) {
   var payload = Data$Condorcet.encodePoll(poll);
-  return fetch("http://localhost:4000/api/polls/", Fetch.RequestInit.make(
+  return fetch("/api/v1/polls/", Fetch.RequestInit.make(
   /* Post */
   2, {
     "Content-Type": "application/json"
@@ -41579,7 +41579,7 @@ function createPoll(poll) {
 
 function submitPoll(id, response) {
   var payload = Data$Condorcet.encodeResponse(response);
-  return fetch("http://localhost:4000/api/polls/" + (id + "/take"), Fetch.RequestInit.make(
+  return fetch("/api/v1/polls/" + (id + "/respond"), Fetch.RequestInit.make(
   /* Post */
   2, {
     "Content-Type": "application/json"
@@ -42069,7 +42069,7 @@ var App$Condorcet = require("./App.bs.js");
 
 ReactDOMRe.renderToElementWithId(React.createElement(App$Condorcet.make, {}), "app");
 /*  Not a pure module */
-},{"react":"node_modules/react/index.js","reason-react/src/ReactDOMRe.js":"node_modules/reason-react/src/ReactDOMRe.js","./App.bs.js":"src/App.bs.js"}],"../../../.asdf/installs/nodejs/10.16.0/.npm/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","reason-react/src/ReactDOMRe.js":"node_modules/reason-react/src/ReactDOMRe.js","./App.bs.js":"src/App.bs.js"}],"../../../../.asdf/installs/nodejs/10.16.0/.npm/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -42097,7 +42097,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52644" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52309" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -42273,5 +42273,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../.asdf/installs/nodejs/10.16.0/.npm/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.re"], null)
+},{}]},{},["../../../../.asdf/installs/nodejs/10.16.0/.npm/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.re"], null)
 //# sourceMappingURL=/src.5730890d.js.map

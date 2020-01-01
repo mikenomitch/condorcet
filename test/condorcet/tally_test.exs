@@ -157,6 +157,19 @@ defmodule Condorcet.TallyTest do
     assert Tally.calc_irv(choices) == ["B"]
   end
 
+  # TODO: figure this one out
+  # test "calculates irv (TODO: figure this one out!)" do
+  #   choices = [
+  #     ["A", "B", "C", "D"],
+  #     ["A", "B", "C", "D"],
+  #     ["B", "A", "C", "D"],
+  #     ["C", "B", "A", "D"],
+  #     ["D", "B", "A", "C"],
+  #   ]
+
+  #   assert Tally.calc_irv(choices) == ["B"]
+  # end
+
   # ==========================
   # ==== CONDORCET WINNER ====
   # ==========================

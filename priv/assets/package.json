@@ -1,7 +1,8 @@
 {
   "scripts": {
     "deps": "npm install && bsb -make-world",
-    "build": "parcel build ./src/index.re && cp ./dist/index.js ../static/js/app.js"
+    "build": "parcel build ./src/index.re && cp ./dist/index.js ../static/js/app.js",
+    "dev": "parcel ./dev-index.html"
   },
   "devDependencies": {
     "bs-platform": "^7.0.1",

@@ -41,6 +41,12 @@ defmodule Condorcet.Tally do
     do_calc_irv(choices, needed_to_win)
   end
 
+  # TODO:
+  # In this implementation, all votes with equal lowest 1st place votes
+  # are eliminated
+  # There should probably be a version of this that just eliminates
+  # things one by one by some other method, so it can differentiate
+  # between "equally" bad options that are really different
   def do_calc_irv(choices, votes_needed_to_win) do
     first_place_counts_by_choice = get_first_place_counts_by_choice(choices)
     highest_vote_count = get_count_of_votes_for_winner(choices)
