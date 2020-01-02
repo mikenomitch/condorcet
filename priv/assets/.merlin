@@ -14,6 +14,8 @@ S /Users/mike/Code/condorcet/priv/assets/node_modules/bs-webapi/lib/ocaml
 B /Users/mike/Code/condorcet/priv/assets/node_modules/bs-webapi/lib/ocaml
 S /Users/mike/Code/condorcet/priv/assets/node_modules/reason-react/lib/ocaml
 B /Users/mike/Code/condorcet/priv/assets/node_modules/reason-react/lib/ocaml
+S /Users/mike/Code/condorcet/priv/assets/node_modules/rationale/lib/ocaml
+B /Users/mike/Code/condorcet/priv/assets/node_modules/rationale/lib/ocaml
 S src
 B lib/bs/src
 ####BSB GENERATED: NO EDIT}

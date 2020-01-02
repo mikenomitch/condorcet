@@ -9,6 +9,7 @@ var Caml_array = require("bs-platform/lib/js/caml_array.js");
 var R$Condorcet = require("./R.bs.js");
 var Api$Condorcet = require("./Api.bs.js");
 var Data$Condorcet = require("./Data.bs.js");
+var RList$Rationale = require("rationale/src/RList.js");
 var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
 
 function NewPoll(Props) {
@@ -78,7 +79,20 @@ function NewPoll(Props) {
                                             };
                                     }));
                       })
-                  }));
+                  }), React.createElement("button", {
+                    onClick: (function (param) {
+                        var idx$1 = idx;
+                        var newChoices = RList$Rationale.remove(idx$1, 1, poll.choices);
+                        console.log("whoa");
+                        return Curry._1(setPoll, (function (param) {
+                                      return {
+                                              id: poll.id,
+                                              question: poll.question,
+                                              choices: newChoices
+                                            };
+                                    }));
+                      })
+                  }, R$Condorcet.s("Remove")));
   };
   return React.createElement("div", undefined, React.createElement("h2", undefined, R$Condorcet.s("Make a Poll")), React.createElement("div", undefined, React.createElement("input", {
                       placeholder: "Question...",
@@ -100,7 +114,10 @@ function NewPoll(Props) {
                     }, R$Condorcet.s("Save"))));
 }
 
+var RList = /* alias */0;
+
 var make = NewPoll;
 
+exports.RList = RList;
 exports.make = make;
 /* react Not a pure module */

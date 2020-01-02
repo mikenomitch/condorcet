@@ -16,7 +16,8 @@
     "@glennsl/bs-json",
     "bs-fetch",
     "bs-webapi",
-    "reason-react"
+    "reason-react",
+    "rationale"
   ],
   "warnings": {
     "error": "+101"

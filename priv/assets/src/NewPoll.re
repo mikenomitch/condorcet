@@ -1,3 +1,5 @@
+module RList = Rationale.RList;
+
 [@react.component]
 let make = () => {
   let blankPoll: Data.poll = {
@@ -20,6 +22,12 @@ let make = () => {
 
   let addChoice = _ => {
     setPoll(_ => {...poll, choices: List.append(poll.choices, [""])});
+  };
+
+  let removeChoice = idx => {
+    let newChoices = RList.remove(idx, 1, poll.choices);
+    Js.log("whoa");
+    setPoll(_ => {...poll, choices: newChoices});
   };
 
   let savePoll = _ => {
@@ -47,6 +55,7 @@ let make = () => {
         value=answer
         placeholder="Choice..."
       />
+      <button onClick={_ => removeChoice(idx)}> {R.s("Remove")} </button>
     </div>;
   };
 
