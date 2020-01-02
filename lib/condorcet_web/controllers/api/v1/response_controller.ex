@@ -19,8 +19,9 @@ defmodule CondorcetWeb.Api.V1.ResponseController do
   end
 
   @doc false
+  # TODO: this pattern match is bad!
   def create(conn, %{"poll_id" => poll_id, "response" => attrs}) do
-    with {:ok, response} <- Response.create_for_poll(poll_id, attrs) do
+    with {:ok, %{response: response}} <- Response.create_for_poll(poll_id, attrs) do
       conn
       |> put_status(:created)
       |> render("show.json", response: response)
