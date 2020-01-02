@@ -8,11 +8,19 @@ var PollResults$Condorcet = require("./PollResults.bs.js");
 
 function ManagePoll(Props) {
   var result = Props.result;
-  return React.createElement("div", undefined, React.createElement("h1", undefined, R$Condorcet.s("Poll: " + result.poll.question)), React.createElement("button", {
-                  onClick: (function (param) {
-                      return ReasonReactRouter.push("/take-poll/2");
-                    })
-                }, R$Condorcet.s("Take the Poll Yourself")), React.createElement("div", undefined, React.createElement("h2", undefined, R$Condorcet.s("Links")), React.createElement("p", undefined, R$Condorcet.s("Link to take poll: http://zombo.com/poll/12345")), React.createElement("p", undefined, R$Condorcet.s("Save this link to manage the poll in the future: http://zombo.com/poll/12345/manage/token"))), React.createElement(PollResults$Condorcet.make, {
+  var match = result.poll.id;
+  var tmp;
+  if (match !== undefined) {
+    var id = match;
+    tmp = React.createElement("button", {
+          onClick: (function (param) {
+              return ReasonReactRouter.push("/take-poll/" + String(id));
+            })
+        }, R$Condorcet.s("Take the Poll Yourself"));
+  } else {
+    tmp = null;
+  }
+  return React.createElement("div", undefined, React.createElement("h1", undefined, R$Condorcet.s("Poll: " + result.poll.question)), tmp, React.createElement("div", undefined, React.createElement("h2", undefined, R$Condorcet.s("Links")), React.createElement("p", undefined, R$Condorcet.s("Link to take poll: http://zombo.com/poll/12345")), React.createElement("p", undefined, R$Condorcet.s("Save this link to manage the poll in the future: http://zombo.com/poll/12345/manage/token"))), React.createElement(PollResults$Condorcet.make, {
                   result: result
                 }));
 }

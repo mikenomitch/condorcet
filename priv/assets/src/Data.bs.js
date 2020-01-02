@@ -28,9 +28,25 @@ function dResponse(json) {
         };
 }
 
+function dWinnerMap(json) {
+  return {
+          borda: Json_decode.field("borda", (function (param) {
+                  return Json_decode.list(Json_decode.string, param);
+                }), json),
+          ranked: Json_decode.field("ranked", (function (param) {
+                  return Json_decode.list(Json_decode.string, param);
+                }), json),
+          plurality: Json_decode.field("plurality", (function (param) {
+                  return Json_decode.list(Json_decode.string, param);
+                }), json)
+        };
+}
+
 function dResult(json) {
   return {
-          winner: Json_decode.field("winner", Json_decode.string, json),
+          winners: Json_decode.optional((function (param) {
+                  return Json_decode.field("winners", dWinnerMap, param);
+                }), json),
           responseCount: Json_decode.field("responseCount", Json_decode.$$int, json),
           poll: Json_decode.field("poll", dPoll, json)
         };
@@ -39,6 +55,7 @@ function dResult(json) {
 var Decode = {
   dPoll: dPoll,
   dResponse: dResponse,
+  dWinnerMap: dWinnerMap,
   dResult: dResult
 };
 
@@ -78,28 +95,6 @@ function encodeResponse(response) {
             ]);
 }
 
-function encodeResult(result) {
-  return Json_encode.object_(/* :: */[
-              /* tuple */[
-                "poll",
-                encodePoll(result.poll)
-              ],
-              /* :: */[
-                /* tuple */[
-                  "winner",
-                  result.winner
-                ],
-                /* :: */[
-                  /* tuple */[
-                    "responseCount",
-                    result.responseCount
-                  ],
-                  /* [] */0
-                ]
-              ]
-            ]);
-}
-
 function encodePollPost(poll) {
   return Json_encode.object_(/* :: */[
               /* tuple */[
@@ -135,27 +130,10 @@ var examplePoll = {
   ]
 };
 
-var winner = "to see your enemies driven before you";
-
-var exampleResult = {
-  winner: winner,
-  responseCount: 3,
-  poll: examplePoll
-};
-
-var _rest = /* :: */[
-  "to hear the lamentations of their women",
-  /* [] */0
-];
-
 exports.Decode = Decode;
 exports.encodePoll = encodePoll;
 exports.encodeResponse = encodeResponse;
-exports.encodeResult = encodeResult;
 exports.encodePollPost = encodePollPost;
 exports.encodeResponsePost = encodeResponsePost;
 exports.examplePoll = examplePoll;
-exports.winner = winner;
-exports._rest = _rest;
-exports.exampleResult = exampleResult;
 /* No side effect */

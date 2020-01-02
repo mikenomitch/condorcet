@@ -10,8 +10,14 @@ type response = {
   order: list(string),
 };
 
+type winnerMap = {
+  borda: list(string),
+  ranked: list(string),
+  plurality: list(string),
+};
+
 type result = {
-  winner: string,
+  winners: option(winnerMap),
   responseCount: int,
   poll,
 };
@@ -33,10 +39,17 @@ module Decode = {
       order: json |> field("order", list(string)),
     };
 
+  let dWinnerMap = (json): winnerMap =>
+    Json.Decode.{
+      borda: json |> field("borda", list(string)),
+      plurality: json |> field("plurality", list(string)),
+      ranked: json |> field("ranked", list(string)),
+    };
+
   let dResult = (json): result =>
     Json.Decode.{
       poll: json |> field("poll", dPoll),
-      winner: json |> field("winner", string),
+      winners: json |> optional(field("winners", dWinnerMap)),
       responseCount: json |> field("responseCount", int),
     };
 };
@@ -53,13 +66,6 @@ let encodeResponse = response =>
   Json.Encode.object_([
     ("name", Json.Encode.string(response.name)),
     ("order", Json.Encode.list(Json.Encode.string, response.order)),
-  ]);
-
-let encodeResult = result =>
-  Json.Encode.object_([
-    ("poll", encodePoll(result.poll)),
-    ("winner", Json.Encode.string(result.winner)),
-    ("responseCount", Json.Encode.int(result.responseCount)),
   ]);
 
 let encodePollPost = poll =>
@@ -79,6 +85,3 @@ let examplePoll: poll = {
     "to hear the lamentations of their women",
   ],
 };
-
-let [_, winner, ..._rest] = examplePoll.choices;
-let exampleResult: result = {poll: examplePoll, winner, responseCount: 3};

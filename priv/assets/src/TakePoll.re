@@ -22,7 +22,10 @@ let make = (~poll: Data.poll) => {
       | Some(id) =>
         Js.Promise.(
           Api.submitPoll(string_of_int(id), response)
-          |> then_(_ => ReasonReactRouter.push("/results/1") |> resolve)
+          |> then_(_ =>
+               ReasonReactRouter.push("/results/" ++ string_of_int(id))
+               |> resolve
+             )
         )
       }
     )
