@@ -1,3 +1,5 @@
+[@bs.val] external alert: string => unit = "alert";
+
 let fetchPoll = (id, cb) => {
   let callCb = (poll: Data.poll) => {
     cb(_ => Some(poll));
@@ -36,6 +38,14 @@ let createPoll = poll => {
         (),
       ),
     )
+    |> then_(a => {
+         switch (Fetch.Response.status(a)) {
+         | 422 =>
+           alert("There was an issue with your data.");
+           resolve(a);
+         | _ => resolve(a)
+         }
+       })
     |> then_(Fetch.Response.json)
     |> then_(json => Data.Decode.dPoll(json) |> resolve)
   );

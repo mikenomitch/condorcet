@@ -64,7 +64,7 @@ let make = () => {
   };
 
   <div>
-    <h2> {R.s("Make a Poll")} </h2>
+    <h2> {R.s("Make a Poll!")} </h2>
     <div>
       <input
         onChange={event =>

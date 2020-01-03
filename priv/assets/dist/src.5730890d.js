@@ -41601,7 +41601,16 @@ function createPoll(poll) {
     "Content-Type": "application/json"
   }, Caml_option.some(JSON.stringify(payload)), undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined)(
   /* () */
-  0)).then(function (prim) {
+  0)).then(function (a) {
+    var match = a.status;
+
+    if (match !== 422) {
+      return Promise.resolve(a);
+    } else {
+      alert("There was an issue with your data.");
+      return Promise.resolve(a);
+    }
+  }).then(function (prim) {
     return prim.json();
   }).then(function (json) {
     return Promise.resolve(Data$Condorcet.Decode.dPoll(json));
@@ -43505,7 +43514,7 @@ function NewPoll(Props) {
     }, R$Condorcet.s("Remove")) : null);
   };
 
-  return React.createElement("div", undefined, React.createElement("h2", undefined, R$Condorcet.s("Make a Poll")), React.createElement("div", undefined, React.createElement("input", {
+  return React.createElement("div", undefined, React.createElement("h2", undefined, R$Condorcet.s("Make a Poll!")), React.createElement("div", undefined, React.createElement("input", {
     placeholder: "Question...",
     value: poll.question,
     onChange: function onChange($$event) {
@@ -43955,7 +43964,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49896" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51071" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

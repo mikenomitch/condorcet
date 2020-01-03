@@ -33,8 +33,16 @@ function fetchResult(id, cb) {
 function createPoll(poll) {
   var payload = Data$Condorcet.encodePollPost(poll);
   return fetch("http://localhost:4000/api/v1/polls/", Fetch.RequestInit.make(/* Post */2, {
-                        "Content-Type": "application/json"
-                      }, Caml_option.some(JSON.stringify(payload)), undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined)(/* () */0)).then((function (prim) {
+                          "Content-Type": "application/json"
+                        }, Caml_option.some(JSON.stringify(payload)), undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined)(/* () */0)).then((function (a) {
+                    var match = a.status;
+                    if (match !== 422) {
+                      return Promise.resolve(a);
+                    } else {
+                      alert("There was an issue with your data.");
+                      return Promise.resolve(a);
+                    }
+                  })).then((function (prim) {
                   return prim.json();
                 })).then((function (json) {
                 return Promise.resolve(Data$Condorcet.Decode.dPoll(json));

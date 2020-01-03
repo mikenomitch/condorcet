@@ -92,7 +92,7 @@ function NewPoll(Props) {
                         })
                     }, R$Condorcet.s("Remove")) : null);
   };
-  return React.createElement("div", undefined, React.createElement("h2", undefined, R$Condorcet.s("Make a Poll")), React.createElement("div", undefined, React.createElement("input", {
+  return React.createElement("div", undefined, React.createElement("h2", undefined, R$Condorcet.s("Make a Poll!")), React.createElement("div", undefined, React.createElement("input", {
                       placeholder: "Question...",
                       value: poll.question,
                       onChange: (function ($$event) {
