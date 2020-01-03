@@ -16,6 +16,7 @@ defmodule Condorcet.Poll do
     poll
     |> cast(attrs, [:question, :choices])
     |> validate_choices_not_blank()
+    |> validate_choices_not_same()
     |> validate_required([:question, :choices])
   end
 
@@ -33,6 +34,17 @@ defmodule Condorcet.Poll do
         []
       else
         [{:choices, "Choice cannot be blank"}]
+      end
+    end)
+  end
+
+  defp validate_choices_not_same(changeset) do
+    %{changes: %{choices: choices}} = changeset
+    validate_change(changeset, :choices, fn (_, _) ->
+      if Enum.uniq(choices) == choices do
+        []
+      else
+        [{:choices, "Multiple choices cannot be the same"}]
       end
     end)
   end
