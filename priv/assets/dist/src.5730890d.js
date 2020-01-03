@@ -41607,7 +41607,12 @@ function createPoll(poll) {
     if (match !== 422) {
       return Promise.resolve(a);
     } else {
-      alert("There was an issue with your data.");
+      a.json().then(function (t) {
+        console.log(t);
+        return Promise.resolve(
+        /* () */
+        0);
+      });
       return Promise.resolve(a);
     }
   }).then(function (prim) {
@@ -43964,7 +43969,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51593" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58453" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -41,7 +41,13 @@ let createPoll = poll => {
     |> then_(a => {
          switch (Fetch.Response.status(a)) {
          | 422 =>
-           alert("There was an issue with your data.");
+           Fetch.Response.json(a)
+           |> then_(t => {
+                Js.log(t);
+                resolve();
+              })
+           |> ignore;
+
            resolve(a);
          | _ => resolve(a)
          }
