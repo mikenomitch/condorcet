@@ -7,7 +7,6 @@ let fetchPoll = (id, cb) => {
     Fetch.fetch("http://localhost:4000/api/v1/polls/" ++ id)
     |> then_(Fetch.Response.json)
     |> then_(json => json |> Data.Decode.dPoll |> callCb |> resolve)
-    // |> catch(_err => {cb(_ => None)})
     |> ignore
   );
 };
@@ -21,7 +20,6 @@ let fetchResult = (id, cb) => {
     Fetch.fetch("http://localhost:4000/api/v1/polls/" ++ id ++ "/results")
     |> then_(Fetch.Response.json)
     |> then_(json => json |> Data.Decode.dResult |> callCb |> resolve)
-    // |> catch(_err => {cb(_ => None)})
     |> ignore
   );
 };
@@ -39,6 +37,7 @@ let createPoll = poll => {
       ),
     )
     |> then_(Fetch.Response.json)
+    |> then_(json => Data.Decode.dPoll(json) |> resolve)
   );
 };
 

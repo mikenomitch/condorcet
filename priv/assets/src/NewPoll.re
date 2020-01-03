@@ -34,7 +34,6 @@ let make = () => {
   let savePoll = _ => {
     Js.Promise.(
       Api.createPoll(poll)
-      |> then_(json => Data.Decode.dPoll(json) |> resolve)
       |> then_((poll: Data.poll) =>
            switch (poll.id) {
            | Some(id) =>

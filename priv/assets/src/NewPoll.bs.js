@@ -8,7 +8,6 @@ var React = require("react");
 var Caml_array = require("bs-platform/lib/js/caml_array.js");
 var R$Condorcet = require("./R.bs.js");
 var Api$Condorcet = require("./Api.bs.js");
-var Data$Condorcet = require("./Data.bs.js");
 var RList$Rationale = require("rationale/src/RList.js");
 var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
 
@@ -48,9 +47,7 @@ function NewPoll(Props) {
                 }));
   };
   var savePoll = function (param) {
-    Api$Condorcet.createPoll(poll).then((function (json) {
-              return Promise.resolve(Data$Condorcet.Decode.dPoll(json));
-            })).then((function (poll) {
+    Api$Condorcet.createPoll(poll).then((function (poll) {
             var match = poll.id;
             if (match !== undefined) {
               return Promise.resolve(ReasonReactRouter.push("/manage-poll/" + String(match)));

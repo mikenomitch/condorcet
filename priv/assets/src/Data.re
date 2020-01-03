@@ -22,6 +22,13 @@ type result = {
   poll,
 };
 
+type errorsMap = {
+  choices: option(list(string)),
+  questions: option(list(string)),
+};
+
+type errors = {errors: errorsMap};
+
 // === JSON DECODING ===
 
 module Decode = {
@@ -52,6 +59,15 @@ module Decode = {
       winners: json |> optional(field("winners", dWinnerMap)),
       responseCount: json |> field("responseCount", int),
     };
+
+  let dErrorsMap = (json): errorsMap =>
+    Json.Decode.{
+      choices: json |> optional(field("choices", list(string))),
+      questions: json |> optional(field("questions", list(string))),
+    };
+
+  let dErrors = (json): errors =>
+    Json.Decode.{errors: json |> field("errors", dErrorsMap)};
 };
 
 // === JSON ENCODING ===

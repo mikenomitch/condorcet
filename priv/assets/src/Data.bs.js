@@ -52,11 +52,34 @@ function dResult(json) {
         };
 }
 
+function dErrorsMap(json) {
+  return {
+          choices: Json_decode.optional((function (param) {
+                  return Json_decode.field("choices", (function (param) {
+                                return Json_decode.list(Json_decode.string, param);
+                              }), param);
+                }), json),
+          questions: Json_decode.optional((function (param) {
+                  return Json_decode.field("questions", (function (param) {
+                                return Json_decode.list(Json_decode.string, param);
+                              }), param);
+                }), json)
+        };
+}
+
+function dErrors(json) {
+  return {
+          errors: Json_decode.field("errors", dErrorsMap, json)
+        };
+}
+
 var Decode = {
   dPoll: dPoll,
   dResponse: dResponse,
   dWinnerMap: dWinnerMap,
-  dResult: dResult
+  dResult: dResult,
+  dErrorsMap: dErrorsMap,
+  dErrors: dErrors
 };
 
 function encodePoll(poll) {
