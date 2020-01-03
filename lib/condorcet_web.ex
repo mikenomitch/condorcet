@@ -20,6 +20,7 @@ defmodule CondorcetWeb do
   def controller do
     quote do
       use Phoenix.Controller, namespace: CondorcetWeb
+      action_fallback(CondorcetWeb.Api.V1.FallbackController)
 
       import Plug.Conn
       import CondorcetWeb.Gettext

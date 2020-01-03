@@ -43414,6 +43414,7 @@ function NewPoll(Props) {
   });
   var setPoll = match[1];
   var poll = match[0];
+  var showButtons = List.length(poll.choices) > 2;
 
   var addChoice = function addChoice(param) {
     return Curry._1(setPoll, function (param) {
@@ -43467,7 +43468,7 @@ function NewPoll(Props) {
           };
         });
       }
-    }), React.createElement("button", {
+    }), showButtons ? React.createElement("button", {
       onClick: function onClick(param) {
         var idx$1 = idx;
         var newChoices = RList$Rationale.remove(idx$1, 1, poll.choices);
@@ -43480,7 +43481,7 @@ function NewPoll(Props) {
           };
         });
       }
-    }, R$Condorcet.s("Remove")));
+    }, R$Condorcet.s("Remove")) : null);
   };
 
   return React.createElement("div", undefined, React.createElement("h2", undefined, R$Condorcet.s("Make a Poll")), React.createElement("div", undefined, React.createElement("input", {
@@ -43933,7 +43934,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63740" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64864" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -34,6 +34,7 @@ function NewPoll(Props) {
         }));
   var setPoll = match[1];
   var poll = match[0];
+  var showButtons = List.length(poll.choices) > 2;
   var addChoice = function (param) {
     return Curry._1(setPoll, (function (param) {
                   return {
@@ -79,20 +80,20 @@ function NewPoll(Props) {
                                             };
                                     }));
                       })
-                  }), React.createElement("button", {
-                    onClick: (function (param) {
-                        var idx$1 = idx;
-                        var newChoices = RList$Rationale.remove(idx$1, 1, poll.choices);
-                        console.log("whoa");
-                        return Curry._1(setPoll, (function (param) {
-                                      return {
-                                              id: poll.id,
-                                              question: poll.question,
-                                              choices: newChoices
-                                            };
-                                    }));
-                      })
-                  }, R$Condorcet.s("Remove")));
+                  }), showButtons ? React.createElement("button", {
+                      onClick: (function (param) {
+                          var idx$1 = idx;
+                          var newChoices = RList$Rationale.remove(idx$1, 1, poll.choices);
+                          console.log("whoa");
+                          return Curry._1(setPoll, (function (param) {
+                                        return {
+                                                id: poll.id,
+                                                question: poll.question,
+                                                choices: newChoices
+                                              };
+                                      }));
+                        })
+                    }, R$Condorcet.s("Remove")) : null);
   };
   return React.createElement("div", undefined, React.createElement("h2", undefined, R$Condorcet.s("Make a Poll")), React.createElement("div", undefined, React.createElement("input", {
                       placeholder: "Question...",

@@ -8,6 +8,7 @@ let make = () => {
     choices: ["", "", "", ""],
   };
   let (poll, setPoll) = React.useState(() => blankPoll);
+  let showButtons = poll.choices |> List.length > 2;
 
   let changeQuestion = question => {
     setPoll(_ => {...poll, question});
@@ -55,7 +56,11 @@ let make = () => {
         value=answer
         placeholder="Choice..."
       />
-      <button onClick={_ => removeChoice(idx)}> {R.s("Remove")} </button>
+      {showButtons
+         ? <button onClick={_ => removeChoice(idx)}>
+             {R.s("Remove")}
+           </button>
+         : React.null}
     </div>;
   };
 
