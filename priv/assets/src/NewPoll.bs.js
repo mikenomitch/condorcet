@@ -47,12 +47,16 @@ function NewPoll(Props) {
                 }));
   };
   var savePoll = function (param) {
-    Api$Condorcet.createPoll(poll).then((function (poll) {
-            var match = poll.id;
-            if (match !== undefined) {
-              return Promise.resolve(ReasonReactRouter.push("/manage-poll/" + String(match)));
+    Api$Condorcet.createPoll(poll).then((function (res) {
+            if (res !== undefined) {
+              var match = res.id;
+              if (match !== undefined) {
+                return Promise.resolve(ReasonReactRouter.push("/manage-poll/" + String(match)));
+              } else {
+                return Promise.resolve(ReasonReactRouter.push("/manage-poll/1"));
+              }
             } else {
-              return Promise.resolve(ReasonReactRouter.push("/manage-poll/1"));
+              return Promise.resolve(/* () */0);
             }
           }));
     return /* () */0;

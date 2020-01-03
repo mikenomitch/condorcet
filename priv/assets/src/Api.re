@@ -38,22 +38,35 @@ let createPoll = poll => {
         (),
       ),
     )
-    |> then_(a => {
-         switch (Fetch.Response.status(a)) {
-         | 422 =>
-           Fetch.Response.json(a)
-           |> then_(t => {
-                Js.log(t);
-                resolve();
-              })
-           |> ignore;
+    //    })
+    |> then_(Fetch.Response.json)
+    |> then_(json => {
+         switch (Data.Decode.dPollOrErrors(json)) {
+         | Errors(errors) =>
+           let choiceErrors =
+             switch (errors.errors.choices) {
+             | Some(errorList) => errorList
+             | _ => []
+             };
 
-           resolve(a);
-         | _ => resolve(a)
+           let questionErrors =
+             switch (errors.errors.question) {
+             | Some(errorList) => errorList
+             | _ => []
+             };
+
+           let showErrors =
+             choiceErrors
+             @ questionErrors
+             |> Array.of_list
+             |> Js.Array.joinWith(", ");
+
+           alert(showErrors);
+           resolve(None);
+
+         | Poll(poll) => resolve(Some(poll))
          }
        })
-    |> then_(Fetch.Response.json)
-    |> then_(json => Data.Decode.dPoll(json) |> resolve)
   );
 };
 

@@ -34,14 +34,18 @@ let make = () => {
   let savePoll = _ => {
     Js.Promise.(
       Api.createPoll(poll)
-      |> then_((poll: Data.poll) =>
-           switch (poll.id) {
-           | Some(id) =>
-             ReasonReactRouter.push("/manage-poll/" ++ string_of_int(id))
-             |> resolve
-           | _ => ReasonReactRouter.push("/manage-poll/1") |> resolve
+      |> then_(res => {
+           switch (res) {
+           | None => resolve()
+           | Some((poll: Data.poll)) =>
+             switch (poll.id) {
+             | Some(id) =>
+               ReasonReactRouter.push("/manage-poll/" ++ string_of_int(id))
+               |> resolve
+             | _ => ReasonReactRouter.push("/manage-poll/1") |> resolve
+             }
            }
-         )
+         })
     )
     |> ignore;
   };
