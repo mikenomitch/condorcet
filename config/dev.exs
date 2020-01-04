@@ -19,14 +19,14 @@ config :condorcet, CondorcetWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
-  check_origin: false,
-  watchers: [
-    npm: [
-      "run",
-      "dev",
-      cd: Path.expand("../assets", __DIR__)
-    ]
-  ]
+  check_origin: false
+  # watchers: [
+  #   npm: [
+  #     "run",
+  #     "dev",
+  #     cd: Path.expand("../ui", __DIR__)
+  #   ]
+  # ]
 
 # ## SSL Support
 #
