@@ -19,9 +19,9 @@ defmodule CondorcetWeb.Api.V1.ResponseController do
   end
 
   @doc false
-  # TODO: this pattern match is bad!
-  def create(conn, %{"poll_id" => poll_id, "response" => attrs}) do
-    with {:ok, %{response: response}} <- Response.create_for_poll(poll_id, attrs) do
+  # TODO: this pattern match is incomplete
+  def create(conn, %{"poll_id" => take_token, "response" => attrs}) do
+    with {:ok, %{response: response}} <- Response.create_for_poll(take_token, attrs) do
       conn
       |> put_status(:created)
       |> render("show.json", response: response)

@@ -42,8 +42,8 @@ function TakePoll(Props) {
     var match = poll.id;
     if (match !== undefined) {
       var id = match;
-      Api$Condorcet.submitPoll(String(id), response).then((function (param) {
-              return Promise.resolve(ReasonReactRouter.push("/results/" + String(id)));
+      Api$Condorcet.submitPoll(id, response).then((function (param) {
+              return Promise.resolve(ReasonReactRouter.push("/results/" + id));
             }));
     } else {
       Promise.resolve(/* () */0);

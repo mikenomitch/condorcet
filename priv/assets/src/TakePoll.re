@@ -21,9 +21,9 @@ let make = (~poll: Data.poll) => {
       | None => Js.Promise.(resolve())
       | Some(id) =>
         Js.Promise.(
-          Api.submitPoll(string_of_int(id), response)
+          Api.submitPoll(id, response)
           |> then_(_ =>
-               ReasonReactRouter.push("/results/" ++ string_of_int(id))
+               ReasonReactRouter.push("/results/" ++ id)
                |> resolve
              )
         )

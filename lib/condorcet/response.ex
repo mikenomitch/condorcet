@@ -20,26 +20,26 @@ defmodule Condorcet.Response do
     |> validate_required([:order, :name])
   end
 
-  def create_for_poll(poll_id, attrs) do
-    response_cs = Repo.get(Poll, poll_id)
+  def create_for_poll(take_token, attrs) do
+    poll = Poll |> Repo.get_by(take_token: take_token)
+
+    response_cs = poll
       |> Ecto.build_assoc(:response, attrs)
       |> changeset(attrs)
-
-    {poll_id_int, ""} = Integer.parse(poll_id)
 
     Multi.new()
       |> Multi.insert(:response, response_cs)
       |> Multi.run(:result, fn (repo, _) ->
-        query = from(Response, where: [poll_id: ^poll_id])
+        query = from(Response, where: [poll_id: ^poll.id])
         responses = Repo.all(query)
 
         result_attrs = %{
-          winners: Tally.calc_winners(poll_id),
+          winners: Tally.calc_winners(poll.id),
           response_count: Enum.count(responses)
         }
 
-        case repo.get_by(Result, poll_id: poll_id_int) do
-          nil  -> %Result{poll_id: poll_id_int}
+        case repo.get_by(Result, poll_id: poll.id) do
+          nil  -> %Result{poll_id: poll.id}
           post -> post
         end
         |> Result.changeset(result_attrs)

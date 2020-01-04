@@ -14,13 +14,15 @@ function ManagePoll(Props) {
     var id = match;
     tmp = React.createElement("button", {
           onClick: (function (param) {
-              return ReasonReactRouter.push("/take-poll/" + String(id));
+              return ReasonReactRouter.push("/take-poll/" + id);
             })
         }, R$Condorcet.s("Take the Poll Yourself"));
   } else {
     tmp = null;
   }
-  return React.createElement("div", undefined, React.createElement("h1", undefined, R$Condorcet.s("Poll: " + result.poll.question)), tmp, React.createElement("div", undefined, React.createElement("h2", undefined, R$Condorcet.s("Links")), React.createElement("p", undefined, R$Condorcet.s("Link to take poll: http://zombo.com/poll/12345")), React.createElement("p", undefined, R$Condorcet.s("Save this link to manage the poll in the future: http://zombo.com/poll/12345/manage/token"))), React.createElement(PollResults$Condorcet.make, {
+  var match$1 = result.poll.id;
+  var match$2 = result.poll.manageToken;
+  return React.createElement("div", undefined, React.createElement("h1", undefined, R$Condorcet.s("Poll: " + result.poll.question)), tmp, React.createElement("div", undefined, React.createElement("h2", undefined, R$Condorcet.s("Links")), match$1 !== undefined ? React.createElement("p", undefined, R$Condorcet.s("Link to take poll: localhost:1234/take-poll/" + match$1)) : null, match$2 !== undefined ? React.createElement("p", undefined, R$Condorcet.s("Link to take poll: localhost:1234/take-poll/" + match$2)) : null), React.createElement(PollResults$Condorcet.make, {
                   result: result
                 }));
 }

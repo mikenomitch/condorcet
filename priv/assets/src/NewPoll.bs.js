@@ -14,8 +14,7 @@ var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
 function NewPoll(Props) {
   var match = React.useState((function () {
           return {
-                  id: 1,
-                  question: "",
+                  id: undefined,
                   choices: /* :: */[
                     "",
                     /* :: */[
@@ -28,7 +27,9 @@ function NewPoll(Props) {
                         ]
                       ]
                     ]
-                  ]
+                  ],
+                  manageToken: undefined,
+                  question: ""
                 };
         }));
   var setPoll = match[1];
@@ -38,11 +39,12 @@ function NewPoll(Props) {
     return Curry._1(setPoll, (function (param) {
                   return {
                           id: poll.id,
-                          question: poll.question,
                           choices: List.append(poll.choices, /* :: */[
                                 "",
                                 /* [] */0
-                              ])
+                              ]),
+                          manageToken: poll.manageToken,
+                          question: poll.question
                         };
                 }));
   };
@@ -51,9 +53,10 @@ function NewPoll(Props) {
             if (res !== undefined) {
               var match = res.id;
               if (match !== undefined) {
-                return Promise.resolve(ReasonReactRouter.push("/manage-poll/" + String(match)));
+                return Promise.resolve(ReasonReactRouter.push("/manage-poll/" + match));
               } else {
-                return Promise.resolve(ReasonReactRouter.push("/manage-poll/1"));
+                alert("There was an issue making this poll");
+                return Promise.resolve(/* () */0);
               }
             } else {
               return Promise.resolve(/* () */0);
@@ -76,8 +79,9 @@ function NewPoll(Props) {
                         return Curry._1(setPoll, (function (param) {
                                       return {
                                               id: poll.id,
-                                              question: poll.question,
-                                              choices: newList
+                                              choices: newList,
+                                              manageToken: poll.manageToken,
+                                              question: poll.question
                                             };
                                     }));
                       })
@@ -85,12 +89,12 @@ function NewPoll(Props) {
                       onClick: (function (param) {
                           var idx$1 = idx;
                           var newChoices = RList$Rationale.remove(idx$1, 1, poll.choices);
-                          console.log("whoa");
                           return Curry._1(setPoll, (function (param) {
                                         return {
                                                 id: poll.id,
-                                                question: poll.question,
-                                                choices: newChoices
+                                                choices: newChoices,
+                                                manageToken: poll.manageToken,
+                                                question: poll.question
                                               };
                                       }));
                         })
@@ -104,8 +108,9 @@ function NewPoll(Props) {
                           return Curry._1(setPoll, (function (param) {
                                         return {
                                                 id: poll.id,
-                                                question: question,
-                                                choices: poll.choices
+                                                choices: poll.choices,
+                                                manageToken: poll.manageToken,
+                                                question: question
                                               };
                                       }));
                         })

@@ -8,12 +8,15 @@ var Json_encode = require("@glennsl/bs-json/src/Json_encode.bs.js");
 function dPoll(json) {
   return {
           id: Json_decode.optional((function (param) {
-                  return Json_decode.field("id", Json_decode.$$int, param);
+                  return Json_decode.field("id", Json_decode.string, param);
                 }), json),
-          question: Json_decode.field("question", Json_decode.string, json),
           choices: Json_decode.field("choices", (function (param) {
                   return Json_decode.list(Json_decode.string, param);
-                }), json)
+                }), json),
+          manageToken: Json_decode.optional((function (param) {
+                  return Json_decode.field("manage_token", Json_decode.string, param);
+                }), json),
+          question: Json_decode.field("question", Json_decode.string, json)
         };
 }
 
@@ -48,7 +51,7 @@ function dResult(json) {
           winners: Json_decode.optional((function (param) {
                   return Json_decode.field("winners", dWinnerMap, param);
                 }), json),
-          responseCount: Json_decode.field("responseCount", Json_decode.$$int, json),
+          responseCount: Json_decode.field("response_count", Json_decode.$$int, json),
           poll: Json_decode.field("poll", dPoll, json)
         };
 }
@@ -150,25 +153,9 @@ function encodeResponsePost(poll) {
             ]);
 }
 
-var examplePoll = {
-  id: 1,
-  question: "what is best in life?",
-  choices: /* :: */[
-    "to crush your enemies",
-    /* :: */[
-      "to see your enemies driven before you",
-      /* :: */[
-        "to hear the lamentations of their women",
-        /* [] */0
-      ]
-    ]
-  ]
-};
-
 exports.Decode = Decode;
 exports.encodePoll = encodePoll;
 exports.encodeResponse = encodeResponse;
 exports.encodePollPost = encodePollPost;
 exports.encodeResponsePost = encodeResponsePost;
-exports.examplePoll = examplePoll;
 /* dPollOrErrors Not a pure module */

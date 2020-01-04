@@ -5,9 +5,18 @@ defmodule CondorcetWeb.Api.V1.PollView do
     render_one(poll, __MODULE__, "poll.json")
   end
 
+  def render("manage.json", %{poll: poll}) do
+    %{
+      id: poll.take_token,
+      question: poll.question,
+      choices: poll.choices,
+      manage_token: poll.manage_token
+    }
+  end
+
   def render("poll.json", %{poll: poll}) do
     %{
-      id: poll.id,
+      id: poll.take_token,
       question: poll.question,
       choices: poll.choices
     }
@@ -19,7 +28,7 @@ defmodule CondorcetWeb.Api.V1.PollView do
     %{
       poll: poll_json,
       winners: result.winners,
-      responseCount: result.response_count
+      response_count: result.response_count
     }
   end
 end

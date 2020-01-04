@@ -1,7 +1,8 @@
 type poll = {
-  id: option(int),
-  question: string,
+  id: option(string),
   choices: list(string),
+  manageToken: option(string),
+  question: string,
 };
 
 type response = {
@@ -38,9 +39,10 @@ type pollVariant =
 module Decode = {
   let dPoll = (json): poll =>
     Json.Decode.{
-      id: json |> optional(field("id", int)),
+      id: json |> optional(field("id", string)),
       question: json |> field("question", string),
       choices: json |> field("choices", list(string)),
+      manageToken: json |> optional(field("manage_token", string)),
     };
 
   let dResponse = (json): response =>
@@ -61,7 +63,7 @@ module Decode = {
     Json.Decode.{
       poll: json |> field("poll", dPoll),
       winners: json |> optional(field("winners", dWinnerMap)),
-      responseCount: json |> field("responseCount", int),
+      responseCount: json |> field("response_count", int),
     };
 
   let dErrorsMap = (json): errorsMap =>
@@ -98,15 +100,3 @@ let encodePollPost = poll =>
 
 let encodeResponsePost = poll =>
   Json.Encode.object_([("response", encodeResponse(poll))]);
-
-// === EXAMPLE DATA ===
-
-let examplePoll: poll = {
-  id: Some(1),
-  question: "what is best in life?",
-  choices: [
-    "to crush your enemies",
-    "to see your enemies driven before you",
-    "to hear the lamentations of their women",
-  ],
-};

@@ -1,11 +1,14 @@
+[@bs.val] external alert: string => unit = "alert";
+
 module RList = Rationale.RList;
 
 [@react.component]
 let make = () => {
   let blankPoll: Data.poll = {
-    id: Some(1),
+    id: None,
     question: "",
     choices: ["", "", "", ""],
+    manageToken: None,
   };
   let (poll, setPoll) = React.useState(() => blankPoll);
   let showButtons = poll.choices |> List.length > 2;
@@ -27,7 +30,6 @@ let make = () => {
 
   let removeChoice = idx => {
     let newChoices = RList.remove(idx, 1, poll.choices);
-    Js.log("whoa");
     setPoll(_ => {...poll, choices: newChoices});
   };
 
@@ -40,9 +42,10 @@ let make = () => {
            | Some((poll: Data.poll)) =>
              switch (poll.id) {
              | Some(id) =>
-               ReasonReactRouter.push("/manage-poll/" ++ string_of_int(id))
-               |> resolve
-             | _ => ReasonReactRouter.push("/manage-poll/1") |> resolve
+               ReasonReactRouter.push("/manage-poll/" ++ id) |> resolve
+             | _ =>
+               alert("There was an issue making this poll");
+               resolve();
              }
            }
          })
