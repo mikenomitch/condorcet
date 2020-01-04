@@ -31,4 +31,14 @@ defmodule CondorcetWeb.Api.V1.PollView do
       response_count: result.response_count
     }
   end
+
+  def render("manage_results.json", %{poll: poll, result: result}) do
+    poll_json = render("manage.json", poll: poll)
+
+    %{
+      poll: poll_json,
+      winners: result.winners,
+      response_count: result.response_count
+    }
+  end
 end

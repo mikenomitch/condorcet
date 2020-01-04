@@ -25,4 +25,11 @@ defmodule CondorcetWeb.Api.V1.PollController do
     result = Repo.get_by(Result, poll_id: poll.id) || %Result{response_count: 0}
     render(conn, "results.json", poll: poll, result: result)
   end
+
+  @doc false
+  def manage_results(conn, %{"poll_id" => manage_token}) do
+    poll = Repo.get_by(Poll, manage_token: manage_token)
+    result = Repo.get_by(Result, poll_id: poll.id) || %Result{response_count: 0}
+    render(conn, "manage_results.json", poll: poll, result: result)
+  end
 end
