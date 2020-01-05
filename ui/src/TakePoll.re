@@ -34,23 +34,30 @@ let make = (~poll: Data.poll) => {
     let moveChoiceDown = _ => move(1, idx);
 
     <div className="take-choice" key=choice>
-      <p className="take-choice-text"> {R.s(choice)} </p>
-      <div className="take-choice-btn">
-        <button
-          className="button button-sm"
-          disabled={idx == 0}
-          onClick=moveChoiceUp>
-          {R.s("Up")}
-        </button>
-      </div>
-      <div className="take-choice-btn">
-        <button
-          className="button button-sm"
-          disabled={idx + 1 == List.length(choiceOrder)}
-          onClick=moveChoiceDown>
-          {R.s("Down")}
-        </button>
-      </div>
+      <p className="take-choice-text">
+        {R.s(string_of_int(idx + 1))}
+        {R.s(" - ")}
+        {R.s(choice)}
+      </p>
+      {switch (idx) {
+       | 0 => React.null
+       | _ =>
+         <div className="take-choice-btn">
+           <button className="button button-sm" onClick=moveChoiceUp>
+             {R.s({j|▲|j})}
+           </button>
+         </div>
+       }}
+      {idx + 1 == List.length(choiceOrder)
+         ? React.null
+         : <div className="take-choice-btn">
+             <button
+               className="button button-sm"
+               disabled={idx + 1 == List.length(choiceOrder)}
+               onClick=moveChoiceDown>
+               {R.s({j|▼|j})}
+             </button>
+           </div>}
     </div>;
   };
 

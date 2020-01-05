@@ -5,6 +5,11 @@
   @include fade-in;
 }
 
+.page {
+  padding: $spacing-md $spacing-lg;
+  @include floating;
+}
+
 .header {
   width: 100%;
   background-color: $color-primary;
@@ -12,10 +17,4 @@
   cursor: pointer;
   padding: $spacing-md;
   color: $white;
-}
-
-.page {
-  min-width: $spacing-page;
-  padding: $spacing-md $spacing-lg;
-  @include floating;
 }

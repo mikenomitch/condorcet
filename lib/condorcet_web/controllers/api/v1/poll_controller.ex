@@ -1,5 +1,6 @@
 defmodule CondorcetWeb.Api.V1.PollController do
-  alias Condorcet.{Repo, Poll, Result}
+  import Ecto.Query
+  alias Condorcet.{Repo, Poll, Result, Response}
 
   use CondorcetWeb, :controller
   @type conn_t :: Plug.Conn.t()
@@ -23,13 +24,30 @@ defmodule CondorcetWeb.Api.V1.PollController do
   def results(conn, %{"poll_id" => poll_token}) do
     poll = Repo.get_by(Poll, take_token: poll_token)
     result = Repo.get_by(Result, poll_id: poll.id) || %Result{response_count: 0}
-    render(conn, "results.json", poll: poll, result: result)
+    query = from(Response, where: [poll_id: ^poll.id])
+    responses = Repo.all(query) || []
+
+    render(conn,
+      "results.json",
+      poll: poll,
+      result: result,
+      responses: responses
+    )
   end
 
   @doc false
   def manage_results(conn, %{"poll_id" => manage_token}) do
     poll = Repo.get_by(Poll, manage_token: manage_token)
     result = Repo.get_by(Result, poll_id: poll.id) || %Result{response_count: 0}
-    render(conn, "manage_results.json", poll: poll, result: result)
+
+    query = from(Response, where: [poll_id: ^poll.id])
+    responses = Repo.all(query) || []
+
+    render(conn,
+      "manage_results.json",
+      poll: poll,
+      result: result,
+      responses: responses
+    )
   end
 end

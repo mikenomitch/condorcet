@@ -58,24 +58,24 @@ function TakePoll(Props) {
     var moveChoiceDown = function (param) {
       return move(1, idx);
     };
+    var match = (idx + 1 | 0) === List.length(choiceOrder);
     return React.createElement("div", {
                 key: choice,
                 className: "take-choice"
               }, React.createElement("p", {
                     className: "take-choice-text"
-                  }, R$Condorcet.s(choice)), React.createElement("div", {
-                    className: "take-choice-btn"
-                  }, React.createElement("button", {
-                        className: "button button-sm",
-                        disabled: idx === 0,
-                        onClick: moveChoiceUp
-                      }, R$Condorcet.s("Up"))), React.createElement("div", {
-                    className: "take-choice-btn"
-                  }, React.createElement("button", {
-                        className: "button button-sm",
-                        disabled: (idx + 1 | 0) === List.length(choiceOrder),
-                        onClick: moveChoiceDown
-                      }, R$Condorcet.s("Down"))));
+                  }, R$Condorcet.s(String(idx + 1 | 0)), R$Condorcet.s(" - "), R$Condorcet.s(choice)), idx !== 0 ? React.createElement("div", {
+                      className: "take-choice-btn"
+                    }, React.createElement("button", {
+                          className: "button button-sm",
+                          onClick: moveChoiceUp
+                        }, R$Condorcet.s("▲"))) : null, match ? null : React.createElement("div", {
+                      className: "take-choice-btn"
+                    }, React.createElement("button", {
+                          className: "button button-sm",
+                          disabled: (idx + 1 | 0) === List.length(choiceOrder),
+                          onClick: moveChoiceDown
+                        }, R$Condorcet.s("▼"))));
   };
   return React.createElement("div", {
               className: "page"

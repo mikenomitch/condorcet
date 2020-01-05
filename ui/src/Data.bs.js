@@ -51,6 +51,9 @@ function dResult(json) {
           winners: Json_decode.optional((function (param) {
                   return Json_decode.field("winners", dWinnerMap, param);
                 }), json),
+          names: Json_decode.field("names", (function (param) {
+                  return Json_decode.list(Json_decode.string, param);
+                }), json),
           responseCount: Json_decode.field("response_count", Json_decode.$$int, json),
           poll: Json_decode.field("poll", dPoll, json)
         };

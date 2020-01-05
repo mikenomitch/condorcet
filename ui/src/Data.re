@@ -19,6 +19,7 @@ type winnerMap = {
 
 type result = {
   winners: option(winnerMap),
+  names: list(string),
   responseCount: int,
   poll,
 };
@@ -64,6 +65,7 @@ module Decode = {
       poll: json |> field("poll", dPoll),
       winners: json |> optional(field("winners", dWinnerMap)),
       responseCount: json |> field("response_count", int),
+      names: json |> field("names", list(string)),
     };
 
   let dErrorsMap = (json): errorsMap =>

@@ -16,8 +16,4 @@ defmodule Condorcet.Result do
     |> cast(attrs, [:winners, :response_count])
     |> validate_required([:winners, :response_count])
   end
-
-  def create() do
-
-  end
 end

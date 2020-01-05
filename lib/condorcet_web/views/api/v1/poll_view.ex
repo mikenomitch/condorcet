@@ -22,23 +22,27 @@ defmodule CondorcetWeb.Api.V1.PollView do
     }
   end
 
-  def render("results.json", %{poll: poll, result: result}) do
+  def render("results.json", %{poll: poll, result: result, responses: responses}) do
     poll_json = render("poll.json", poll: poll)
+    names = responses |> Enum.map(&(&1.name))
 
     %{
       poll: poll_json,
       winners: result.winners,
-      response_count: result.response_count
+      response_count: result.response_count,
+      names: names
     }
   end
 
-  def render("manage_results.json", %{poll: poll, result: result}) do
+  def render("manage_results.json", %{poll: poll, result: result, responses: responses}) do
+    names = responses |> Enum.map(&(&1.name))
     poll_json = render("manage.json", poll: poll)
 
     %{
       poll: poll_json,
       winners: result.winners,
-      response_count: result.response_count
+      response_count: result.response_count,
+      names: names
     }
   end
 end
