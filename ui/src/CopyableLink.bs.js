@@ -6,13 +6,8 @@ var R$Condorcet = require("./R.bs.js");
 
 function CopyableLink(Props) {
   var link = Props.link;
-  var copyLink = function (param) {
-    console.log(link);
-    return /* () */0;
-  };
   return React.createElement("div", {
-              className: "copyable-link",
-              onClick: copyLink
+              className: "copyable-link"
             }, R$Condorcet.s(link));
 }
 
