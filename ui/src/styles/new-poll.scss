@@ -1,0 +1,29 @@
+.choice-list {
+  margin-top: $spacing-md;
+  display: flex;
+  flex-wrap: wrap;
+
+  .choice {
+    flex: 0 0 100%;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: $spacing-sm;
+
+    input {
+      margin-right: $spacing-sm;
+    }
+  }
+}
+
+.poll-form {
+  margin: $spacing-md;
+  max-width: 20rem;
+}
+
+.new-choice-holder {
+  margin-top: $spacing-md;
+}
+
+.save-holder {
+  margin-top: $spacing-lg;
+}

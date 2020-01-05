@@ -1,0 +1,137 @@
+// ===============
+//   MEDIA QUERY
+// ===============
+
+// mobile not defined, as mobile first
+$breakpoint-tablet: 321px;
+$breakpoint-desktop: 1024px;
+$breakpoint-desktop-minus-one: 1023px;
+$breakpoint-tablet-minus-one: 320px;
+
+// ==========
+//   COLORS
+// ==========
+
+$white: #fff;
+$almost-white: #f4f4f4;
+$gray-light: #eee;
+$gray-medium-light: #ccc;
+$gray-medium: #888;
+$gray-medium-dark: #555;
+$gray-dark: #333;
+$almost-black: #111;
+$black: #000;
+
+$color-primary: #28536b;
+$color-primary-light: lighten($color-primary, 10%);
+$color-primary-dark: darken($color-primary, 10%);
+$color-primary-very-light: lighten($color-primary, 50%);
+
+$color-secondary: #f85148;
+$color-secondary-light: lighten($color-secondary, 10%);
+$color-secondary-dark: darken($color-secondary, 10%);
+
+$color-tertiary: #12a4c9;
+$color-tertiary-light: lighten($color-tertiary, 10%);
+$color-tertiary-dark: darken($color-tertiary, 10%);
+
+$color-success: #4bb543;
+$color-info: #28536b;
+$color-warn: #f9dbbd;
+$color-error: #e74817;
+
+$link-color: $color-info;
+
+// ========
+//   FONT
+// ========
+
+$base-font-type: "Roboto", sans-serif;
+$base-font-color: $gray-dark;
+
+$font-size-xs: 0.5rem;
+$font-size-sm: 0.875rem;
+$font-size-md: 1rem;
+$font-size-mdlg: 1.25rem;
+$font-size-lg: 1.5rem;
+$font-size-xl: 2.25rem;
+$font-size-xxl: 3rem;
+$font-size-jumbo: 4rem;
+
+// determines rem
+$font-size-body-base: 16px;
+$font-size-base: $font-size-md;
+
+$font-weight-light: 300;
+$font-weight-normal: 500;
+$font-weight-bold: 800;
+
+// =========
+//  SPACING
+// =========
+
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 2rem;
+$spacing-xl: 4rem;
+$spacing-xxl: 8rem;
+
+$spacing-page: 12rem;
+
+// ==========
+//   OTHERS
+// ==========
+
+// == Z INDEX ==
+
+$z-index-lowest: -500;
+$z-index-lower: -300;
+$z-index-low: -100;
+$z-index-mid: 0;
+$z-index-high: 100;
+$z-index-higher: 300;
+$z-index-highest: 500;
+
+// == BORDERS ==
+
+$border-width-base: 1px;
+$border-width-thick: 2px;
+
+$border-radius-sm: 0.1rem;
+$border-radius-base: 0.25rem;
+
+$border-color-base: $gray-light;
+$border-color-dark: $gray-medium-light;
+$border-color-focused: $color-primary;
+
+$border-radius-slight: 0.125rem;
+
+// == TRANSITIONS ==
+
+$transition-time-very-short: 0.1s;
+$transition-time-short: 0.2s;
+$transition-time-medium: 0.5s;
+$transition-time-long: 1s;
+$transition-time-very-long: 5s;
+
+// == BUTTONS ==
+
+// == BOX SHADOW ==
+
+$box-shadow-base: 0 18px 50px -10px rgba(0, 0, 0, 0.2);
+$box-shadow-light: 0 18px 50px -10px rgba(0, 0, 0, 0.1);
+
+// ========================
+//   THEMED VARS + HELPER
+// ========================
+
+// property & default
+$variableDefaults: (
+  color: $black,
+  background-color: $white,
+  primary: $color-primary,
+  secondary: $color-secondary,
+  tertiary: $color-tertiary,
+  box-shadow: $box-shadow-base
+);

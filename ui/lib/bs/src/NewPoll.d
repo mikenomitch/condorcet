@@ -1,1 +1,1 @@
-src/NewPoll-Condorcet.cmj : Condorcet.cmi src/Api-Condorcet.cmj src/Api-Condorcet.cmi src/Data-Condorcet.cmj src/Data-Condorcet.cmi src/R-Condorcet.cmj src/R-Condorcet.cmi
+src/NewPoll-Condorcet.cmj : Condorcet.cmi src/Api-Condorcet.cmj src/Api-Condorcet.cmi src/Data-Condorcet.cmj src/Data-Condorcet.cmi src/Input-Condorcet.cmj src/Input-Condorcet.cmi src/R-Condorcet.cmj src/R-Condorcet.cmi

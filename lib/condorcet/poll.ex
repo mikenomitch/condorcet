@@ -48,7 +48,7 @@ defmodule Condorcet.Poll do
   defp validate_choices_not_blank(changeset) do
     %{changes: %{choices: choices}} = changeset
     validate_change(changeset, :choices, fn (_, _) ->
-      valid = Enum.all?(choices, &(String.strip(&1) != "" ))
+      valid = Enum.all?(choices, &(String.trim(&1) != "" ))
       if valid do
         []
       else

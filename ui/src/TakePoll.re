@@ -22,10 +22,7 @@ let make = (~poll: Data.poll) => {
       | Some(id) =>
         Js.Promise.(
           Api.submitPoll(id, response)
-          |> then_(_ =>
-               ReasonReactRouter.push("/results/" ++ id)
-               |> resolve
-             )
+          |> then_(_ => ReasonReactRouter.push("/results/" ++ id) |> resolve)
         )
       }
     )
@@ -36,30 +33,46 @@ let make = (~poll: Data.poll) => {
     let moveChoiceUp = _ => move(-1, idx);
     let moveChoiceDown = _ => move(1, idx);
 
-    <div key={string_of_int(idx)}>
-      <p> {R.s(choice)} </p>
-      <button disabled={idx == 0} onClick=moveChoiceUp> {R.s("Up")} </button>
-      <button
-        disabled={idx + 1 == List.length(choiceOrder)} onClick=moveChoiceDown>
-        {R.s("Down")}
-      </button>
+    <div className="take-choice" key=choice>
+      <p className="take-choice-text"> {R.s(choice)} </p>
+      <div className="take-choice-btn">
+        <button
+          className="button button-sm"
+          disabled={idx == 0}
+          onClick=moveChoiceUp>
+          {R.s("Up")}
+        </button>
+      </div>
+      <div className="take-choice-btn">
+        <button
+          className="button button-sm"
+          disabled={idx + 1 == List.length(choiceOrder)}
+          onClick=moveChoiceDown>
+          {R.s("Down")}
+        </button>
+      </div>
     </div>;
   };
 
-  <div>
-    <h1> {R.s(poll.question)} </h1>
-    <div>
+  <div className="page">
+    <h3> {R.s(poll.question)} </h3>
+    <div className="take-poll-choice-list">
       {choiceOrder |> List.mapi(renderChoice) |> Array.of_list |> React.array}
     </div>
     <br />
     <br />
-    <input
+    <Input
+      label="Your Name:"
       onChange={event => changeName(ReactEvent.Form.target(event)##value)}
       value=name
-      placeholder="Your Name..."
+      placeholder="..."
     />
     <br />
     <br />
-    <button onClick=submitChoices> {R.s("Submit")} </button>
+    <div className="centered">
+      <button className="button button-mdlg" onClick=submitChoices>
+        {R.s("Submit")}
+      </button>
+    </div>
   </div>;
 };

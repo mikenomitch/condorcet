@@ -1,0 +1,21 @@
+.content {
+  display: flex;
+  justify-content: center;
+  margin: $spacing-md;
+  @include fade-in;
+}
+
+.header {
+  width: 100%;
+  background-color: $color-primary;
+  font-size: $font-size-mdlg;
+  cursor: pointer;
+  padding: $spacing-md;
+  color: $white;
+}
+
+.page {
+  min-width: $spacing-page;
+  padding: $spacing-md $spacing-lg;
+  @include floating;
+}

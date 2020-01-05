@@ -1,0 +1,133 @@
+/* ================== */
+/*   HELPER CLASSES   */
+/* ================== */
+
+/* ================== */
+/*   MIXINS   */
+/* ================== */
+
+@mixin input {
+  display: block;
+  padding: $spacing-sm;
+  background: none;
+
+  border: solid $border-width-base $border-color-base;
+  border-radius: $border-radius-sm;
+
+  transition: border $transition-time-very-short;
+  transition: outline-color $transition-time-very-short;
+  transition: outline-style $transition-time-very-short;
+  transition: outline-width $transition-time-very-short;
+
+  &:focus {
+    outline-style: solid;
+    outline-width: 2px;
+    outline-color: $border-color-focused;
+  }
+}
+
+@mixin input-error {
+  border: solid $border-width-base $color-error;
+  outline-width: 2px;
+  outline-color: $border-color-focused;
+
+  &:hover,
+  &:focus {
+    outline-width: 2px;
+    outline-color: $color-error;
+  }
+}
+
+@mixin fade-in {
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  animation: fadein $transition-time-medium;
+}
+
+@mixin pop-in {
+  @keyframes popin {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  animation: popin $transition-time-short;
+}
+
+@mixin pop-out {
+  opacity: 0;
+
+  @keyframes popout {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+  }
+  animation: popout $transition-time-short;
+}
+
+@mixin bordered {
+  border: solid $border-width-base $border-color-base;
+  border-radius: $border-radius-base;
+}
+
+@mixin floating {
+  box-shadow: $box-shadow-base;
+}
+
+@mixin floating-light {
+  box-shadow: $box-shadow-light;
+}
+
+@mixin clickable($hover-color) {
+  cursor: pointer;
+
+  transition: background-color $transition-time-short;
+
+  &:hover,
+  &:focus {
+    background-color: $hover-color;
+  }
+}
+
+@mixin focus-margin($orig-margin) {
+  transition: margin $transition-time-short;
+
+  &:hover,
+  &:focus {
+    margin: ($orig-margin - $spacing-xs);
+    margin-top: $orig-margin;
+    margin-bottom: $orig-margin;
+  }
+}
+
+@mixin error-coloring {
+  color: $color-error;
+}
+
+@mixin tablet {
+  @media only screen and (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-desktop - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media only screen and (min-width: #{$breakpoint-desktop}) {
+    @content;
+  }
+}

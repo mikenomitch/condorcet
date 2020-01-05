@@ -6,11 +6,18 @@ var R$Condorcet = require("./R.bs.js");
 var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
 
 function Home(Props) {
-  return React.createElement("div", undefined, React.createElement("h1", undefined, R$Condorcet.s("Condorcet Home")), React.createElement("button", {
-                  onClick: (function (param) {
-                      return ReasonReactRouter.push("/new");
-                    })
-                }, R$Condorcet.s("Create a Poll")));
+  return React.createElement("div", {
+              className: "page"
+            }, React.createElement("h3", {
+                  className: "centered"
+                }, R$Condorcet.s("Better Group Decisions")), React.createElement("p", undefined, R$Condorcet.s("Use Condorcet.io to make ranked polls with multiple voting schemes.")), React.createElement("p", undefined, R$Condorcet.s("Get results for Instant Runoff, Borda Count, and Simple Plurality elections.")), React.createElement("br", undefined), React.createElement("div", {
+                  className: "centered"
+                }, React.createElement("button", {
+                      className: "button button-mdlg",
+                      onClick: (function (param) {
+                          return ReasonReactRouter.push("/new");
+                        })
+                    }, R$Condorcet.s("Create a Poll"))), React.createElement("br", undefined));
 }
 
 var make = Home;

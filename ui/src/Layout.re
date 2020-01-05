@@ -1,9 +1,9 @@
 [@react.component]
 let make = (~children) => {
   <div>
-    <div onClick={_ => ReasonReactRouter.push("/")} style=Style.header>
-      {R.s("Condorcet")}
+    <div onClick={_ => ReasonReactRouter.push("/")} className="header">
+      {R.s("Condorcet.io")}
     </div>
-    children
+    <div className="content"> children </div>
   </div>;
 };

@@ -8,6 +8,7 @@ var React = require("react");
 var Caml_array = require("bs-platform/lib/js/caml_array.js");
 var R$Condorcet = require("./R.bs.js");
 var Api$Condorcet = require("./Api.bs.js");
+var Input$Condorcet = require("./Input.bs.js");
 var RList$Rationale = require("rationale/src/RList.js");
 var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
 
@@ -66,8 +67,9 @@ function NewPoll(Props) {
   };
   var renderChoice = function (idx, answer) {
     return React.createElement("div", {
-                key: String(idx)
-              }, React.createElement("input", {
+                key: String(idx),
+                className: "choice"
+              }, React.createElement(Input$Condorcet.make, {
                     placeholder: "Choice...",
                     value: answer,
                     onChange: (function ($$event) {
@@ -85,40 +87,58 @@ function NewPoll(Props) {
                                             };
                                     }));
                       })
-                  }), showButtons ? React.createElement("button", {
-                      onClick: (function (param) {
-                          var idx$1 = idx;
-                          var newChoices = RList$Rationale.remove(idx$1, 1, poll.choices);
-                          return Curry._1(setPoll, (function (param) {
-                                        return {
-                                                id: poll.id,
-                                                choices: newChoices,
-                                                manageToken: poll.manageToken,
-                                                question: poll.question
-                                              };
-                                      }));
-                        })
-                    }, R$Condorcet.s("Remove")) : null);
+                  }), showButtons ? React.createElement("div", undefined, React.createElement("button", {
+                          className: "button button-sm",
+                          onClick: (function (param) {
+                              var idx$1 = idx;
+                              var newChoices = RList$Rationale.remove(idx$1, 1, poll.choices);
+                              return Curry._1(setPoll, (function (param) {
+                                            return {
+                                                    id: poll.id,
+                                                    choices: newChoices,
+                                                    manageToken: poll.manageToken,
+                                                    question: poll.question
+                                                  };
+                                          }));
+                            })
+                        }, R$Condorcet.s("x"))) : null);
   };
-  return React.createElement("div", undefined, React.createElement("h2", undefined, R$Condorcet.s("Make a Poll")), React.createElement("div", undefined, React.createElement("input", {
-                      placeholder: "Question...",
-                      value: poll.question,
-                      onChange: (function ($$event) {
-                          var question = $$event.target.value;
-                          return Curry._1(setPoll, (function (param) {
-                                        return {
-                                                id: poll.id,
-                                                choices: poll.choices,
-                                                manageToken: poll.manageToken,
-                                                question: question
-                                              };
-                                      }));
-                        })
-                    })), React.createElement("br", undefined), React.createElement("br", undefined), React.createElement("div", undefined, $$Array.of_list(List.mapi(renderChoice, poll.choices))), React.createElement("br", undefined), React.createElement("br", undefined), React.createElement("div", undefined, React.createElement("button", {
-                      onClick: addChoice
-                    }, R$Condorcet.s("+"))), React.createElement("br", undefined), React.createElement("br", undefined), React.createElement("div", undefined, React.createElement("button", {
+  return React.createElement("div", {
+              className: "page"
+            }, React.createElement("h3", {
+                  className: "centered"
+                }, R$Condorcet.s("Create a Poll")), React.createElement("div", {
+                  className: "poll-form"
+                }, React.createElement("div", undefined, React.createElement(Input$Condorcet.make, {
+                          placeholder: "Question...",
+                          value: poll.question,
+                          onChange: (function ($$event) {
+                              var question = $$event.target.value;
+                              return Curry._1(setPoll, (function (param) {
+                                            return {
+                                                    id: poll.id,
+                                                    choices: poll.choices,
+                                                    manageToken: poll.manageToken,
+                                                    question: question
+                                                  };
+                                          }));
+                            }),
+                          label: "Your Question:"
+                        })), React.createElement("div", {
+                      className: "choice-list"
+                    }, React.createElement("label", {
+                          className: "input-label"
+                        }, R$Condorcet.s("Options:")), $$Array.of_list(List.mapi(renderChoice, poll.choices))), React.createElement("div", {
+                      className: "new-choice-holder"
+                    }, React.createElement("button", {
+                          className: "button",
+                          onClick: addChoice
+                        }, R$Condorcet.s("+ Add Choice")))), React.createElement("div", {
+                  className: "centered save-holder"
+                }, React.createElement("button", {
+                      className: "button button-mdlg",
                       onClick: savePoll
-                    }, R$Condorcet.s("Save"))));
+                    }, R$Condorcet.s("Create Poll"))));
 }
 
 var RList = /* alias */0;

@@ -15,7 +15,7 @@ function PollResults(Props) {
   } else {
     tmp = null;
   }
-  return React.createElement("div", undefined, React.createElement("h2", undefined, R$Condorcet.s("Results")), tmp, React.createElement("p", undefined, R$Condorcet.s(String(result.responseCount) + " response(s)")));
+  return React.createElement("div", undefined, tmp, React.createElement("p", undefined, R$Condorcet.s(String(result.responseCount) + " response(s)")));
 }
 
 var make = PollResults;

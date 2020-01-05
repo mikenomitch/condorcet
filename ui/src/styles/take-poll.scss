@@ -1,0 +1,25 @@
+.take-choice {
+  @include bordered;
+  padding: $spacing-xs;
+  margin-top: $spacing-sm;
+
+  flex: 0 0 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .take-choice-text {
+    padding-left: $spacing-md;
+    padding-right: $spacing-md;
+    flex: 1 1 auto;
+  }
+
+  .take-choice-btn {
+    flex: 0 0 3rem;
+  }
+}
+
+.take-poll-choice-list {
+  display: flex;
+  flex-wrap: wrap;
+}

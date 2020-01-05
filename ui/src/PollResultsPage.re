@@ -9,6 +9,10 @@ let make = (~id) => {
 
   switch (result) {
   | None => <p> {React.string("None")} </p>
-  | Some(result) => <PollResults result />
+  | Some(result) =>
+    <div className="page">
+      <h3> {R.s("Results")} </h3>
+      <PollResults result />
+    </div>
   };
 };

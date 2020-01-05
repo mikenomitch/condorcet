@@ -1,7 +1,6 @@
 [@react.component]
 let make = (~result: Data.result) => {
   <div>
-    <h2> {R.s("Results")} </h2>
     {switch (result.winners) {
      | Some(winnerMap) =>
        <div>

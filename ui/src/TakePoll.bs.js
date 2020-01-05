@@ -8,6 +8,7 @@ var React = require("react");
 var Caml_array = require("bs-platform/lib/js/caml_array.js");
 var R$Condorcet = require("./R.bs.js");
 var Api$Condorcet = require("./Api.bs.js");
+var Input$Condorcet = require("./Input.bs.js");
 var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
 
 function TakePoll(Props) {
@@ -58,24 +59,41 @@ function TakePoll(Props) {
       return move(1, idx);
     };
     return React.createElement("div", {
-                key: String(idx)
-              }, React.createElement("p", undefined, R$Condorcet.s(choice)), React.createElement("button", {
-                    disabled: idx === 0,
-                    onClick: moveChoiceUp
-                  }, R$Condorcet.s("Up")), React.createElement("button", {
-                    disabled: (idx + 1 | 0) === List.length(choiceOrder),
-                    onClick: moveChoiceDown
-                  }, R$Condorcet.s("Down")));
+                key: choice,
+                className: "take-choice"
+              }, React.createElement("p", {
+                    className: "take-choice-text"
+                  }, R$Condorcet.s(choice)), React.createElement("div", {
+                    className: "take-choice-btn"
+                  }, React.createElement("button", {
+                        className: "button button-sm",
+                        disabled: idx === 0,
+                        onClick: moveChoiceUp
+                      }, R$Condorcet.s("Up"))), React.createElement("div", {
+                    className: "take-choice-btn"
+                  }, React.createElement("button", {
+                        className: "button button-sm",
+                        disabled: (idx + 1 | 0) === List.length(choiceOrder),
+                        onClick: moveChoiceDown
+                      }, R$Condorcet.s("Down"))));
   };
-  return React.createElement("div", undefined, React.createElement("h1", undefined, R$Condorcet.s(poll.question)), React.createElement("div", undefined, $$Array.of_list(List.mapi(renderChoice, choiceOrder))), React.createElement("br", undefined), React.createElement("br", undefined), React.createElement("input", {
-                  placeholder: "Your Name...",
+  return React.createElement("div", {
+              className: "page"
+            }, React.createElement("h3", undefined, R$Condorcet.s(poll.question)), React.createElement("div", {
+                  className: "take-poll-choice-list"
+                }, $$Array.of_list(List.mapi(renderChoice, choiceOrder))), React.createElement("br", undefined), React.createElement("br", undefined), React.createElement(Input$Condorcet.make, {
+                  placeholder: "...",
                   value: name,
                   onChange: (function ($$event) {
                       return Curry._1(changeName, $$event.target.value);
-                    })
-                }), React.createElement("br", undefined), React.createElement("br", undefined), React.createElement("button", {
-                  onClick: submitChoices
-                }, R$Condorcet.s("Submit")));
+                    }),
+                  label: "Your Name:"
+                }), React.createElement("br", undefined), React.createElement("br", undefined), React.createElement("div", {
+                  className: "centered"
+                }, React.createElement("button", {
+                      className: "button button-mdlg",
+                      onClick: submitChoices
+                    }, R$Condorcet.s("Submit"))));
 }
 
 var make = TakePoll;

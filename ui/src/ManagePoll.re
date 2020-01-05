@@ -1,33 +1,38 @@
 [@react.component]
 let make = (~result: Data.result) => {
-  <div>
-    <h1> {R.s("Poll: " ++ result.poll.question)} </h1>
+  <div className="page">
+    <h3 className="centered"> {R.s("Poll: " ++ result.poll.question)} </h3>
     {switch (result.poll.id) {
      | Some(id) =>
-       <button onClick={_ => ReasonReactRouter.push("/take-poll/" ++ id)}>
-         {R.s("Take the Poll Yourself")}
-       </button>
+       <div className="centered">
+         <button
+           className="button"
+           onClick={_ => ReasonReactRouter.push("/take-poll/" ++ id)}>
+           {R.s("Take the Poll Yourself")}
+         </button>
+       </div>
      | _ => React.null
      }}
     <div>
-      <h2> {R.s("Links")} </h2>
-      {switch (result.poll.id) {
-       | Some(takeToken) =>
-         <p>
-           {R.s("Link to take poll: localhost:1234/take-poll/" ++ takeToken)}
-         </p>
-       | None => React.null
-       }}
+      <h3> {R.s("Links:")} </h3>
       {switch (result.poll.manageToken) {
        | Some(manageToken) =>
-         <p>
-           {R.s(
-              "Link to manage poll: localhost:1234/manage-poll/" ++ manageToken,
-            )}
-         </p>
+         <div className="link-holder">
+           <p> {R.s("Manage Poll Link:")} </p>
+           <CopyableLink link={"localhost:4000/manage-poll/" ++ manageToken} />
+           <p> <b> {R.s("This link is a password. Don't lose it!")} </b> </p>
+         </div>
+       | None => React.null
+       }}
+      {switch (result.poll.id) {
+       | Some(takeToken) =>
+         <div className="link-holder">
+           <p> {R.s("Take Poll Link:")} </p>
+           <CopyableLink link={"localhost:4000/take-poll/" ++ takeToken} />
+         </div>
        | None => React.null
        }}
     </div>
-    <PollResults result />
+    <div> <h3> {R.s("Results:")} </h3> <PollResults result /> </div>
   </div>;
 };

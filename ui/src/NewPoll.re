@@ -55,8 +55,8 @@ let make = () => {
   };
 
   let renderChoice = (idx, answer) => {
-    <div key={string_of_int(idx)}>
-      <input
+    <div className="choice" key={string_of_int(idx)}>
+      <Input
         onChange={event =>
           changeChoice(ReactEvent.Form.target(event)##value, idx)
         }
@@ -64,34 +64,46 @@ let make = () => {
         placeholder="Choice..."
       />
       {showButtons
-         ? <button onClick={_ => removeChoice(idx)}>
-             {R.s("Remove")}
-           </button>
+         ? <div>
+             <button
+               className="button button-sm" onClick={_ => removeChoice(idx)}>
+               {R.s("x")}
+             </button>
+           </div>
          : React.null}
     </div>;
   };
 
-  <div>
-    <h2> {R.s("Make a Poll")} </h2>
-    <div>
-      <input
-        onChange={event =>
-          changeQuestion(ReactEvent.Form.target(event)##value)
-        }
-        value={poll.question}
-        placeholder="Question..."
-      />
+  <div className="page">
+    <h3 className="centered"> {R.s("Create a Poll")} </h3>
+    <div className="poll-form">
+      <div>
+        <Input
+          label="Your Question:"
+          onChange={event =>
+            changeQuestion(ReactEvent.Form.target(event)##value)
+          }
+          value={poll.question}
+          placeholder="Question..."
+        />
+      </div>
+      <div className="choice-list">
+        <label className="input-label"> {R.s("Options:")} </label>
+        {poll.choices
+         |> List.mapi(renderChoice)
+         |> Array.of_list
+         |> React.array}
+      </div>
+      <div className="new-choice-holder">
+        <button className="button" onClick=addChoice>
+          {R.s("+ Add Choice")}
+        </button>
+      </div>
     </div>
-    <br />
-    <br />
-    <div>
-      {poll.choices |> List.mapi(renderChoice) |> Array.of_list |> React.array}
+    <div className="centered save-holder">
+      <button className="button button-mdlg" onClick=savePoll>
+        {R.s("Create Poll")}
+      </button>
     </div>
-    <br />
-    <br />
-    <div> <button onClick=addChoice> {R.s("+")} </button> </div>
-    <br />
-    <br />
-    <div> <button onClick=savePoll> {R.s("Save")} </button> </div>
   </div>;
 };

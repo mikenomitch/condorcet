@@ -15,7 +15,7 @@ rule build_ast_from_re
   description = [34mBuilding[39m [2m${out}[22m
 build  src/R.reast : build_ast_from_re $src_root_dir/src/R.re
 rule build_deps
-  command = $bsdep -hash 11fc6f798a22f2b796c487115b421562 $g_ns -g $bsb_dir_group $in
+  command = $bsdep -hash 072d4bfa500321ce5672028cd48c74da $g_ns -g $bsb_dir_group $in
   restat = 1
   description = [34mBuilding[39m [2m${out}[22m
 build  src/R.d : build_deps src/R.reast
@@ -46,9 +46,9 @@ build  src/index.reast : build_ast_from_re $src_root_dir/src/index.re
 build  src/index.d : build_deps src/index.reast
 build  src/index-Condorcet.cmj |  src/index-Condorcet.cmi $src_root_dir/src/index.bs.js : ml_cmj_cmi src/index.reast ||  src/index.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
-build  src/Style.reast : build_ast_from_re $src_root_dir/src/Style.re
-build  src/Style.d : build_deps src/Style.reast
-build  src/Style-Condorcet.cmj |  src/Style-Condorcet.cmi $src_root_dir/src/Style.bs.js : ml_cmj_cmi src/Style.reast ||  src/Style.d
+build  src/Input.reast : build_ast_from_re $src_root_dir/src/Input.re
+build  src/Input.d : build_deps src/Input.reast
+build  src/Input-Condorcet.cmj |  src/Input-Condorcet.cmi $src_root_dir/src/Input.bs.js : ml_cmj_cmi src/Input.reast ||  src/Input.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
 build  src/Layout.reast : build_ast_from_re $src_root_dir/src/Layout.re
 build  src/Layout.d : build_deps src/Layout.reast
@@ -57,10 +57,6 @@ build  src/Layout-Condorcet.cmj |  src/Layout-Condorcet.cmi $src_root_dir/src/La
 build  src/NewPoll.reast : build_ast_from_re $src_root_dir/src/NewPoll.re
 build  src/NewPoll.d : build_deps src/NewPoll.reast
 build  src/NewPoll-Condorcet.cmj |  src/NewPoll-Condorcet.cmi $src_root_dir/src/NewPoll.bs.js : ml_cmj_cmi src/NewPoll.reast ||  src/NewPoll.d
-  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
-build  src/Greeting.reast : build_ast_from_re $src_root_dir/src/Greeting.re
-build  src/Greeting.d : build_deps src/Greeting.reast
-build  src/Greeting-Condorcet.cmj |  src/Greeting-Condorcet.cmi $src_root_dir/src/Greeting.bs.js : ml_cmj_cmi src/Greeting.reast ||  src/Greeting.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
 build  src/NotFound.reast : build_ast_from_re $src_root_dir/src/NotFound.re
 build  src/NotFound.d : build_deps src/NotFound.reast
@@ -77,6 +73,10 @@ build  src/ManagePoll-Condorcet.cmj |  src/ManagePoll-Condorcet.cmi $src_root_di
 build  src/PollResults.reast : build_ast_from_re $src_root_dir/src/PollResults.re
 build  src/PollResults.d : build_deps src/PollResults.reast
 build  src/PollResults-Condorcet.cmj |  src/PollResults-Condorcet.cmi $src_root_dir/src/PollResults.bs.js : ml_cmj_cmi src/PollResults.reast ||  src/PollResults.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
+build  src/CopyableLink.reast : build_ast_from_re $src_root_dir/src/CopyableLink.re
+build  src/CopyableLink.d : build_deps src/CopyableLink.reast
+build  src/CopyableLink-Condorcet.cmj |  src/CopyableLink-Condorcet.cmi $src_root_dir/src/CopyableLink.bs.js : ml_cmj_cmi src/CopyableLink.reast ||  src/CopyableLink.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
 build  src/TakePollPage.reast : build_ast_from_re $src_root_dir/src/TakePollPage.re
 build  src/TakePollPage.d : build_deps src/TakePollPage.reast

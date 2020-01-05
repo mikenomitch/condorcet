@@ -1,0 +1,130 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+
+/* ======== */
+/*   HTML   */
+/* ========= */
+
+html {
+  font-size: $font-size-body-base;
+  height: 100%;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *:before,
+html.theme-transition *:after {
+  transition: all 750ms !important;
+  transition-delay: 0 !important;
+}
+
+a {
+  cursor: pointer;
+  color: $link-color;
+  text-decoration: underline;
+}
+
+/* ======== */
+/*   BODY   */
+/* ========= */
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  font-family: $base-font-type;
+
+  // give mobile scrolling the feel
+  // of a native app (roughly)
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* =========== */
+/*   HEADERS   */
+/* =========== */
+
+h1 {
+  // sanitize is overriding this
+  // without important
+  font-size: $font-size-xxl !important;
+}
+
+h1.hero {
+  font-size: $font-size-xxl;
+}
+
+h2 {
+  font-size: $font-size-xl;
+}
+
+h2.hero {
+  font-size: $font-size-jumbo;
+}
+
+h3 {
+  font-size: $font-size-lg;
+}
+
+h4 {
+  font-size: $font-size-md;
+}
+
+h5 {
+  font-size: $font-size-sm;
+}
+
+/* =========== */
+/*   BUTTONS   */
+/* =========== */
+
+.button {
+  padding: $spacing-sm;
+  background: none;
+  background-color: transparent;
+  color: $color-primary;
+  border: solid $border-width-base $color-primary;
+  border-radius: $border-radius-sm;
+
+  @include floating-light;
+  @include clickable($color-primary-very-light);
+}
+
+.button-mdlg {
+  font-size: $font-size-mdlg;
+}
+
+.button-sm {
+  padding: $spacing-xs;
+  font-size: $font-size-sm;
+}
+
+/* ========== */
+/*   INPUTS   */
+/* ========== */
+
+.input {
+  @include input;
+}
+
+.input-full-width {
+  width: 100%;
+}
+
+.input-block {
+  display: block;
+}
+
+.input-label {
+  margin-bottom: $spacing-md;
+}
+
+.m-t-sm {
+  margin-top: $spacing-sm;
+}
