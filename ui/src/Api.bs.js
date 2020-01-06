@@ -8,8 +8,14 @@ var Pervasives = require("bs-platform/lib/js/pervasives.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var Data$Condorcet = require("./Data.bs.js");
 
+var host = (
+  process.env.HOST
+);
+
+var baseUrl = "http://" + host;
+
 function fetchPoll(id, cb) {
-  fetch("http://localhost:4000/api/v1/polls/" + id).then((function (prim) {
+  fetch(baseUrl + ("/api/v1/polls/" + id)).then((function (prim) {
             return prim.json();
           })).then((function (json) {
           var poll = Data$Condorcet.Decode.dPoll(json);
@@ -21,7 +27,7 @@ function fetchPoll(id, cb) {
 }
 
 function fetchResult(id, cb) {
-  fetch("http://localhost:4000/api/v1/polls/" + (id + "/results")).then((function (prim) {
+  fetch(baseUrl + ("/api/v1/polls/" + (id + "/results"))).then((function (prim) {
             return prim.json();
           })).then((function (json) {
           var result = Data$Condorcet.Decode.dResult(json);
@@ -33,7 +39,7 @@ function fetchResult(id, cb) {
 }
 
 function fetchManageResult(manageToken, cb) {
-  fetch("http://localhost:4000/api/v1/polls/" + (manageToken + "/manage")).then((function (prim) {
+  fetch(baseUrl + ("/api/v1/polls/" + (manageToken + "/manage"))).then((function (prim) {
             return prim.json();
           })).then((function (json) {
           var result = Data$Condorcet.Decode.dResult(json);
@@ -46,7 +52,7 @@ function fetchManageResult(manageToken, cb) {
 
 function createPoll(poll) {
   var payload = Data$Condorcet.encodePollPost(poll);
-  return fetch("http://localhost:4000/api/v1/polls/", Fetch.RequestInit.make(/* Post */2, {
+  return fetch(baseUrl + "/api/v1/polls/", Fetch.RequestInit.make(/* Post */2, {
                         "Content-Type": "application/json"
                       }, Caml_option.some(JSON.stringify(payload)), undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined)(/* () */0)).then((function (prim) {
                   return prim.json();
@@ -69,16 +75,18 @@ function createPoll(poll) {
 
 function submitPoll(id, response) {
   var payload = Data$Condorcet.encodeResponsePost(response);
-  return fetch("http://localhost:4000/api/v1/polls/" + (id + "/respond"), Fetch.RequestInit.make(/* Post */2, {
+  return fetch(baseUrl + ("/api/v1/polls/" + (id + "/respond")), Fetch.RequestInit.make(/* Post */2, {
                       "Content-Type": "application/json"
                     }, Caml_option.some(JSON.stringify(payload)), undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined)(/* () */0)).then((function (prim) {
                 return prim.json();
               }));
 }
 
+exports.host = host;
+exports.baseUrl = baseUrl;
 exports.fetchPoll = fetchPoll;
 exports.fetchResult = fetchResult;
 exports.fetchManageResult = fetchManageResult;
 exports.createPoll = createPoll;
 exports.submitPoll = submitPoll;
-/* Data-Condorcet Not a pure module */
+/* host Not a pure module */

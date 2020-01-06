@@ -13,6 +13,7 @@ RUN mix local.hex --force && mix local.rebar --force
 
 # set build ENV
 ENV MIX_ENV=prod
+ENV NODE_ENV=production
 ENV PARCEL_WORKERS=1
 
 # install mix dependencies
