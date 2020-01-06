@@ -2,12 +2,14 @@
   "scripts": {
     "deps": "npm install && bsb -make-world",
     "build": "parcel build ./src/index.re && cp ./dist/index.js ../priv/static/js/app.js",
+    "deploy": "parcel build ./src/index.re -d ../priv/static/js && parcel build ./src/app.scss -d ../priv/static/css",
     "dev": "parcel watch ./src/index.re -d ../priv/static/js ./src/app.scss -d ../priv/static/css",
     "js": "parcel watch ./src/index.re -d ../priv/static/js"
   },
   "devDependencies": {
     "bs-platform": "^7.0.1",
     "bsb-js": "^1.1.7",
+    "cssnano": "^4.1.10",
     "sass": "^1.24.2"
   },
   "dependencies": {
@@ -17,7 +19,6 @@
     "rationale": "^0.2.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "reason-react": "^0.7.0",
-    "styles": "^0.2.1"
+    "reason-react": "^0.7.0"
   }
 }
