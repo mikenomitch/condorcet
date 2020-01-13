@@ -1,6 +1,8 @@
 # Dockerfile
 FROM elixir:1.9.4-alpine
 
+ENV MIX_HOME=/opt/mix
+
 # install build dependencies
 RUN apk add --update git bash build-base nodejs npm libssl1.1 openssl python util-linux
 

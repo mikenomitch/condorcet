@@ -1,4 +1,4 @@
-echo === BUILD API IMAGE ===
+echo === BUILD IMAGE ===
 docker build -t mnomitch/condorcet  -f ./ops/docker/Dockerfile ./
 echo === DONE BUILDING mnomitch/condorcet ===
 
