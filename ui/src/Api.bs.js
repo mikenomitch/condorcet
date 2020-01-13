@@ -8,11 +8,15 @@ var Pervasives = require("bs-platform/lib/js/pervasives.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var Data$Condorcet = require("./Data.bs.js");
 
+var protocol = (
+  process.env.PROTOCOL
+);
+
 var host = (
   process.env.HOST
 );
 
-var baseUrl = "http://" + host;
+var baseUrl = protocol + ("://" + host);
 
 function fetchPoll(id, cb) {
   fetch(baseUrl + ("/api/v1/polls/" + id)).then((function (prim) {
@@ -82,6 +86,7 @@ function submitPoll(id, response) {
               }));
 }
 
+exports.protocol = protocol;
 exports.host = host;
 exports.baseUrl = baseUrl;
 exports.fetchPoll = fetchPoll;
@@ -89,4 +94,4 @@ exports.fetchResult = fetchResult;
 exports.fetchManageResult = fetchManageResult;
 exports.createPoll = createPoll;
 exports.submitPoll = submitPoll;
-/* host Not a pure module */
+/* protocol Not a pure module */

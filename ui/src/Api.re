@@ -1,10 +1,14 @@
 [@bs.val] external alert: string => unit = "alert";
 
+let protocol = [%raw {|
+  process.env.PROTOCOL
+|}];
+
 let host = [%raw {|
   process.env.HOST
 |}];
 
-let baseUrl = "http://" ++ host;
+let baseUrl = protocol ++ "://" ++ host;
 
 let fetchPoll = (id, cb) => {
   let callCb = (poll: Data.poll) => {
