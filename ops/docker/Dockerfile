@@ -17,9 +17,6 @@ RUN mix local.hex --force && mix local.rebar --force
 ENV MIX_ENV=prod
 ENV NODE_ENV=production
 ENV PARCEL_WORKERS=1
-# TRYING THIS FOR NOW
-ENV PROTOCOL=https
-ENV HOST=app-l4he5ibisa-uc.a.run.app
 
 # install mix dependencies
 COPY mix.exs mix.lock config ./

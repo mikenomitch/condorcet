@@ -1,12 +1,7 @@
 [@bs.val] external alert: string => unit = "alert";
 
-let protocol = [%raw {|
-  process.env.PROTOCOL
-|}];
-
-let host = [%raw {|
-  process.env.HOST
-|}];
+let protocol = Constants.protocol;
+let host = Constants.host;
 
 let baseUrl = protocol ++ "://" ++ host;
 
