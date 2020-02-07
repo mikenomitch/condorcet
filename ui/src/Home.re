@@ -2,8 +2,8 @@
 let make = () => {
   <div className="page">
     <h3 className="centered">
-      // {R.s("Better Group Decisions")}
-       {R.s(Constants.host)} </h3>
+      {R.s("Better Group Decisions")}
+    </h3>
     <p>
       {R.s(
          "Use Condorcet.io to make ranked polls with multiple voting schemes.",

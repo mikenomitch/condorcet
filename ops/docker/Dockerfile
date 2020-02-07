@@ -32,7 +32,7 @@ RUN cd ui && npm install
 RUN cd ui && npm link bs-platform
 RUN cd ui && npm run deploy
 
-# ...I think I only need this for a real build?
+# ...I think I only need this for a real phx build?
 # RUN mix phx.digest
 
 COPY ./ ./

@@ -6,6 +6,6 @@ defmodule CondorcetWeb.LayoutView do
   end
 
   def protocol do
-    System.get_env("PROTOCOL") || "https"
+    System.get_env("PROTOCOL") || "http"
   end
 end
