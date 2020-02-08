@@ -6,19 +6,17 @@
     "dev": "parcel watch ./src/index.re -d ../priv/static/js ./src/app.scss -d ../priv/static/css",
     "js": "parcel watch ./src/index.re -d ../priv/static/js"
   },
-  "devDependencies": {
-    "bs-platform": "^7.1.0",
-    "bsb-js": "^1.1.7",
-    "cssnano": "^4.1.10",
-    "sass": "^1.24.2"
-  },
   "dependencies": {
     "@glennsl/bs-json": "^5.0.1",
     "bs-fetch": "^0.5.0",
+    "bs-platform": "^7.1.0",
     "bs-webapi": "^0.15.6",
+    "bsb-js": "^1.1.7",
+    "cssnano": "^4.1.10",
     "rationale": "^0.2.0",
-    "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "reason-react": "^0.7.0"
+    "react": "^16.12.0",
+    "reason-react": "^0.7.0",
+    "sass": "^1.24.2"
   }
 }

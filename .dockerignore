@@ -1,7 +1,9 @@
 .git
 _build
 deps
+priv/static
 ui/.cache
+ui/node_modules
 ui/lib/bs
 .formatter.exs
 .gitignore
