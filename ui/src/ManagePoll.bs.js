@@ -4,6 +4,7 @@
 var React = require("react");
 var R$Condorcet = require("./R.bs.js");
 var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
+var Constants$Condorcet = require("./Constants.bs.js");
 var PollResults$Condorcet = require("./PollResults.bs.js");
 var CopyableLink$Condorcet = require("./CopyableLink.bs.js");
 
@@ -33,11 +34,11 @@ function ManagePoll(Props) {
                 }, R$Condorcet.s("Poll: " + result.poll.question)), tmp, React.createElement("div", undefined, React.createElement("h3", undefined, R$Condorcet.s("Links:")), match$1 !== undefined ? React.createElement("div", {
                         className: "link-holder"
                       }, React.createElement("p", undefined, R$Condorcet.s("Manage Poll Link:")), React.createElement(CopyableLink$Condorcet.make, {
-                            link: "localhost:4000/manage-poll/" + match$1
+                            link: Constants$Condorcet.host + ("/manage-poll/" + match$1)
                           }), React.createElement("p", undefined, React.createElement("b", undefined, R$Condorcet.s("This link is a password. Don't lose it!")))) : null, match$2 !== undefined ? React.createElement("div", {
                         className: "link-holder"
                       }, React.createElement("p", undefined, R$Condorcet.s("Take Poll Link:")), React.createElement(CopyableLink$Condorcet.make, {
-                            link: "localhost:4000/take-poll/" + match$2
+                            link: Constants$Condorcet.host + ("/take-poll/" + match$2)
                           })) : null), React.createElement("div", undefined, React.createElement("h3", undefined, R$Condorcet.s("Results:")), React.createElement(PollResults$Condorcet.make, {
                       result: result
                     })));

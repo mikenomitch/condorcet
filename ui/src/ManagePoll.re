@@ -19,7 +19,9 @@ let make = (~result: Data.result) => {
        | Some(manageToken) =>
          <div className="link-holder">
            <p> {R.s("Manage Poll Link:")} </p>
-           <CopyableLink link={"localhost:4000/manage-poll/" ++ manageToken} />
+           <CopyableLink
+             link={Constants.host ++ "/manage-poll/" ++ manageToken}
+           />
            <p> <b> {R.s("This link is a password. Don't lose it!")} </b> </p>
          </div>
        | None => React.null
@@ -28,7 +30,7 @@ let make = (~result: Data.result) => {
        | Some(takeToken) =>
          <div className="link-holder">
            <p> {R.s("Take Poll Link:")} </p>
-           <CopyableLink link={"localhost:4000/take-poll/" ++ takeToken} />
+           <CopyableLink link={Constants.host ++ "/take-poll/" ++ takeToken} />
          </div>
        | None => React.null
        }}

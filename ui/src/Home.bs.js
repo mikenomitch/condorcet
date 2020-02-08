@@ -10,7 +10,7 @@ function Home(Props) {
               className: "page"
             }, React.createElement("h3", {
                   className: "centered"
-                }, R$Condorcet.s("Make Better Group Decisions")), React.createElement("p", undefined, R$Condorcet.s("Use Condorcet.io to make ranked polls with multiple voting schemes.")), React.createElement("p", undefined, R$Condorcet.s("Get results for Instant Runoff, Borda Count, and Simple Plurality elections.")), React.createElement("br", undefined), React.createElement("div", {
+                }, R$Condorcet.s("Better Group Decisions")), React.createElement("p", undefined, R$Condorcet.s("Use Condorcet.io to make ranked polls with multiple voting schemes.")), React.createElement("p", undefined, R$Condorcet.s("Get results for Instant Runoff, Borda Count, and Simple Plurality elections.")), React.createElement("br", undefined), React.createElement("div", {
                   className: "centered"
                 }, React.createElement("button", {
                       className: "button button-mdlg",
