@@ -7,7 +7,7 @@
     "js": "parcel watch ./src/index.re -d ../priv/static/js"
   },
   "devDependencies": {
-    "bs-platform": "^7.0.1",
+    "bs-platform": "^7.1.0",
     "bsb-js": "^1.1.7",
     "cssnano": "^4.1.10",
     "sass": "^1.24.2"

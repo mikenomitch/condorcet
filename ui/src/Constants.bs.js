@@ -2,7 +2,7 @@
 'use strict';
 
 
-var currentEnv = ( window.env );
+var currentEnv = window.env;
 
 var protocol = currentEnv.protocol;
 

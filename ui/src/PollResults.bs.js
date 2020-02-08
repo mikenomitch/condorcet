@@ -33,12 +33,9 @@ function PollResults(Props) {
   var tmp;
   if (match !== undefined) {
     var winnerMap = match;
-    var match$1 = List.length(winnerMap.ranked) > 1;
-    var rankedString = match$1 ? "The ranked choice winners are: " : "The ranked choice winner is: ";
-    var match$2 = List.length(winnerMap.borda) > 1;
-    var bordaString = match$2 ? "The borda count winners are: " : "The borda count winner is: ";
-    var match$3 = List.length(winnerMap.plurality) > 1;
-    var pluralityString = match$3 ? "The plurality winners are: " : "The plurality winner is: ";
+    var rankedString = List.length(winnerMap.ranked) > 1 ? "The ranked choice winners are: " : "The ranked choice winner is: ";
+    var bordaString = List.length(winnerMap.borda) > 1 ? "The borda count winners are: " : "The borda count winner is: ";
+    var pluralityString = List.length(winnerMap.plurality) > 1 ? "The plurality winners are: " : "The plurality winner is: ";
     tmp = React.createElement("div", undefined, React.createElement("p", undefined, R$Condorcet.s(rankedString), renderWinners(winnerMap.ranked)), React.createElement("p", undefined, R$Condorcet.s(bordaString), renderWinners(winnerMap.borda)), React.createElement("p", undefined, R$Condorcet.s(pluralityString), renderWinners(winnerMap.plurality)));
   } else {
     tmp = null;

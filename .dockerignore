@@ -1,0 +1,7 @@
+.git
+_build
+deps
+ui/.cache
+ui/lib/bs
+.formatter.exs
+.gitignore

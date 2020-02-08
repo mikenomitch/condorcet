@@ -5,7 +5,7 @@ FLG -ppx '/Users/mike/Code/condorcet/ui/node_modules/bs-platform/lib/bsppx.exe -
 S /Users/mike/Code/condorcet/ui/node_modules/bs-platform/lib/ocaml
 B /Users/mike/Code/condorcet/ui/node_modules/bs-platform/lib/ocaml
 FLG -nostdlib
-FLG -w -30-40+6+7+27+32..39+44+45+101
+FLG -w +a-4-9-40-41-42-50-102
 S /Users/mike/Code/condorcet/ui/node_modules/@glennsl/bs-json/lib/ocaml
 B /Users/mike/Code/condorcet/ui/node_modules/@glennsl/bs-json/lib/ocaml
 S /Users/mike/Code/condorcet/ui/node_modules/bs-fetch/lib/ocaml

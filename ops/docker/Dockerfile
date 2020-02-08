@@ -5,6 +5,8 @@ ENV MIX_HOME=/opt/mix
 
 # install build dependencies
 RUN apk add --update git bash build-base nodejs npm libssl1.1 openssl python util-linux
+RUN npm install -g --unsafe-perm bs-platform
+RUN npm install -g parcel-bundler --unsafe-perm
 
 # prepare build dir
 RUN mkdir /app
@@ -25,8 +27,6 @@ RUN mix deps.compile
 
 # build assets
 COPY ui ui
-RUN cd ui && npm install -g --unsafe-perm bs-platform
-RUN cd ui && npm install -g parcel-bundler --unsafe-perm
 RUN cd ui && bsb -make-world
 RUN cd ui && npm install
 RUN cd ui && npm link bs-platform

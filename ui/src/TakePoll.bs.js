@@ -58,7 +58,6 @@ function TakePoll(Props) {
     var moveChoiceDown = function (param) {
       return move(1, idx);
     };
-    var match = (idx + 1 | 0) === List.length(choiceOrder);
     return React.createElement("div", {
                 key: choice,
                 className: "take-choice"
@@ -69,7 +68,7 @@ function TakePoll(Props) {
                     }, React.createElement("button", {
                           className: "button button-sm",
                           onClick: moveChoiceUp
-                        }, R$Condorcet.s("▲"))) : null, match ? null : React.createElement("div", {
+                        }, R$Condorcet.s("▲"))) : null, (idx + 1 | 0) === List.length(choiceOrder) ? null : React.createElement("div", {
                       className: "take-choice-btn"
                     }, React.createElement("button", {
                           className: "button button-sm",
