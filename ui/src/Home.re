@@ -1,10 +1,10 @@
 [@react.component]
 let make = () => {
   <div className="page">
-    <h3 className="centered"> {R.s("Better Group Decisions")} </h3>
+    <h3 className="centered"> {R.s("Make Better Group Decisions")} </h3>
     <p>
       {R.s(
-         "Use Condorcet.io to make ranked polls with multiple voting schemes.",
+         "Use Poller to make ranked polls with alternative election schemes.",
        )}
     </p>
     <p>

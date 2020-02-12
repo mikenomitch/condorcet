@@ -15,7 +15,7 @@ rule build_ast_from_re
   description = [34mBuilding[39m [2m${out}[22m
 build  src/R.reast : build_ast_from_re $src_root_dir/src/R.re
 rule build_deps
-  command = $bsdep -hash 476734a2aa0b3f4509fbf12b50a136ad $g_ns -g $bsb_dir_group $in
+  command = $bsdep -hash 960913656ccfee65ff9b68431be8d2a0 $g_ns -g $bsb_dir_group $in
   restat = 1
   description = [34mBuilding[39m [2m${out}[22m
 build  src/R.d : build_deps src/R.reast
@@ -89,6 +89,10 @@ build  src/TakePollPage-Condorcet.cmj |  src/TakePollPage-Condorcet.cmi $src_roo
 build  src/ManagePollPage.reast : build_ast_from_re $src_root_dir/src/ManagePollPage.re
 build  src/ManagePollPage.d : build_deps src/ManagePollPage.reast
 build  src/ManagePollPage-Condorcet.cmj |  src/ManagePollPage-Condorcet.cmi $src_root_dir/src/ManagePollPage.bs.js : ml_cmj_cmi src/ManagePollPage.reast ||  src/ManagePollPage.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
+build  src/CopyToClipboard.reast : build_ast_from_re $src_root_dir/src/CopyToClipboard.re
+build  src/CopyToClipboard.d : build_deps src/CopyToClipboard.reast
+build  src/CopyToClipboard-Condorcet.cmj |  src/CopyToClipboard-Condorcet.cmi $src_root_dir/src/CopyToClipboard.bs.js : ml_cmj_cmi src/CopyToClipboard.reast ||  src/CopyToClipboard.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
 build  src/PollResultsPage.reast : build_ast_from_re $src_root_dir/src/PollResultsPage.re
 build  src/PollResultsPage.d : build_deps src/PollResultsPage.reast

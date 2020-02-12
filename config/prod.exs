@@ -10,7 +10,7 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :condorcet, CondorcetWeb.Endpoint,
-  url: [host: "condorcet.io", port: 4040],
+  url: [host: System.get_env("HOST"), port: 4040],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production

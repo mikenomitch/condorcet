@@ -1,2 +1,247 @@
-html{font-size:16px;height:100%;margin:0}*{box-sizing:border-box;font-size:1rem}html.theme-transition,html.theme-transition *,html.theme-transition :after,html.theme-transition :before{transition:all .75s!important;transition-delay:0!important}a{cursor:pointer;color:#28536b;text-decoration:underline}body{height:100%;margin:0;padding:0;font-family:Helvetica Neue,sans-serif;overflow-y:scroll;-webkit-overflow-scrolling:touch}h1{font-size:3rem!important}h1.hero{font-size:3rem}h2{font-size:2.25rem}h2.hero{font-size:4rem}h3{font-size:1.5rem}h4{font-size:1rem}h5{font-size:.875rem}.button{padding:.5rem;background:none;background-color:transparent;color:#28536b;border:1px solid #28536b;border-radius:.1rem;box-shadow:0 18px 50px -10px rgba(0,0,0,.1);cursor:pointer;transition:background-color .2s}.button:focus,.button:hover{background-color:#b0d0e2}.button-mdlg{font-size:1.25rem}.button-sm{padding:.25rem;font-size:.875rem}.input{display:block;padding:.5rem;background:none;border:1px solid #eee;border-radius:.1rem;transition:border .1s;transition:outline-color .1s;transition:outline-style .1s;transition:outline-width .1s}.input:focus{outline-style:solid;outline-width:2px;outline-color:#28536b}.input-full-width{width:100%}.input-block{display:block}.input-label{margin-bottom:1rem}.m-t-sm{margin-top:.5rem}.alert{display:none}.content{display:flex;justify-content:center;margin:1rem;animation:fadein .5s}@keyframes fadein{0%{opacity:0}to{opacity:1}}.page{padding:1rem 2rem;box-shadow:0 18px 50px -10px rgba(0,0,0,.2)}.header{width:100%;background-color:#28536b;font-size:1.25rem;cursor:pointer;padding:1rem;color:#fff}.centered{text-align:center}.choice-list{margin-top:1rem;display:flex;flex-wrap:wrap}.choice-list .choice{flex:0 0 100%;display:inline-flex;align-items:center;margin-bottom:.5rem}.choice-list .choice input{margin-right:.5rem}.poll-form{margin:1rem;max-width:20rem}.new-choice-holder{margin-top:1rem}.save-holder{margin-top:2rem}.link-holder{margin-top:.5rem;padding:.5rem;border-bottom:1px solid #eee}.take-choice{border:1px solid #eee;border-radius:.25rem;padding:.25rem;margin-top:.5rem;flex:0 0 100%;display:inline-flex;justify-content:space-between;align-items:center}.take-choice .take-choice-text{padding-left:1rem;padding-right:1rem;flex:1 1 auto}.take-choice .take-choice-btn{flex:0 0 3rem}.take-poll-choice-list{display:flex;flex-wrap:wrap}.responses-holder{margin-top:1rem;border-top:1px solid #eee}.copyable-link{border-radius:.25rem;background-color:#eee;padding:.5rem}
+/* ================== */
+/*   HELPER CLASSES   */
+/* ================== */
+/* ================== */
+/*   MIXINS   */
+/* ================== */
+/* ======== */
+/*   HTML   */
+/* ========= */
+html {
+  font-size: 16px;
+  height: 100%;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *:before,
+html.theme-transition *:after {
+  transition: all 750ms !important;
+  transition-delay: 0 !important;
+}
+
+a {
+  cursor: pointer;
+  color: #28536b;
+  text-decoration: underline;
+}
+
+/* ======== */
+/*   BODY   */
+/* ========= */
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Helvetica Neue", sans-serif;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* =========== */
+/*   HEADERS   */
+/* =========== */
+h1 {
+  font-size: 3rem !important;
+}
+
+h1.hero {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.25rem;
+}
+
+h2.hero {
+  font-size: 4rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1rem;
+}
+
+h5 {
+  font-size: 0.875rem;
+}
+
+/* =========== */
+/*   BUTTONS   */
+/* =========== */
+.button {
+  padding: 0.5rem;
+  background: none;
+  background-color: transparent;
+  color: #28536b;
+  border: solid 1px #28536b;
+  border-radius: 0.1rem;
+  box-shadow: 0 18px 50px -10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.button:hover, .button:focus {
+  background-color: #b0d0e2;
+}
+
+.button-mdlg {
+  font-size: 1.25rem;
+}
+
+.button-sm {
+  padding: 0.25rem;
+  font-size: 0.875rem;
+}
+
+/* ========== */
+/*   INPUTS   */
+/* ========== */
+.input {
+  display: block;
+  padding: 0.5rem;
+  background: none;
+  border: solid 1px #eee;
+  border-radius: 0.1rem;
+  transition: border 0.1s;
+  transition: outline-color 0.1s;
+  transition: outline-style 0.1s;
+  transition: outline-width 0.1s;
+}
+.input:focus {
+  outline-style: solid;
+  outline-width: 2px;
+  outline-color: #28536b;
+}
+
+.input-full-width {
+  width: 100%;
+}
+
+.input-block {
+  display: block;
+}
+
+.input-label {
+  margin-bottom: 1rem;
+}
+
+.m-t-sm {
+  margin-top: 0.5rem;
+}
+
+.alert {
+  display: none;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+  animation: fadein 0.5s;
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.page {
+  padding: 1rem 2rem;
+  box-shadow: 0 18px 50px -10px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+  width: 100%;
+  background-color: #28536b;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 1rem;
+  color: #fff;
+}
+
+.centered {
+  text-align: center;
+}
+
+.choice-list {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+.choice-list .choice {
+  flex: 0 0 100%;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.choice-list .choice input {
+  margin-right: 0.5rem;
+}
+
+.poll-form {
+  margin: 1rem;
+  max-width: 20rem;
+}
+
+.new-choice-holder {
+  margin-top: 1rem;
+}
+
+.save-holder {
+  margin-top: 2rem;
+}
+
+.link-holder {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-bottom: solid 1px #eee;
+}
+
+.take-choice {
+  border: solid 1px #eee;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  margin-top: 0.5rem;
+  flex: 0 0 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.take-choice .take-choice-text {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  flex: 1 1 auto;
+}
+.take-choice .take-choice-btn {
+  flex: 0 0 3rem;
+}
+
+.take-poll-choice-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.responses-holder {
+  margin-top: 1rem;
+  border-top: solid 1px #eee;
+}
+
+.copyable-link {
+  border-radius: 0.25rem;
+  background-color: #eee;
+  padding: 0.5rem;
+}
+
 /*# sourceMappingURL=/app.css.map */

@@ -3,12 +3,21 @@
 
 var React = require("react");
 var R$Condorcet = require("./R.bs.js");
+var CopyToClipboard$Condorcet = require("./CopyToClipboard.bs.js");
 
 function CopyableLink(Props) {
   var link = Props.link;
-  return React.createElement("div", {
-              className: "copyable-link"
-            }, R$Condorcet.s(link));
+  var ignoreMe = function (param) {
+    console.log("some string");
+    return /* () */0;
+  };
+  return React.createElement(CopyToClipboard$Condorcet.make, {
+              text: link,
+              onCopy: ignoreMe,
+              children: React.createElement("div", {
+                    className: "copyable-link"
+                  }, R$Condorcet.s(link))
+            });
 }
 
 var make = CopyableLink;

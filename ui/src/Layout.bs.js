@@ -12,7 +12,7 @@ function Layout(Props) {
                   onClick: (function (param) {
                       return ReasonReactRouter.push("/");
                     })
-                }, R$Condorcet.s("Condorcet.io")), React.createElement("div", {
+                }, R$Condorcet.s("Poller.io")), React.createElement("div", {
                   className: "content"
                 }, children));
 }

@@ -1,9 +1,8 @@
 [@react.component]
-let make = (~link) => {
-  // let copyLink = _ => {
-  //   Js.log(link);
-  // };
-  <div className="copyable-link">
-    {R.s(link)}
-  </div>;
+let make = (~link: string) => {
+  let ignoreMe = () => Js.log("some string");
+
+  <CopyToClipboard text=link onCopy=ignoreMe>
+    <div className="copyable-link"> {R.s(link)} </div>
+  </CopyToClipboard>;
 };
