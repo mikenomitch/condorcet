@@ -2,5 +2,10 @@
   border-radius: $border-radius-base;
   background-color: $gray-light;
   padding: $spacing-sm;
-  // cursor: pointer;
+  cursor: pointer;
+}
+
+.copied {
+  font-size: $font-size-sm;
+  color: $color-success;
 }

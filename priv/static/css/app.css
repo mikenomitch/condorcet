@@ -242,6 +242,12 @@ h5 {
   border-radius: 0.25rem;
   background-color: #eee;
   padding: 0.5rem;
+  cursor: pointer;
+}
+
+.copied {
+  font-size: 0.875rem;
+  color: #4bb543;
 }
 
 /*# sourceMappingURL=/app.css.map */
