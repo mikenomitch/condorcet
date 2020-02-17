@@ -4,9 +4,11 @@
 var Dnd = require("re-dnd/src/Dnd.bs.js");
 var List = require("bs-platform/lib/js/list.js");
 var $$Array = require("bs-platform/lib/js/array.js");
+var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
 var Caml_obj = require("bs-platform/lib/js/caml_obj.js");
+var Caml_array = require("bs-platform/lib/js/caml_array.js");
 var R$Condorcet = require("./R.bs.js");
 var Api$Condorcet = require("./Api.bs.js");
 var Input$Condorcet = require("./Input.bs.js");
@@ -23,21 +25,38 @@ var Container = Dnd.MakeSingletonContainer({ });
 
 var Items = Dnd.Make(Item, Container);
 
+function move(choices, idx, amount) {
+  var newChoices = $$Array.of_list($$Array.to_list(choices));
+  var moving = Caml_array.caml_array_get(newChoices, idx);
+  var replacing = Caml_array.caml_array_get(newChoices, idx + amount | 0);
+  Caml_array.caml_array_set(newChoices, idx, replacing);
+  Caml_array.caml_array_set(newChoices, idx + amount | 0, moving);
+  return newChoices;
+}
+
 function reducer(state, action) {
-  var match = action[0];
-  if (match !== undefined) {
-    var match$1 = match;
-    if (match$1.tag) {
-      return state;
-    } else {
-      var placement = match$1[1];
-      return ArrayExt$Condorcet.reinsert(state, match$1[0], placement ? /* `Before */[
-                    -825833313,
-                    placement[0]
-                  ] : /* Last */847656566);
-    }
-  } else {
-    return state;
+  switch (action.tag | 0) {
+    case /* ReorderItems */0 :
+        var match = action[0];
+        if (match !== undefined) {
+          var match$1 = match;
+          if (match$1.tag) {
+            return state;
+          } else {
+            var placement = match$1[1];
+            return ArrayExt$Condorcet.reinsert(state, match$1[0], placement ? /* `Before */[
+                          -825833313,
+                          placement[0]
+                        ] : /* Last */847656566);
+          }
+        } else {
+          return state;
+        }
+    case /* MoveUp */1 :
+        return move(state, action[0], -1);
+    case /* MoveDown */2 :
+        return move(state, action[0], 1);
+    
   }
 }
 
@@ -70,9 +89,26 @@ function TakePoll(Props) {
     return /* () */0;
   };
   var renderIt = function (index, choice) {
-    return React.createElement("div", undefined, React.createElement("p", {
+    return React.createElement("div", {
+                className: "take-choice-inner"
+              }, React.createElement("p", {
                     className: "take-choice-text"
-                  }, R$Condorcet.s(String(index + 1 | 0)), R$Condorcet.s(" - "), R$Condorcet.s(choice)));
+                  }, R$Condorcet.s(String(index + 1 | 0)), R$Condorcet.s(" - "), R$Condorcet.s(choice)), index !== 0 ? React.createElement("div", {
+                      className: "take-choice-btn"
+                    }, React.createElement("button", {
+                          className: "button button-sm",
+                          onClick: (function (_any) {
+                              return Curry._1(dispatch, /* MoveUp */Block.__(1, [index]));
+                            })
+                        }, R$Condorcet.s("▲"))) : null, (index + 1 | 0) === state.length ? null : React.createElement("div", {
+                      className: "take-choice-btn"
+                    }, React.createElement("button", {
+                          className: "button button-sm",
+                          disabled: (index + 1 | 0) === state.length,
+                          onClick: (function (_any) {
+                              return Curry._1(dispatch, /* MoveDown */Block.__(2, [index]));
+                            })
+                        }, R$Condorcet.s("▼"))));
   };
   var renderChoice = function (index, choice) {
     return React.createElement(Items.DraggableItem.make, {
@@ -95,7 +131,7 @@ function TakePoll(Props) {
                   className: "take-poll-choice-list"
                 }, React.createElement(Items.DndManager.make, {
                       onReorder: (function (result) {
-                          return Curry._1(dispatch, /* ReorderItems */[result]);
+                          return Curry._1(dispatch, /* ReorderItems */Block.__(0, [result]));
                         }),
                       children: React.createElement(Items.DroppableContainer.make, {
                             id: /* () */0,
@@ -122,6 +158,7 @@ var make = TakePoll;
 exports.Item = Item;
 exports.Container = Container;
 exports.Items = Items;
+exports.move = move;
 exports.reducer = reducer;
 exports.make = make;
 /* Container Not a pure module */

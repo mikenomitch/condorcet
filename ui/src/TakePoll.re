@@ -8,10 +8,21 @@ module Container =
 
 module Items = Dnd.Make(Item, Container);
 
+let move = (choices, idx, amount) => {
+  let newChoices = choices->Array.to_list->Array.of_list;
+  let moving = newChoices[idx];
+  let replacing = newChoices[idx + amount];
+  newChoices[idx] = replacing;
+  newChoices[idx + amount] = moving;
+  newChoices;
+};
+
 type state = array(string);
 
 type action =
-  | ReorderItems(Dnd.result(Item.t, Container.t));
+  | ReorderItems(Dnd.result(Item.t, Container.t))
+  | MoveUp(int)
+  | MoveDown(int);
 
 let reducer = (state, action) =>
   switch (action) {
@@ -26,6 +37,8 @@ let reducer = (state, action) =>
     )
   | ReorderItems(Some(NewContainer(_)))
   | ReorderItems(None) => state
+  | MoveUp(idx) => move(state, idx, -1)
+  | MoveDown(idx) => move(state, idx, 1)
   };
 
 [@react.component]
@@ -51,30 +64,34 @@ let make = (~poll: Data.poll) => {
   };
 
   let renderIt = (index: int, choice: string) => {
-    <div>
-
-        <p className="take-choice-text">
-          {R.s(string_of_int(index + 1))}
-          {R.s(" - ")}
-          {R.s(choice)}
-        </p>
-      </div>;
-      // {switch (index) {
-      //  | 0 => React.null
-      //  | _ =>
-      //    <div className="take-choice-btn">
-      //      <button className="button button-sm"> {R.s({j|▲|j})} </button>
-      //    </div>
-      //  }}
-      // {index + 1 == Array.length(state)
-      //    ? React.null
-      //    : <div className="take-choice-btn">
-      //        <button
-      //          className="button button-sm"
-      //          disabled={index + 1 == Array.length(state)}>
-      //          {R.s({j|▼|j})}
-      //        </button>
-      //      </div>}
+    <div className="take-choice-inner">
+      <p className="take-choice-text">
+        {R.s(string_of_int(index + 1))}
+        {R.s(" - ")}
+        {R.s(choice)}
+      </p>
+      {switch (index) {
+       | 0 => React.null
+       | _ =>
+         <div className="take-choice-btn">
+           <button
+             onClick={_any => dispatch(MoveUp(index))}
+             className="button button-sm">
+             {R.s({j|▲|j})}
+           </button>
+         </div>
+       }}
+      {index + 1 == Array.length(state)
+         ? React.null
+         : <div className="take-choice-btn">
+             <button
+               className="button button-sm"
+               onClick={_any => dispatch(MoveDown(index))}
+               disabled={index + 1 == Array.length(state)}>
+               {R.s({j|▼|j})}
+             </button>
+           </div>}
+    </div>;
   };
 
   let renderChoice = (index, choice) => {

@@ -210,19 +210,25 @@ h5 {
 }
 
 .take-choice {
-  border: solid 1px #eee;
-  border-radius: 0.25rem;
-  padding: 0.25rem;
-  margin-top: 0.5rem;
   width: 100%;
   cursor: grab;
+  padding: 0.25rem;
+  margin-top: 0.5rem;
+  border: solid 1px #eee;
+  border-radius: 0.25rem;
 }
-.take-choice .take-choice-text {
+.take-choice .take-choice-inner {
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.take-choice .take-choice-inner .take-choice-text {
   padding-left: 1rem;
   padding-right: 1rem;
   flex: 1 1 auto;
 }
-.take-choice .take-choice-btn {
+.take-choice .take-choice-inner .take-choice-btn {
   flex: 0 0 3rem;
 }
 

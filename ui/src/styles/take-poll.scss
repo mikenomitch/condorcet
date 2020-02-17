@@ -1,19 +1,25 @@
 .take-choice {
-  @include bordered;
-  padding: $spacing-xs;
-  margin-top: $spacing-sm;
-
   width: 100%;
   cursor: grab;
+  padding: $spacing-xs;
+  margin-top: $spacing-sm;
+  @include bordered;
 
-  .take-choice-text {
-    padding-left: $spacing-md;
-    padding-right: $spacing-md;
-    flex: 1 1 auto;
-  }
+  .take-choice-inner {
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
 
-  .take-choice-btn {
-    flex: 0 0 3rem;
+    .take-choice-text {
+      padding-left: $spacing-md;
+      padding-right: $spacing-md;
+      flex: 1 1 auto;
+    }
+
+    .take-choice-btn {
+      flex: 0 0 3rem;
+    }
   }
 }
 
