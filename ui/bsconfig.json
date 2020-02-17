@@ -18,8 +18,10 @@
     "bs-webapi",
     "reason-react",
     "rationale",
-    "re-dnd"
+    "re-dnd",
+    "bs-log"
   ],
+  "ppx-flags": ["bs-log/ppx"],
   "warnings": {
     "error": "+101"
   },
