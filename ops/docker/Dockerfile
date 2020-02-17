@@ -4,7 +4,8 @@ FROM elixir:1.9.4-alpine
 ENV MIX_HOME=/opt/mix
 
 # install build dependencies
-RUN apk add --update git bash build-base nodejs npm libssl1.1 openssl python util-linux libc6-compat libgcc
+RUN apk add --update git bash build-base nodejs npm libssl1.1 openssl python util-linux libc6-compat libgcc libc-dev
+RUN apk --no-cache --allow-untrusted -X https://apkproxy.herokuapp.com/sgerrand/alpine-pkg-glibc add glibc glibc-bin
 RUN npm install -g --unsafe-perm bs-platform@7.1.0
 RUN npm install -g parcel-bundler --unsafe-perm
 
