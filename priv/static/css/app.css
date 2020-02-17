@@ -214,10 +214,7 @@ h5 {
   border-radius: 0.25rem;
   padding: 0.25rem;
   margin-top: 0.5rem;
-  flex: 0 0 100%;
-  display: inline-flex;
-  justify-content: space-between;
-  align-items: center;
+  width: 100%;
   cursor: grab;
 }
 .take-choice .take-choice-text {
@@ -230,8 +227,8 @@ h5 {
 }
 
 .take-poll-choice-list {
-  display: flex;
-  flex-wrap: wrap;
+  width: 100%;
+  min-width: 15rem;
 }
 
 .responses-holder {

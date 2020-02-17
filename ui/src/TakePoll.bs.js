@@ -70,10 +70,7 @@ function TakePoll(Props) {
     return /* () */0;
   };
   var renderIt = function (index, choice) {
-    return React.createElement("div", {
-                key: choice,
-                className: "take-choice"
-              }, React.createElement("p", {
+    return React.createElement("div", undefined, React.createElement("p", {
                     className: "take-choice-text"
                   }, R$Condorcet.s(String(index + 1 | 0)), R$Condorcet.s(" - "), R$Condorcet.s(choice)));
   };
@@ -82,6 +79,9 @@ function TakePoll(Props) {
                 id: choice,
                 containerId: /* () */0,
                 index: index,
+                className: (function (dragging) {
+                    return "take-choice";
+                  }),
                 children: /* `Children */[
                   -904145569,
                   renderIt(index, choice)

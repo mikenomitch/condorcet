@@ -51,7 +51,7 @@ let make = (~poll: Data.poll) => {
   };
 
   let renderIt = (index: int, choice: string) => {
-    <div className="take-choice" key=choice>
+    <div>
 
         <p className="take-choice-text">
           {R.s(string_of_int(index + 1))}
@@ -79,7 +79,11 @@ let make = (~poll: Data.poll) => {
 
   let renderChoice = (index, choice) => {
     <Items.DraggableItem
-      id=choice key=choice containerId={Container.id()} index>
+      className={(~dragging: bool) => "take-choice"}
+      id=choice
+      key=choice
+      containerId={Container.id()}
+      index>
       {`Children(renderIt(index, choice))}
     </Items.DraggableItem>;
   };
