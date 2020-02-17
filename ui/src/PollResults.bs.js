@@ -33,10 +33,11 @@ function PollResults(Props) {
   var tmp;
   if (match !== undefined) {
     var winnerMap = match;
-    var rankedString = List.length(winnerMap.ranked) > 1 ? "The ranked choice winners are: " : "The ranked choice winner is: ";
-    var bordaString = List.length(winnerMap.borda) > 1 ? "The borda count winners are: " : "The borda count winner is: ";
-    var pluralityString = List.length(winnerMap.plurality) > 1 ? "The plurality winners are: " : "The plurality winner is: ";
-    tmp = React.createElement("div", undefined, React.createElement("p", undefined, R$Condorcet.s(rankedString), renderWinners(winnerMap.ranked)), React.createElement("p", undefined, R$Condorcet.s(bordaString), renderWinners(winnerMap.borda)), React.createElement("p", undefined, R$Condorcet.s(pluralityString), renderWinners(winnerMap.plurality)));
+    var rankedString = List.length(winnerMap.ranked) > 1 ? "Ranked choice winners: " : "Ranked choice winner: ";
+    var bordaString = List.length(winnerMap.borda) > 1 ? "Borda count winners: " : "Borda count winner: ";
+    var pluralityString = List.length(winnerMap.plurality) > 1 ? "Plurality winners: " : "Plurality winner: ";
+    var match$1 = winnerMap.condorcet;
+    tmp = React.createElement("div", undefined, match$1 !== undefined ? React.createElement("p", undefined, R$Condorcet.s("Condorcet Winner: "), React.createElement("b", undefined, R$Condorcet.s(match$1))) : React.createElement("p", undefined, R$Condorcet.s("No Condorcet Winner")), React.createElement("p", undefined, R$Condorcet.s(rankedString), renderWinners(winnerMap.ranked)), React.createElement("p", undefined, R$Condorcet.s(bordaString), renderWinners(winnerMap.borda)), React.createElement("p", undefined, R$Condorcet.s(pluralityString), renderWinners(winnerMap.plurality)));
   } else {
     tmp = null;
   }

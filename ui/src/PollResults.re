@@ -25,18 +25,25 @@ let make = (~result: Data.result) => {
      | Some(winnerMap) =>
        let rankedString =
          List.length(winnerMap.ranked) > 1
-           ? "The ranked choice winners are: "
-           : "The ranked choice winner is: ";
+           ? "Ranked choice winners: " : "Ranked choice winner: ";
 
        let bordaString =
          List.length(winnerMap.borda) > 1
-           ? "The borda count winners are: " : "The borda count winner is: ";
+           ? "Borda count winners: " : "Borda count winner: ";
 
        let pluralityString =
          List.length(winnerMap.plurality) > 1
-           ? "The plurality winners are: " : "The plurality winner is: ";
+           ? "Plurality winners: " : "Plurality winner: ";
 
        <div>
+         {switch (winnerMap.condorcet) {
+          | Some(condorcetWinner) =>
+            <p>
+              {R.s("Condorcet Winner: ")}
+              <b> {R.s(condorcetWinner)} </b>
+            </p>
+          | _ => <p> {R.s("No Condorcet Winner")} </p>
+          }}
          <p> {R.s(rankedString)} {renderWinners(winnerMap.ranked)} </p>
          <p> {R.s(bordaString)} {renderWinners(winnerMap.borda)} </p>
          <p> {R.s(pluralityString)} {renderWinners(winnerMap.plurality)} </p>

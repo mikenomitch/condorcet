@@ -42,6 +42,9 @@ function dWinnerMap(json) {
                 }), json),
           plurality: Json_decode.field("plurality", (function (param) {
                   return Json_decode.list(Json_decode.string, param);
+                }), json),
+          condorcet: Json_decode.field("condorcet", (function (param) {
+                  return Json_decode.optional(Json_decode.string, param);
                 }), json)
         };
 }

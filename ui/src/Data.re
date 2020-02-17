@@ -15,6 +15,7 @@ type winnerMap = {
   borda: list(string),
   ranked: list(string),
   plurality: list(string),
+  condorcet: option(string),
 };
 
 type result = {
@@ -58,6 +59,7 @@ module Decode = {
       borda: json |> field("borda", list(string)),
       plurality: json |> field("plurality", list(string)),
       ranked: json |> field("ranked", list(string)),
+      condorcet: json |> field("condorcet", optional(string)),
     };
 
   let dResult = (json): result =>
