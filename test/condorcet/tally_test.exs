@@ -174,5 +174,47 @@ defmodule Condorcet.TallyTest do
   # ==== CONDORCET WINNER ====
   # ==========================
 
-  # TODO: IMPLEMENT THIS LOGIC
+  test "calculates simple condorcet winner 1" do
+    choices = [
+      ["A", "B", "C", "D"],
+      ["A", "B", "C", "D"],
+      ["B", "A", "C", "D"],
+      ["D", "A", "B", "C"],
+    ]
+
+    assert Tally.calc_condorcet(choices) == "A"
+  end
+
+  test "calculates simple condorcet winner 2" do
+    choices = [
+      ["A", "B", "C", "D"],
+      ["A", "B", "C", "D"],
+      ["B", "A", "C", "D"],
+      ["D", "B", "A", "C"],
+      ["D", "B", "A", "C"],
+    ]
+
+    assert Tally.calc_condorcet(choices) == "B"
+  end
+
+  test "calculates no condorcet winner 1" do
+    choices = [
+      ["A", "B", "C", "D"],
+      ["A", "B", "C", "D"],
+      ["B", "A", "C", "D"],
+      ["B", "A", "C", "D"],
+    ]
+
+    assert Tally.calc_condorcet(choices) == nil
+  end
+
+  test "calculates no condorcet winner 2" do
+    choices = [
+      ["D", "A", "B", "C"],
+      ["B", "C", "A", "D"],
+      ["C", "D", "A", "B"],
+    ]
+
+    assert Tally.calc_condorcet(choices) == nil
+  end
 end

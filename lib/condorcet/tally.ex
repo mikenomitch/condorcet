@@ -10,8 +10,8 @@ defmodule Condorcet.Tally do
     %{
       "plurality" => calc_plurality(choices),
       "ranked" => calc_irv(choices),
-      "borda" => calc_borda(choices)
-      # "condorcet" => calc_condorcet(choices)
+      "borda" => calc_borda(choices),
+      "condorcet" => calc_condorcet(choices)
     }
   end
 
@@ -39,6 +39,27 @@ defmodule Condorcet.Tally do
     choices_count = get_choices_count(choices)
     needed_to_win = ((choices_count / 2) + 1) |> Float.floor()
     do_calc_irv(choices, needed_to_win)
+  end
+
+  def calc_condorcet(choices) do
+    candidates = hd choices
+
+    candidates |> Enum.find(fn (candidate) ->
+      wins_all_head_to_heads(choices, candidate)
+    end)
+  end
+
+  def wins_all_head_to_heads(choices, candidate) do
+    other_options = hd(choices) -- [candidate]
+    other_options |> Enum.all?(&(wins_head_to_head(candidate, &1, choices)))
+  end
+
+  def wins_head_to_head(a, b, choices) do
+    Enum.count(choices, &(comes_before(a, b, &1))) > Enum.count(choices, &(comes_before(b, a, &1)))
+  end
+
+  def comes_before(a, b, list) do
+    Enum.find_index(list, &(&1 == a)) < Enum.find_index(list, &(&1 == b))
   end
 
   # TODO:
