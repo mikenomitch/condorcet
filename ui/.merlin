@@ -16,6 +16,10 @@ S /Users/mike/Code/condorcet/ui/node_modules/reason-react/lib/ocaml
 B /Users/mike/Code/condorcet/ui/node_modules/reason-react/lib/ocaml
 S /Users/mike/Code/condorcet/ui/node_modules/rationale/lib/ocaml
 B /Users/mike/Code/condorcet/ui/node_modules/rationale/lib/ocaml
+S /Users/mike/Code/condorcet/ui/node_modules/re-dnd/lib/ocaml
+B /Users/mike/Code/condorcet/ui/node_modules/re-dnd/lib/ocaml
 S src
 B lib/bs/src
+S src/lib
+B lib/bs/src/lib
 ####BSB GENERATED: NO EDIT}

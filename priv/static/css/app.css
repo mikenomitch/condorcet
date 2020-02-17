@@ -218,6 +218,7 @@ h5 {
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
+  cursor: grab;
 }
 .take-choice .take-choice-text {
   padding-left: 1rem;

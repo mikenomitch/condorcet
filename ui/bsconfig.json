@@ -17,7 +17,8 @@
     "bs-fetch",
     "bs-webapi",
     "reason-react",
-    "rationale"
+    "rationale",
+    "re-dnd"
   ],
   "warnings": {
     "error": "+101"

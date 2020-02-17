@@ -1,4 +1,4 @@
-Vqaîê¹·+¸Ô‘¯s
+2ÂðáŸx–·Ü§ÚÒÓ-
 R
 Api
 App
@@ -16,5 +16,8 @@ PollResults
 CopyableLink
 TakePollPage
 ManagePollPage
+TakePollChoice
 CopyToClipboard
 PollResultsPage
+TakePollChoices
+ArrayExt

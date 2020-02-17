@@ -14,6 +14,7 @@
     "bsb-js": "^1.1.7",
     "cssnano": "^4.1.10",
     "rationale": "^0.2.0",
+    "re-dnd": "^1.2.0",
     "react": "^16.12.0",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.12.0",

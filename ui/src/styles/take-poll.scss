@@ -7,6 +7,7 @@
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
+  cursor: grab;
 
   .take-choice-text {
     padding-left: $spacing-md;
