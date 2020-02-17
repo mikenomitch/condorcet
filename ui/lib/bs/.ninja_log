@@ -132,3 +132,8 @@
 172	205	1581908418613867391	src/index-Condorcet.cmj	c59ae28daa44062
 172	205	1581908418613867391	src/index-Condorcet.cmi	c59ae28daa44062
 172	205	1581908418613867391	/Users/mike/Code/condorcet/ui/src/index.bs.js	c59ae28daa44062
+4	64	1581908489458598145	src/TakePoll.reast	6f6eeb4e6fc2725f
+64	76	1581908489458598145	src/TakePoll.d	862462dbcf07b8bc
+76	199	1581908489458598145	src/TakePoll-Condorcet.cmj	2de8d3a9d74191cd
+76	199	1581908489458598145	src/TakePoll-Condorcet.cmi	2de8d3a9d74191cd
+76	199	1581908489458598145	/Users/mike/Code/condorcet/ui/src/TakePoll.bs.js	2de8d3a9d74191cd
