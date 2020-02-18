@@ -35,6 +35,7 @@ defmodule Condorcet.Response do
 
         result_attrs = %{
           winners: Tally.calc_winners(poll.id),
+          full_results: Tally.full_results(poll.id),
           response_count: Enum.count(responses)
         }
 

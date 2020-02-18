@@ -21,7 +21,7 @@ function ManagePollPage(Props) {
                 result: result
               });
   } else {
-    return React.createElement("p", undefined, "None");
+    return null;
   }
 }
 

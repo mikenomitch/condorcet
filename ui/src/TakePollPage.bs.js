@@ -21,7 +21,7 @@ function TakePollPage(Props) {
                 poll: poll
               });
   } else {
-    return React.createElement("p", undefined, "None");
+    return null;
   }
 }
 

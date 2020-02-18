@@ -4,6 +4,7 @@ defmodule Condorcet.Repo.Migrations.CreateResults do
   def change do
     create table(:results) do
       add :winners, :map
+      add :full_results, :map
       add :response_count, :integer
       add :poll_id, references(:polls, on_delete: :nothing)
 

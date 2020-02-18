@@ -1,7 +1,8 @@
 ####{BSB GENERATED: NO EDIT
 B lib/bs
 FLG -open Condorcet
-FLG -ppx '/Users/mike/.asdf/installs/nodejs/10.16.0/.npm/lib/node_modules/bs-platform/lib/bsppx.exe -bs-jsx 3'
+FLG -ppx /Users/mike/Code/condorcet/ui/node_modules/bs-log/ppx
+FLG -ppx '/Users/mike/Code/condorcet/ui/node_modules/bs-platform/lib/bsppx.exe -bs-jsx 3'
 S /Users/mike/Code/condorcet/ui/node_modules/bs-platform/lib/ocaml
 B /Users/mike/Code/condorcet/ui/node_modules/bs-platform/lib/ocaml
 FLG -nostdlib
@@ -18,6 +19,8 @@ S /Users/mike/Code/condorcet/ui/node_modules/rationale/lib/ocaml
 B /Users/mike/Code/condorcet/ui/node_modules/rationale/lib/ocaml
 S /Users/mike/Code/condorcet/ui/node_modules/re-dnd/lib/ocaml
 B /Users/mike/Code/condorcet/ui/node_modules/re-dnd/lib/ocaml
+S /Users/mike/Code/condorcet/ui/node_modules/bs-log/lib/ocaml
+B /Users/mike/Code/condorcet/ui/node_modules/bs-log/lib/ocaml
 S src
 B lib/bs/src
 S src/lib

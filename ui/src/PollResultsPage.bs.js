@@ -2,7 +2,6 @@
 'use strict';
 
 var React = require("react");
-var R$Condorcet = require("./R.bs.js");
 var Api$Condorcet = require("./Api.bs.js");
 var PollResults$Condorcet = require("./PollResults.bs.js");
 
@@ -20,11 +19,11 @@ function PollResultsPage(Props) {
   if (result !== undefined) {
     return React.createElement("div", {
                 className: "page"
-              }, React.createElement("h3", undefined, R$Condorcet.s("Results")), React.createElement(PollResults$Condorcet.make, {
+              }, React.createElement(PollResults$Condorcet.make, {
                     result: result
                   }));
   } else {
-    return React.createElement("p", undefined, "None");
+    return null;
   }
 }
 

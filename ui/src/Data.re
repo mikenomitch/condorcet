@@ -18,8 +18,15 @@ type winnerMap = {
   condorcet: option(string),
 };
 
+type fullResultsMap = {
+  borda: Js.Dict.t(int),
+  plurality: Js.Dict.t(int),
+  ranked: list(list(string)),
+};
+
 type result = {
   winners: option(winnerMap),
+  fullResults: option(fullResultsMap),
   names: list(string),
   responseCount: int,
   poll,
@@ -54,6 +61,13 @@ module Decode = {
       order: json |> field("order", list(string)),
     };
 
+  let dfullResults = (json): fullResultsMap =>
+    Json.Decode.{
+      borda: json |> field("borda", dict(int)),
+      plurality: json |> field("plurality", dict(int)),
+      ranked: json |> field("ranked", list(list(string))),
+    };
+
   let dWinnerMap = (json): winnerMap =>
     Json.Decode.{
       borda: json |> field("borda", list(string)),
@@ -66,6 +80,7 @@ module Decode = {
     Json.Decode.{
       poll: json |> field("poll", dPoll),
       winners: json |> optional(field("winners", dWinnerMap)),
+      fullResults: json |> optional(field("full_results", dfullResults)),
       responseCount: json |> field("response_count", int),
       names: json |> field("names", list(string)),
     };

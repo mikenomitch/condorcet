@@ -15,6 +15,18 @@ defmodule Condorcet.Tally do
     }
   end
 
+  def full_results(poll_id) do
+    query = from(Response, where: [poll_id: ^poll_id])
+    responses = Repo.all(query)
+    choices = responses |> Enum.map(&(&1.order))
+
+    %{
+      "plurality" => get_first_place_counts_by_choice(choices),
+      "borda" => get_borda_count_numbers(choices),
+      "ranked" => get_ranked_list(choices)
+    }
+  end
+
   def calc_plurality(choices) do
     first_place_counts_by_choice = get_first_place_counts_by_choice(choices)
     highest_vote_count = get_count_of_votes_for_winner(choices)
@@ -49,19 +61,6 @@ defmodule Condorcet.Tally do
     end)
   end
 
-  def wins_all_head_to_heads(choices, candidate) do
-    other_options = hd(choices) -- [candidate]
-    other_options |> Enum.all?(&(wins_head_to_head(candidate, &1, choices)))
-  end
-
-  def wins_head_to_head(a, b, choices) do
-    Enum.count(choices, &(comes_before(a, b, &1))) > Enum.count(choices, &(comes_before(b, a, &1)))
-  end
-
-  def comes_before(a, b, list) do
-    Enum.find_index(list, &(&1 == a)) < Enum.find_index(list, &(&1 == b))
-  end
-
   # TODO:
   # In this implementation, all votes with equal lowest 1st place votes
   # are eliminated
@@ -86,6 +85,23 @@ defmodule Condorcet.Tally do
 
   # PRIVATE
 
+  def get_ranked_list(choices) do
+    candidates = hd(choices)
+    do_get_ranked_rest(choices, [], candidates)
+  end
+
+  def do_get_ranked_rest(_choices, winners_list, []) do
+    winners_list
+  end
+
+  def do_get_ranked_rest(choices, winners_list, canidates) do
+    winners = calc_irv(choices)
+    new_winners_list = winners_list ++ [winners]
+    new_candidates_list = canidates -- winners
+    new_choices = remove_highest_first_place_votes(choices)
+    do_get_ranked_rest(new_choices, new_winners_list, new_candidates_list)
+  end
+
   def get_borda_count_numbers(choices) do
     choices_count = Enum.count(choices)
 
@@ -108,6 +124,21 @@ defmodule Condorcet.Tally do
 
     values_to_remove = first_place_counts_by_choice
       |> Enum.filter(fn ({_, count}) -> count == lowest_vote_count end)
+      |> Enum.map(fn ({choice, _}) -> choice end)
+
+    Enum.map(choices, fn (order) ->
+      Enum.filter(order, fn(i) ->
+        i not in values_to_remove
+      end)
+    end)
+  end
+
+  def remove_highest_first_place_votes(choices) do
+    first_place_counts_by_choice = get_first_place_counts_by_choice(choices)
+    highest_vote_count = get_highest_vote_count(choices)
+
+    values_to_remove = first_place_counts_by_choice
+      |> Enum.filter(fn ({_, count}) -> count == highest_vote_count end)
       |> Enum.map(fn ({choice, _}) -> choice end)
 
     Enum.map(choices, fn (order) ->
@@ -141,6 +172,13 @@ defmodule Condorcet.Tally do
     |> Enum.min
   end
 
+  def get_highest_vote_count(choices) do
+    choices
+    |> get_first_place_counts_by_choice()
+    |> Map.values
+    |> Enum.max
+  end
+
   def get_first_place_counts_by_choice(choices) do
     initial_map = choices |> hd |> Enum.reduce(%{}, fn(choice, acc) ->
       Map.put(acc, choice, 0)
@@ -154,5 +192,18 @@ defmodule Condorcet.Tally do
         Map.put(acc, name, Enum.count(list))
       end
     )
+  end
+
+  def wins_all_head_to_heads(choices, candidate) do
+    other_options = hd(choices) -- [candidate]
+    other_options |> Enum.all?(&(wins_head_to_head(candidate, &1, choices)))
+  end
+
+  def wins_head_to_head(a, b, choices) do
+    Enum.count(choices, &(comes_before(a, b, &1))) > Enum.count(choices, &(comes_before(b, a, &1)))
+  end
+
+  def comes_before(a, b, list) do
+    Enum.find_index(list, &(&1 == a)) < Enum.find_index(list, &(&1 == b))
   end
 end

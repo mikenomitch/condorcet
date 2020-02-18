@@ -29,6 +29,7 @@ defmodule CondorcetWeb.Api.V1.PollView do
     %{
       poll: poll_json,
       winners: result.winners,
+      full_results: result.full_results,
       response_count: result.response_count,
       names: names
     }
@@ -41,6 +42,7 @@ defmodule CondorcetWeb.Api.V1.PollView do
     %{
       poll: poll_json,
       winners: result.winners,
+      full_results: result.full_results,
       response_count: result.response_count,
       names: names
     }

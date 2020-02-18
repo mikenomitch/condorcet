@@ -8,11 +8,7 @@ let make = (~id) => {
   });
 
   switch (result) {
-  | None => <p> {React.string("None")} </p>
-  | Some(result) =>
-    <div className="page">
-      <h3> {R.s("Results")} </h3>
-      <PollResults result />
-    </div>
+  | None => React.null
+  | Some(result) => <div className="page"> <PollResults result /> </div>
   };
 };

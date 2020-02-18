@@ -3,11 +3,23 @@
 
 var List = require("bs-platform/lib/js/list.js");
 var $$Array = require("bs-platform/lib/js/array.js");
+var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
+var Js_dict = require("bs-platform/lib/js/js_dict.js");
 var R$Condorcet = require("./R.bs.js");
 
 function PollResults(Props) {
   var result = Props.result;
+  var match = React.useState((function () {
+          return false;
+        }));
+  var setFullResults = match[1];
+  var showingFullResults = match[0];
+  var changeFullRes = function (param) {
+    return Curry._1(setFullResults, (function (param) {
+                  return !showingFullResults;
+                }));
+  };
   var renderWinners = function (winnersList) {
     return React.createElement("b", undefined, R$Condorcet.s($$Array.of_list(winnersList).join(", ")));
   };
@@ -29,19 +41,52 @@ function PollResults(Props) {
       return null;
     }
   };
-  var match = result.winners;
+  var renderRankedResults = function (rankedResults) {
+    return React.createElement("div", undefined, $$Array.of_list(List.mapi((function (idx, winners) {
+                          return React.createElement("div", undefined, React.createElement("b", undefined, R$Condorcet.s(String(idx + 1 | 0) + ": ")), R$Condorcet.s($$Array.of_list(winners).join(", ")));
+                        }), rankedResults)));
+  };
+  var renderFullResult = function (resultMap, unit, units) {
+    return React.createElement("div", undefined, $$Array.of_list(List.map((function (key) {
+                          var match = Js_dict.get(resultMap, key);
+                          var tmp;
+                          if (match !== undefined) {
+                            var res = match;
+                            tmp = res !== 0 ? R$Condorcet.s(String(res) + (" " + units)) : R$Condorcet.s(String(res) + (" " + unit));
+                          } else {
+                            tmp = null;
+                          }
+                          return React.createElement("div", {
+                                      key: key,
+                                      className: "full-results"
+                                    }, React.createElement("b", undefined, R$Condorcet.s(key + ": ")), tmp);
+                        }), $$Array.to_list(Object.keys(resultMap)))));
+  };
+  var renderWinnerString = function (lst, typ) {
+    return typ + (
+            List.length(lst) > 1 ? " winners: " : " winner: "
+          );
+  };
+  var match$1 = result.winners;
+  var match$2 = result.fullResults;
   var tmp;
-  if (match !== undefined) {
-    var winnerMap = match;
-    var rankedString = List.length(winnerMap.ranked) > 1 ? "Ranked choice winners: " : "Ranked choice winner: ";
-    var bordaString = List.length(winnerMap.borda) > 1 ? "Borda count winners: " : "Borda count winner: ";
-    var pluralityString = List.length(winnerMap.plurality) > 1 ? "Plurality winners: " : "Plurality winner: ";
-    var match$1 = winnerMap.condorcet;
-    tmp = React.createElement("div", undefined, match$1 !== undefined ? React.createElement("p", undefined, R$Condorcet.s("Condorcet Winner: "), React.createElement("b", undefined, R$Condorcet.s(match$1))) : React.createElement("p", undefined, R$Condorcet.s("No Condorcet Winner")), React.createElement("p", undefined, R$Condorcet.s(rankedString), renderWinners(winnerMap.ranked)), React.createElement("p", undefined, R$Condorcet.s(bordaString), renderWinners(winnerMap.borda)), React.createElement("p", undefined, R$Condorcet.s(pluralityString), renderWinners(winnerMap.plurality)));
+  if (match$1 !== undefined && match$2 !== undefined) {
+    var resultsMap = match$2;
+    var winnerMap = match$1;
+    var rankedString = renderWinnerString(winnerMap.ranked, "Ranked choice");
+    var bordaString = renderWinnerString(winnerMap.borda, "Borda count");
+    var pluralityString = renderWinnerString(winnerMap.plurality, "Plurality");
+    var match$3 = winnerMap.condorcet;
+    tmp = React.createElement("div", undefined, match$3 !== undefined ? React.createElement("p", undefined, R$Condorcet.s("Condorcet Winner: "), React.createElement("b", undefined, R$Condorcet.s(match$3))) : React.createElement("p", undefined, R$Condorcet.s("No Condorcet Winner")), React.createElement("p", undefined, R$Condorcet.s(rankedString), renderWinners(winnerMap.ranked)), showingFullResults ? renderRankedResults(resultsMap.ranked) : null, React.createElement("p", undefined, R$Condorcet.s(bordaString), renderWinners(winnerMap.borda)), showingFullResults ? renderFullResult(resultsMap.borda, "point", "points") : null, React.createElement("p", undefined, R$Condorcet.s(pluralityString), renderWinners(winnerMap.plurality)), showingFullResults ? renderFullResult(resultsMap.plurality, "first place vote", "first place votes") : null);
   } else {
     tmp = null;
   }
-  return React.createElement("div", undefined, tmp, React.createElement("div", {
+  return React.createElement("div", undefined, React.createElement("div", {
+                  className: "results-title"
+                }, React.createElement("h3", undefined, R$Condorcet.s("Results")), React.createElement("button", {
+                      className: "button button-sm",
+                      onClick: changeFullRes
+                    }, R$Condorcet.s(showingFullResults ? "Hide full results" : "Show full results"))), tmp, React.createElement("div", {
                   className: "responses-holder"
                 }, renderResponseCount(result.responseCount), renderResponseNames(result.names)));
 }

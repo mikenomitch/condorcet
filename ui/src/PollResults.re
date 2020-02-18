@@ -1,5 +1,8 @@
 [@react.component]
 let make = (~result: Data.result) => {
+  let (showingFullResults, setFullResults) = React.useState(() => false);
+  let changeFullRes = _ => setFullResults(_ => !showingFullResults);
+
   let renderWinners = winnersList => {
     <b> {R.s(winnersList |> Array.of_list |> Js.Array.joinWith(", "))} </b>;
   };
@@ -16,24 +19,64 @@ let make = (~result: Data.result) => {
     switch (names) {
     | [] => React.null
     | nameList =>
-      <p> {R.s(nameList |> Array.of_list |> Js.Array.joinWith(", "))} </p>
+      <p> {nameList |> Array.of_list |> Js.Array.joinWith(", ") |> R.s} </p>
     };
   };
 
+  let renderRankedResults = rankedResults => {
+    <div>
+      {rankedResults
+       |> List.mapi((idx, winners) => {
+            <div>
+              <b> {(string_of_int(idx + 1) ++ ": ")->R.s} </b>
+              {winners |> Array.of_list |> Js.Array.joinWith(", ") |> R.s}
+            </div>
+          })
+       |> Array.of_list
+       |> React.array}
+    </div>;
+  };
+
+  let renderFullResult = (resultMap, unit, units) => {
+    <div>
+      {Js.Dict.keys(resultMap)
+       |> Array.to_list
+       |> List.map(key => {
+            <div key className="full-results">
+              <b> {R.s(key ++ ": ")} </b>
+              {switch (Js.Dict.get(resultMap, key)) {
+               | Some(res) =>
+                 switch (res) {
+                 | 0 => R.s(res->string_of_int ++ " " ++ unit)
+                 | _ => R.s(res->string_of_int ++ " " ++ units)
+                 }
+               | None => React.null
+               }}
+            </div>
+          })
+       |> Array.of_list
+       |> React.array}
+    </div>;
+  };
+
+  let renderWinnerString = (lst, typ) => {
+    typ ++ (List.length(lst) > 1 ? " winners: " : " winner: ");
+  };
+
   <div>
-    {switch (result.winners) {
-     | Some(winnerMap) =>
+    <div className="results-title">
+      <h3> {R.s("Results")} </h3>
+      <button className="button button-sm" onClick=changeFullRes>
+        {R.s(showingFullResults ? "Hide full results" : "Show full results")}
+      </button>
+    </div>
+    {switch (result.winners, result.fullResults) {
+     | (Some(winnerMap), Some(resultsMap)) =>
        let rankedString =
-         List.length(winnerMap.ranked) > 1
-           ? "Ranked choice winners: " : "Ranked choice winner: ";
-
-       let bordaString =
-         List.length(winnerMap.borda) > 1
-           ? "Borda count winners: " : "Borda count winner: ";
-
+         renderWinnerString(winnerMap.ranked, "Ranked choice");
+       let bordaString = renderWinnerString(winnerMap.borda, "Borda count");
        let pluralityString =
-         List.length(winnerMap.plurality) > 1
-           ? "Plurality winners: " : "Plurality winner: ";
+         renderWinnerString(winnerMap.plurality, "Plurality");
 
        <div>
          {switch (winnerMap.condorcet) {
@@ -45,10 +88,22 @@ let make = (~result: Data.result) => {
           | _ => <p> {R.s("No Condorcet Winner")} </p>
           }}
          <p> {R.s(rankedString)} {renderWinners(winnerMap.ranked)} </p>
+         {showingFullResults
+            ? renderRankedResults(resultsMap.ranked) : React.null}
          <p> {R.s(bordaString)} {renderWinners(winnerMap.borda)} </p>
+         {showingFullResults
+            ? renderFullResult(resultsMap.borda, "point", "points")
+            : React.null}
          <p> {R.s(pluralityString)} {renderWinners(winnerMap.plurality)} </p>
+         {showingFullResults
+            ? renderFullResult(
+                resultsMap.plurality,
+                "first place vote",
+                "first place votes",
+              )
+            : React.null}
        </div>;
-     | None => React.null
+     | _ => React.null
      }}
     <div className="responses-holder">
       {renderResponseCount(result.responseCount)}

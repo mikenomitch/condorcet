@@ -242,6 +242,12 @@ h5 {
   border-top: solid 1px #eee;
 }
 
+.results-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .copyable-link {
   border-radius: 0.25rem;
   background-color: #eee;

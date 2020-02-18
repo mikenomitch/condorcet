@@ -8,7 +8,7 @@ let make = (~id) => {
   });
 
   switch (poll) {
-  | None => <p> {React.string("None")} </p>
+  | None => React.null
   | Some(poll) => <TakePoll poll />
   };
 };

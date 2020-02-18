@@ -32,6 +32,22 @@ function dResponse(json) {
         };
 }
 
+function dfullResults(json) {
+  return {
+          borda: Json_decode.field("borda", (function (param) {
+                  return Json_decode.dict(Json_decode.$$int, param);
+                }), json),
+          plurality: Json_decode.field("plurality", (function (param) {
+                  return Json_decode.dict(Json_decode.$$int, param);
+                }), json),
+          ranked: Json_decode.field("ranked", (function (param) {
+                  return Json_decode.list((function (param) {
+                                return Json_decode.list(Json_decode.string, param);
+                              }), param);
+                }), json)
+        };
+}
+
 function dWinnerMap(json) {
   return {
           borda: Json_decode.field("borda", (function (param) {
@@ -53,6 +69,9 @@ function dResult(json) {
   return {
           winners: Json_decode.optional((function (param) {
                   return Json_decode.field("winners", dWinnerMap, param);
+                }), json),
+          fullResults: Json_decode.optional((function (param) {
+                  return Json_decode.field("full_results", dfullResults, param);
                 }), json),
           names: Json_decode.field("names", (function (param) {
                   return Json_decode.list(Json_decode.string, param);
@@ -96,6 +115,7 @@ var dPollOrErrors = Json_decode.either((function (param) {
 var Decode = {
   dPoll: dPoll,
   dResponse: dResponse,
+  dfullResults: dfullResults,
   dWinnerMap: dWinnerMap,
   dResult: dResult,
   dErrorsMap: dErrorsMap,

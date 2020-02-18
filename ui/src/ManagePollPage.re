@@ -8,7 +8,7 @@ let make = (~manageToken) => {
   });
 
   switch (result) {
-  | None => <p> {React.string("None")} </p>
+  | None => React.null
   | Some(result) => <ManagePoll result />
   };
 };
