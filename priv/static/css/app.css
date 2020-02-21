@@ -158,7 +158,8 @@ h5 {
 }
 
 .page {
-  padding: 1rem 2rem;
+  padding: 1rem 4rem;
+  min-width: 22rem;
   box-shadow: 0 18px 50px -10px rgba(0, 0, 0, 0.2);
 }
 

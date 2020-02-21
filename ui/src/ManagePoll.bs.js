@@ -31,7 +31,7 @@ function ManagePoll(Props) {
               className: "page"
             }, React.createElement("h3", {
                   className: "centered"
-                }, R$Condorcet.s("Poll: " + result.poll.question)), tmp, React.createElement("div", undefined, React.createElement("h3", undefined, R$Condorcet.s("Links:")), match$1 !== undefined ? React.createElement("div", {
+                }, R$Condorcet.s("Poll: " + result.poll.question)), tmp, React.createElement("div", undefined, React.createElement("h3", undefined, R$Condorcet.s("Links")), match$1 !== undefined ? React.createElement("div", {
                         className: "link-holder"
                       }, React.createElement("p", undefined, R$Condorcet.s("Manage Poll:")), React.createElement(CopyableLink$Condorcet.make, {
                             link: Constants$Condorcet.host + ("/manage-poll/" + match$1)
@@ -39,7 +39,7 @@ function ManagePoll(Props) {
                         className: "link-holder"
                       }, React.createElement("p", undefined, R$Condorcet.s("Take Poll:")), React.createElement(CopyableLink$Condorcet.make, {
                             link: Constants$Condorcet.host + ("/take-poll/" + match$2)
-                          })) : null), React.createElement("div", undefined, React.createElement("h3", undefined, R$Condorcet.s("Results:")), React.createElement(PollResults$Condorcet.make, {
+                          })) : null), React.createElement("div", undefined, React.createElement(PollResults$Condorcet.make, {
                       result: result
                     })));
 }

@@ -7,6 +7,7 @@ var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
 var Js_dict = require("bs-platform/lib/js/js_dict.js");
 var R$Condorcet = require("./R.bs.js");
+var Ordinal$Condorcet = require("./lib/Ordinal.bs.js");
 
 function PollResults(Props) {
   var result = Props.result;
@@ -43,7 +44,9 @@ function PollResults(Props) {
   };
   var renderRankedResults = function (rankedResults) {
     return React.createElement("div", undefined, $$Array.of_list(List.mapi((function (idx, winners) {
-                          return React.createElement("div", undefined, React.createElement("b", undefined, R$Condorcet.s(String(idx + 1 | 0) + ": ")), R$Condorcet.s($$Array.of_list(winners).join(", ")));
+                          return React.createElement("div", undefined, React.createElement("i", undefined, React.createElement(Ordinal$Condorcet.make, {
+                                              num: idx + 1 | 0
+                                            }), R$Condorcet.s(": ")), R$Condorcet.s($$Array.of_list(winners).join(", ")));
                         }), rankedResults)));
   };
   var renderFullResult = function (resultMap, unit, units) {
@@ -52,14 +55,14 @@ function PollResults(Props) {
                           var tmp;
                           if (match !== undefined) {
                             var res = match;
-                            tmp = res !== 0 ? R$Condorcet.s(String(res) + (" " + units)) : R$Condorcet.s(String(res) + (" " + unit));
+                            tmp = res !== 1 ? R$Condorcet.s(String(res) + (" " + units)) : R$Condorcet.s(String(res) + (" " + unit));
                           } else {
                             tmp = null;
                           }
                           return React.createElement("div", {
                                       key: key,
                                       className: "full-results"
-                                    }, React.createElement("b", undefined, R$Condorcet.s(key + ": ")), tmp);
+                                    }, React.createElement("i", undefined, R$Condorcet.s(key + ": ")), tmp);
                         }), $$Array.to_list(Object.keys(resultMap)))));
   };
   var renderWinnerString = function (lst, typ) {

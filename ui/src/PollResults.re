@@ -28,7 +28,7 @@ let make = (~result: Data.result) => {
       {rankedResults
        |> List.mapi((idx, winners) => {
             <div>
-              <b> {(string_of_int(idx + 1) ++ ": ")->R.s} </b>
+              <i> <Ordinal num={idx + 1} /> {R.s(": ")} </i>
               {winners |> Array.of_list |> Js.Array.joinWith(", ") |> R.s}
             </div>
           })
@@ -43,11 +43,11 @@ let make = (~result: Data.result) => {
        |> Array.to_list
        |> List.map(key => {
             <div key className="full-results">
-              <b> {R.s(key ++ ": ")} </b>
+              <i> {R.s(key ++ ": ")} </i>
               {switch (Js.Dict.get(resultMap, key)) {
                | Some(res) =>
                  switch (res) {
-                 | 0 => R.s(res->string_of_int ++ " " ++ unit)
+                 | 1 => R.s(res->string_of_int ++ " " ++ unit)
                  | _ => R.s(res->string_of_int ++ " " ++ units)
                  }
                | None => React.null
@@ -88,20 +88,27 @@ let make = (~result: Data.result) => {
           | _ => <p> {R.s("No Condorcet Winner")} </p>
           }}
          <p> {R.s(rankedString)} {renderWinners(winnerMap.ranked)} </p>
-         {showingFullResults
-            ? renderRankedResults(resultsMap.ranked) : React.null}
+         {if (showingFullResults) {
+            renderRankedResults(resultsMap.ranked);
+          } else {
+            React.null;
+          }}
          <p> {R.s(bordaString)} {renderWinners(winnerMap.borda)} </p>
-         {showingFullResults
-            ? renderFullResult(resultsMap.borda, "point", "points")
-            : React.null}
+         {if (showingFullResults) {
+            renderFullResult(resultsMap.borda, "point", "points");
+          } else {
+            React.null;
+          }}
          <p> {R.s(pluralityString)} {renderWinners(winnerMap.plurality)} </p>
-         {showingFullResults
-            ? renderFullResult(
-                resultsMap.plurality,
-                "first place vote",
-                "first place votes",
-              )
-            : React.null}
+         {if (showingFullResults) {
+            renderFullResult(
+              resultsMap.plurality,
+              "first place vote",
+              "first place votes",
+            );
+          } else {
+            React.null;
+          }}
        </div>;
      | _ => React.null
      }}

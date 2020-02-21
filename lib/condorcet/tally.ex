@@ -107,8 +107,8 @@ defmodule Condorcet.Tally do
 
     choices
     |> Enum.reduce(%{},
-      fn (candidates, outer_counts) ->
-        candidates
+      fn (ranking, outer_counts) ->
+        ranking
         |> Enum.with_index()
         |> Enum.reduce(outer_counts, fn ({candidate, idx}, internal_counts) ->
           add_by = candidates_count - idx

@@ -6,7 +6,8 @@
 }
 
 .page {
-  padding: $spacing-md $spacing-lg;
+  padding: $spacing-md $spacing-xl;
+  min-width: 22rem;
   @include floating;
 }
 

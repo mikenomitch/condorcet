@@ -14,7 +14,7 @@ let make = (~result: Data.result) => {
      | _ => React.null
      }}
     <div>
-      <h3> {R.s("Links:")} </h3>
+      <h3> {R.s("Links")} </h3>
       {switch (result.poll.manageToken) {
        | Some(manageToken) =>
          <div className="link-holder">
@@ -35,6 +35,6 @@ let make = (~result: Data.result) => {
        | None => React.null
        }}
     </div>
-    <div> <h3> {R.s("Results:")} </h3> <PollResults result /> </div>
+    <div> <PollResults result /> </div>
   </div>;
 };
