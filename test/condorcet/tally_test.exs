@@ -217,4 +217,24 @@ defmodule Condorcet.TallyTest do
 
     assert Tally.calc_condorcet(choices) == nil
   end
+
+  # ========================
+  # === BORDA COUNT FULL ===
+  # =======================
+  test "calculates full borda results" do
+    choices = [
+      ["A", "B", "C"],
+      ["A", "C", "B"],
+      ["B", "A", "C"],
+      ["C", "B", "A"]
+    ]
+
+    expected_tally = %{
+      "A" => 9,
+      "B" => 8,
+      "C" => 7
+    }
+
+    assert Tally.get_borda_count_numbers(choices) == expected_tally
+  end
 end

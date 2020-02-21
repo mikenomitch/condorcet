@@ -103,16 +103,16 @@ defmodule Condorcet.Tally do
   end
 
   def get_borda_count_numbers(choices) do
-    choices_count = Enum.count(choices)
+    candidates_count = Enum.count(hd choices)
 
     choices
     |> Enum.reduce(%{},
-      fn (choices, outer_counts) ->
-        choices
+      fn (candidates, outer_counts) ->
+        candidates
         |> Enum.with_index()
-        |> Enum.reduce(outer_counts, fn ({choice, idx}, internal_counts) ->
-          add_by = choices_count - idx
-          Map.update(internal_counts, choice, add_by, &(&1 + add_by))
+        |> Enum.reduce(outer_counts, fn ({candidate, idx}, internal_counts) ->
+          add_by = candidates_count - idx
+          Map.update(internal_counts, candidate, add_by, &(&1 + add_by))
         end)
       end
     )
