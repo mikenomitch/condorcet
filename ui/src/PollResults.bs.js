@@ -73,27 +73,31 @@ function PollResults(Props) {
           );
   };
   var match$1 = result.winners;
-  var match$2 = result.fullResults;
+  var match$2 = result.winners;
+  var match$3 = result.fullResults;
   var tmp;
-  if (match$1 !== undefined && match$2 !== undefined) {
-    var resultsMap = match$2;
-    var winnerMap = match$1;
-    var rankedString = renderWinnerString(winnerMap.ranked, "Ranked choice");
-    var bordaString = renderWinnerString(winnerMap.borda, "Borda count");
+  if (match$2 !== undefined && match$3 !== undefined) {
+    var resultsMap = match$3;
+    var winnerMap = match$2;
+    var rankedString = renderWinnerString(winnerMap.ranked, "Instant Runoff");
+    var bordaString = renderWinnerString(winnerMap.borda, "Borda Count");
     var pluralityString = renderWinnerString(winnerMap.plurality, "Plurality");
-    var match$3 = winnerMap.condorcet;
-    tmp = React.createElement("div", undefined, match$3 !== undefined ? React.createElement("p", undefined, R$Condorcet.s("Condorcet Winner: "), React.createElement("b", undefined, R$Condorcet.s(match$3))) : React.createElement("p", undefined, R$Condorcet.s("No Condorcet Winner")), React.createElement("p", undefined, R$Condorcet.s(rankedString), renderWinners(winnerMap.ranked)), showingFullResults ? renderRankedResults(resultsMap.ranked) : null, React.createElement("p", undefined, R$Condorcet.s(bordaString), renderWinners(winnerMap.borda)), showingFullResults ? renderFullResult(resultsMap.borda, "point", "points") : null, React.createElement("p", undefined, R$Condorcet.s(pluralityString), renderWinners(winnerMap.plurality)), showingFullResults ? renderFullResult(resultsMap.plurality, "first place vote", "first place votes") : null);
+    var match$4 = winnerMap.condorcet;
+    tmp = React.createElement("div", undefined, match$4 !== undefined ? React.createElement("p", undefined, R$Condorcet.s("Condorcet Winner: "), React.createElement("b", undefined, R$Condorcet.s(match$4))) : React.createElement("p", undefined, R$Condorcet.s("No Condorcet Winner")), React.createElement("p", undefined, R$Condorcet.s(rankedString), renderWinners(winnerMap.ranked)), showingFullResults ? renderRankedResults(resultsMap.ranked) : null, React.createElement("p", undefined, R$Condorcet.s(bordaString), renderWinners(winnerMap.borda)), showingFullResults ? renderFullResult(resultsMap.borda, "point", "points") : null, React.createElement("p", undefined, R$Condorcet.s(pluralityString), renderWinners(winnerMap.plurality)), showingFullResults ? renderFullResult(resultsMap.plurality, "first place vote", "first place votes") : null);
   } else {
     tmp = null;
   }
+  var match$5 = result.winners;
   return React.createElement("div", undefined, React.createElement("div", {
                   className: "results-title"
-                }, React.createElement("h3", undefined, R$Condorcet.s("Results")), React.createElement("button", {
-                      className: "button button-sm",
-                      onClick: changeFullRes
-                    }, R$Condorcet.s(showingFullResults ? "Hide full results" : "Show full results"))), tmp, React.createElement("div", {
+                }, React.createElement("h3", undefined, R$Condorcet.s("Results")), match$1 !== undefined ? React.createElement("button", {
+                        className: "button button-sm",
+                        onClick: changeFullRes
+                      }, R$Condorcet.s(showingFullResults ? "Hide full results" : "Show full results")) : null), tmp, React.createElement("div", {
                   className: "responses-holder"
-                }, renderResponseCount(result.responseCount), renderResponseNames(result.names)));
+                }, renderResponseCount(result.responseCount), renderResponseNames(result.names)), React.createElement("br", undefined), match$5 !== undefined ? React.createElement("div", undefined, React.createElement("a", {
+                        href: "/why#alternative-methods"
+                      }, R$Condorcet.s("What do these results mean?"))) : null);
 }
 
 var make = PollResults;

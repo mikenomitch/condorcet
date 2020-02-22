@@ -58,7 +58,9 @@ let make = () => {
          ",
        )}
     </p>
-    <h4 className="centered"> {R.s("The alternative methods")} </h4>
+    <h4 id="alternative-methods" className="centered">
+      {R.s("The alternative methods")}
+    </h4>
     <p>
       {R.s(
          "

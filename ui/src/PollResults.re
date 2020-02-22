@@ -66,15 +66,21 @@ let make = (~result: Data.result) => {
   <div>
     <div className="results-title">
       <h3> {R.s("Results")} </h3>
-      <button className="button button-sm" onClick=changeFullRes>
-        {R.s(showingFullResults ? "Hide full results" : "Show full results")}
-      </button>
+      {switch (result.winners) {
+       | Some(_winners) =>
+         <button className="button button-sm" onClick=changeFullRes>
+           {R.s(
+              showingFullResults ? "Hide full results" : "Show full results",
+            )}
+         </button>
+       | _ => React.null
+       }}
     </div>
     {switch (result.winners, result.fullResults) {
      | (Some(winnerMap), Some(resultsMap)) =>
        let rankedString =
-         renderWinnerString(winnerMap.ranked, "Ranked choice");
-       let bordaString = renderWinnerString(winnerMap.borda, "Borda count");
+         renderWinnerString(winnerMap.ranked, "Instant Runoff");
+       let bordaString = renderWinnerString(winnerMap.borda, "Borda Count");
        let pluralityString =
          renderWinnerString(winnerMap.plurality, "Plurality");
 
@@ -116,5 +122,15 @@ let make = (~result: Data.result) => {
       {renderResponseCount(result.responseCount)}
       {renderResponseNames(result.names)}
     </div>
+    <br />
+    {switch (result.winners) {
+     | Some(_winners) =>
+       <div>
+         <a href="/why#alternative-methods">
+           {R.s("What do these results mean?")}
+         </a>
+       </div>
+     | _ => React.null
+     }}
   </div>;
 };

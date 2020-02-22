@@ -24,8 +24,8 @@ defmodule Condorcet.Poll do
 
   def create_changeset(poll, attrs) do
     create_attrs = Map.merge(attrs, %{
-      "take_token" => random_string(10),
-      "manage_token" => random_string(10)
+      "take_token" => random_string(16),
+      "manage_token" => random_string(16)
     })
 
     changeset(poll, create_attrs)
