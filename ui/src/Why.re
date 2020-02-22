@@ -5,7 +5,7 @@ let make = () => {
     <h4 className="centered"> {R.s("The problem with plurality voting")} </h4>
     <p>
       {R.s(
-         "Deciding between two options is often simple, as you can select whichever gets the most votes.
+         "Deciding between two options is often simple, as you can just select whichever gets the most votes.
          Once more than two options are included, it become significantly harder to determine the ideal winner.
          ",
        )}
