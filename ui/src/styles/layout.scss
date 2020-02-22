@@ -8,14 +8,15 @@
 .page {
   padding: $spacing-md $spacing-xl;
   min-width: 22rem;
+  max-width: 46rem;
   @include floating;
 }
 
 .header {
   width: 100%;
   background-color: $color-primary;
-  font-size: $font-size-mdlg;
-  cursor: pointer;
   padding: $spacing-md;
+  font-size: $font-size-mdlg;
   color: $white;
+  cursor: pointer;
 }

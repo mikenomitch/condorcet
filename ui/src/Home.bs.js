@@ -10,14 +10,25 @@ function Home(Props) {
               className: "page"
             }, React.createElement("h3", {
                   className: "centered"
-                }, R$Condorcet.s("Make Better Group Decisions")), React.createElement("p", undefined, R$Condorcet.s("Use Poller to make ranked polls with alternative election schemes.")), React.createElement("p", undefined, R$Condorcet.s("Get results for Instant Runoff, Borda Count, and Simple Plurality elections.")), React.createElement("br", undefined), React.createElement("div", {
+                }, R$Condorcet.s("Make Better Group Decisions")), React.createElement("p", {
+                  className: "centered"
+                }, R$Condorcet.s("Use Poller to make ranked decisions using multiple election methods.")), React.createElement("p", {
+                  className: "centered"
+                }, R$Condorcet.s("Get results of instant runoffs, Borda Counts, the Condorcet method, and simple plurality elections.")), React.createElement("br", undefined), React.createElement("div", {
                   className: "centered"
                 }, React.createElement("button", {
                       className: "button button-mdlg",
                       onClick: (function (param) {
                           return ReasonReactRouter.push("/new");
                         })
-                    }, R$Condorcet.s("Create a Poll"))), React.createElement("br", undefined));
+                    }, R$Condorcet.s("Create a Poll"))), React.createElement("br", undefined), React.createElement("p", {
+                  className: "centered"
+                }, React.createElement("a", {
+                      className: "centered",
+                      onClick: (function (param) {
+                          return ReasonReactRouter.push("/why");
+                        })
+                    }, R$Condorcet.s("What are the advantages compared to standard elections?"))));
 }
 
 var make = Home;

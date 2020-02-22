@@ -2,6 +2,7 @@
 'use strict';
 
 var React = require("react");
+var Why$Condorcet = require("./Why.bs.js");
 var Home$Condorcet = require("./Home.bs.js");
 var Layout$Condorcet = require("./Layout.bs.js");
 var NewPoll$Condorcet = require("./NewPoll.bs.js");
@@ -53,6 +54,13 @@ function App(Props) {
                 });
           } else {
             exit = 1;
+          }
+          break;
+      case "why" :
+          if (match[1]) {
+            exit = 1;
+          } else {
+            body = React.createElement(Why$Condorcet.make, { });
           }
           break;
       default:

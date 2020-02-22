@@ -2,14 +2,14 @@
 let make = () => {
   <div className="page">
     <h3 className="centered"> {R.s("Make Better Group Decisions")} </h3>
-    <p>
+    <p className="centered">
       {R.s(
-         "Use Poller to make ranked polls with alternative election schemes.",
+         "Use Poller to make ranked decisions using multiple election methods.",
        )}
     </p>
-    <p>
+    <p className="centered">
       {R.s(
-         "Get results for Instant Runoff, Borda Count, and Simple Plurality elections.",
+         "Get results of instant runoffs, Borda Counts, the Condorcet method, and simple plurality elections.",
        )}
     </p>
     <br />
@@ -21,5 +21,10 @@ let make = () => {
       </button>
     </div>
     <br />
+    <p className="centered">
+      <a className="centered" onClick={_ => ReasonReactRouter.push("/why")}>
+        {R.s("What are the advantages compared to standard elections?")}
+      </a>
+    </p>
   </div>;
 };
