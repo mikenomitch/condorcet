@@ -230,9 +230,9 @@ defmodule Condorcet.TallyTest do
     ]
 
     expected_tally = %{
-      "A" => 9,
-      "B" => 8,
-      "C" => 7
+      "A" => 5,
+      "B" => 4,
+      "C" => 3
     }
 
     assert Tally.get_borda_count_numbers(choices) == expected_tally

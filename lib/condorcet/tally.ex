@@ -111,7 +111,7 @@ defmodule Condorcet.Tally do
         ranking
         |> Enum.with_index()
         |> Enum.reduce(outer_counts, fn ({candidate, idx}, internal_counts) ->
-          add_by = candidates_count - idx
+          add_by = (candidates_count - idx) - 1
           Map.update(internal_counts, candidate, add_by, &(&1 + add_by))
         end)
       end

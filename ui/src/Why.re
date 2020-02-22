@@ -2,9 +2,7 @@
 let make = () => {
   <div className="page">
     <h3 className="centered"> {R.s("Why alternative elections?")} </h3>
-    <h4 className="centered">
-      {R.s("The problem with plurality elections")}
-    </h4>
+    <h4 className="centered"> {R.s("The problem with plurality voting")} </h4>
     <p>
       {R.s(
          "Deciding between two options is often simple, as you can select whichever gets the most votes.
@@ -83,7 +81,8 @@ let make = () => {
         votes.
       ",
        )}
-      <br />
+    </p>
+    <p>
       {R.s(
          "
           Instant Runoff Voting is sometimes refered to as the \"alternative vote\", \"preferential voting\", or\"ranked choice voting\".
@@ -132,13 +131,14 @@ let make = () => {
        )}
     </p>
     <p>
-      {R.s("If you prefer learning via video, CPG Grey has a")}
-      <a href="https://www.youtube.com/watch?v=3Y3jE3B8HsE">
+      {R.s("If you prefer learning via video, CPG Grey has a ")}
+      <a
+        href="https://www.youtube.com/watch?v=s7tWHJfhiyo&list=PL7679C7ACE93A5638">
         {R.s("YouTube series on this topic")}
       </a>
-      {R.s("that is worth watching.")}
+      {R.s(" that is worth watching.")}
     </p>
-    <h4 className="centered"> {R.s("Ready to get started")} </h4>
+    <h4 className="centered"> {R.s("Ready to get started?")} </h4>
     <div className="centered">
       <button
         className="button button-mdlg"
@@ -146,23 +146,18 @@ let make = () => {
         {R.s("Create a Poll")}
       </button>
     </div>
-    <h4 className="centered">
-      {R.s("Why don't we use this in politics?")}
-    </h4>
-    <p>
-      {R.s(
-         "
-        Instant Runoff Elections are actually gaining popularity in American politics!
-        FairVote, FOO, and BAR are all bipartisan organizations (to the extend that is possible)
-        that are encouraging more alternative election schemes in politics.
-        ",
-       )}
-    </p>
     <h4 className="centered"> {R.s("About the site")} </h4>
     <p>
       {R.s(
-         "This site was made to be the simplest way to run polls with alternative election schemes.
-          I really enjoy getting ideas or feedback, so feel free to email me at poller(at)mikenomitch(dot)com.",
+         "This site was made to be the simplest way to make group decisions.
+          I really enjoy getting feedback, so feel free to email me at poller(at)mikenomitch(dot)com.",
+       )}
+    </p>
+    <p>
+      {R.s("Check out ")}
+      <a href="https://www.fairvote.org/"> {R.s("FairVote")} </a>
+      {R.s(
+         " if you would like to see alternative voting in American politics.",
        )}
     </p>
     <br />

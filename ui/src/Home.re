@@ -3,13 +3,11 @@ let make = () => {
   <div className="page">
     <h3 className="centered"> {R.s("Make Better Group Decisions")} </h3>
     <p className="centered">
-      {R.s(
-         "Use Poller to make ranked decisions using multiple election methods.",
-       )}
+      {R.s("Use Poller to make group decisions using ranked voting.")}
     </p>
     <p className="centered">
       {R.s(
-         "Get results of instant runoffs, Borda Counts, the Condorcet method, and simple plurality elections.",
+         "Get results for Instant Runoffs, Borda Counts, the Condorcet method, and simple plurality elections.",
        )}
     </p>
     <br />

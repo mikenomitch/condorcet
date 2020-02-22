@@ -12,9 +12,9 @@ function Home(Props) {
                   className: "centered"
                 }, R$Condorcet.s("Make Better Group Decisions")), React.createElement("p", {
                   className: "centered"
-                }, R$Condorcet.s("Use Poller to make ranked decisions using multiple election methods.")), React.createElement("p", {
+                }, R$Condorcet.s("Use Poller to make group decisions using ranked voting.")), React.createElement("p", {
                   className: "centered"
-                }, R$Condorcet.s("Get results of instant runoffs, Borda Counts, the Condorcet method, and simple plurality elections.")), React.createElement("br", undefined), React.createElement("div", {
+                }, R$Condorcet.s("Get results for Instant Runoffs, Borda Counts, the Condorcet method, and simple plurality elections.")), React.createElement("br", undefined), React.createElement("div", {
                   className: "centered"
                 }, React.createElement("button", {
                       className: "button button-mdlg",
