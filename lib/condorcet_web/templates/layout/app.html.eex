@@ -8,13 +8,15 @@
     <meta name="keywords" content="Poller, Poller.io, Ranked Choice Voting, Instant Runoff, IRV, Preferential Voting, Borda Count, Condorcet, Alternative Vote">
     <script src="https://kit.fontawesome.com/4897ff24ff.js" crossorigin="anonymous"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37337361-2"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-158906511-1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'UA-37337361-2');
+
+      gtag('config', 'UA-158906511-1');
     </script>
+
 
     <script>
       window.env = {
