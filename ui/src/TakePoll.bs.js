@@ -88,19 +88,21 @@ function TakePoll(Props) {
     }
     return /* () */0;
   };
-  var renderIt = function (index, choice) {
+  var renderChoiceChild = function (index, choice) {
     return React.createElement("div", {
                 className: "take-choice-inner"
               }, React.createElement("p", {
                     className: "take-choice-text"
-                  }, R$Condorcet.s(String(index + 1 | 0)), R$Condorcet.s(" - "), R$Condorcet.s(choice)), index !== 0 ? React.createElement("div", {
+                  }, R$Condorcet.s(String(index + 1 | 0) + ": "), R$Condorcet.s(choice)), index !== 0 ? React.createElement("div", {
                       className: "take-choice-btn"
                     }, React.createElement("button", {
                           className: "button button-sm",
                           onClick: (function (_any) {
                               return Curry._1(dispatch, /* MoveUp */Block.__(1, [index]));
                             })
-                        }, R$Condorcet.s("▲"))) : null, (index + 1 | 0) === state.length ? null : React.createElement("div", {
+                        }, React.createElement("i", {
+                              className: "fas fa-angle-up"
+                            }))) : null, (index + 1 | 0) === state.length ? null : React.createElement("div", {
                       className: "take-choice-btn"
                     }, React.createElement("button", {
                           className: "button button-sm",
@@ -108,7 +110,9 @@ function TakePoll(Props) {
                           onClick: (function (_any) {
                               return Curry._1(dispatch, /* MoveDown */Block.__(2, [index]));
                             })
-                        }, R$Condorcet.s("▼"))));
+                        }, React.createElement("i", {
+                              className: "fas fa-angle-down"
+                            }))));
   };
   var renderChoice = function (index, choice) {
     return React.createElement(Items.DraggableItem.make, {
@@ -120,9 +124,9 @@ function TakePoll(Props) {
                   }),
                 children: /* `Children */[
                   -904145569,
-                  renderIt(index, choice)
+                  renderChoiceChild(index, choice)
                 ],
-                key: choice
+                key: choice + String(index)
               });
   };
   return React.createElement("div", {

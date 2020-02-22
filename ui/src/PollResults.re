@@ -27,7 +27,7 @@ let make = (~result: Data.result) => {
     <div>
       {rankedResults
        |> List.mapi((idx, winners) => {
-            <div>
+            <div key={idx->string_of_int}>
               <i> <Ordinal num={idx + 1} /> {R.s(": ")} </i>
               {winners |> Array.of_list |> Js.Array.joinWith(", ") |> R.s}
             </div>

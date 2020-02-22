@@ -44,7 +44,9 @@ function PollResults(Props) {
   };
   var renderRankedResults = function (rankedResults) {
     return React.createElement("div", undefined, $$Array.of_list(List.mapi((function (idx, winners) {
-                          return React.createElement("div", undefined, React.createElement("i", undefined, React.createElement(Ordinal$Condorcet.make, {
+                          return React.createElement("div", {
+                                      key: String(idx)
+                                    }, React.createElement("i", undefined, React.createElement(Ordinal$Condorcet.make, {
                                               num: idx + 1 | 0
                                             }), R$Condorcet.s(": ")), R$Condorcet.s($$Array.of_list(winners).join(", ")));
                         }), rankedResults)));

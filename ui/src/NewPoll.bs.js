@@ -101,7 +101,9 @@ function NewPoll(Props) {
                                                   };
                                           }));
                             })
-                        }, R$Condorcet.s("x"))) : null);
+                        }, React.createElement("i", {
+                              className: "far fa-trash-alt"
+                            }))) : null);
   };
   return React.createElement("div", {
               className: "page"
@@ -133,7 +135,9 @@ function NewPoll(Props) {
                     }, React.createElement("button", {
                           className: "button",
                           onClick: addChoice
-                        }, R$Condorcet.s("+ Add Choice")))), React.createElement("div", {
+                        }, React.createElement("i", {
+                              className: "fas fa-plus"
+                            }), R$Condorcet.s(" Add Choice")))), React.createElement("div", {
                   className: "centered save-holder"
                 }, React.createElement("button", {
                       className: "button button-mdlg",

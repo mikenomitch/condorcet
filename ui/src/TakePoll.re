@@ -63,11 +63,10 @@ let make = (~poll: Data.poll) => {
     |> ignore;
   };
 
-  let renderIt = (index: int, choice: string) => {
+  let renderChoiceChild = (index: int, choice: string) => {
     <div className="take-choice-inner">
       <p className="take-choice-text">
-        {R.s(string_of_int(index + 1))}
-        {R.s(" - ")}
+        {R.s(string_of_int(index + 1) ++ ": ")}
         {R.s(choice)}
       </p>
       {switch (index) {
@@ -77,7 +76,7 @@ let make = (~poll: Data.poll) => {
            <button
              onClick={_any => dispatch(MoveUp(index))}
              className="button button-sm">
-             {R.s({j|▲|j})}
+             <i className="fas fa-angle-up" />
            </button>
          </div>
        }}
@@ -88,7 +87,7 @@ let make = (~poll: Data.poll) => {
                className="button button-sm"
                onClick={_any => dispatch(MoveDown(index))}
                disabled={index + 1 == Array.length(state)}>
-               {R.s({j|▼|j})}
+               <i className="fas fa-angle-down" />
              </button>
            </div>}
     </div>;
@@ -98,10 +97,10 @@ let make = (~poll: Data.poll) => {
     <Items.DraggableItem
       className={(~dragging: bool) => "take-choice"}
       id=choice
-      key=choice
+      key={choice ++ string_of_int(index)}
       containerId={Container.id()}
       index>
-      {`Children(renderIt(index, choice))}
+      {`Children(renderChoiceChild(index, choice))}
     </Items.DraggableItem>;
   };
 

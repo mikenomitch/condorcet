@@ -67,7 +67,7 @@ let make = () => {
          ? <div>
              <button
                className="button button-sm" onClick={_ => removeChoice(idx)}>
-               {R.s("x")}
+               <i className="far fa-trash-alt" />
              </button>
            </div>
          : React.null}
@@ -96,7 +96,8 @@ let make = () => {
       </div>
       <div className="new-choice-holder">
         <button className="button" onClick=addChoice>
-          {R.s("+ Add Choice")}
+          <i className="fas fa-plus" />
+          {R.s(" Add Choice")}
         </button>
       </div>
     </div>
