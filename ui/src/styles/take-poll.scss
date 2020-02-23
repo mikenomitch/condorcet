@@ -1,29 +1,44 @@
-.take-choice {
-  width: 100%;
-  cursor: grab;
-  padding: $spacing-xs;
-  margin-top: $spacing-sm;
-  @include bordered;
-
-  .take-choice-inner {
-    width: 100%;
-    display: inline-flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .take-choice-text {
-      padding-left: $spacing-md;
-      padding-right: $spacing-md;
-      flex: 1 1 auto;
-    }
-
-    .take-choice-btn {
-      flex: 0 0 2rem;
-    }
-  }
+.take-poll-choice-list {
+  min-width: 15rem;
 }
 
-.take-poll-choice-list {
-  width: 100%;
-  min-width: 15rem;
+.take-choice {
+  flex: 0 0 100%;
+  padding: $spacing-xs;
+  margin-top: $spacing-sm;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+
+  .take-choice-number {
+    flex: 0 0 $spacing-sm;
+    font-weight: $font-weight-bold;
+    margin-right: $spacing-sm;
+  }
+
+  .take-choice-draggable {
+    flex: 1 1 auto;
+
+    .take-choice-draggable-inner {
+      padding: 0 $spacing-sm;
+      width: 100%;
+
+      display: inline-flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: nowrap;
+
+      cursor: grab;
+      @include bordered;
+
+      .take-choice-text {
+        flex: 1 1 auto;
+      }
+
+      .take-choice-btn {
+        flex: 0 0 2rem;
+      }
+    }
+  }
 }

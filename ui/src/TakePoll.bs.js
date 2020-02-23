@@ -90,10 +90,10 @@ function TakePoll(Props) {
   };
   var renderChoiceChild = function (index, choice) {
     return React.createElement("div", {
-                className: "take-choice-inner"
+                className: "take-choice-draggable-inner"
               }, React.createElement("p", {
                     className: "take-choice-text"
-                  }, R$Condorcet.s(String(index + 1 | 0) + ": "), R$Condorcet.s(choice)), index !== 0 ? React.createElement("div", {
+                  }, R$Condorcet.s(choice)), index !== 0 ? React.createElement("div", {
                       className: "take-choice-btn"
                     }, React.createElement("button", {
                           className: "button button-sm",
@@ -115,19 +115,24 @@ function TakePoll(Props) {
                             }))));
   };
   var renderChoice = function (index, choice) {
-    return React.createElement(Items.DraggableItem.make, {
-                id: choice,
-                containerId: /* () */0,
-                index: index,
-                className: (function (dragging) {
-                    return "take-choice";
-                  }),
-                children: /* `Children */[
-                  -904145569,
-                  renderChoiceChild(index, choice)
-                ],
-                key: choice + String(index)
-              });
+    return React.createElement("div", {
+                key: choice + String(index),
+                className: "take-choice"
+              }, React.createElement("div", {
+                    className: "take-choice-number"
+                  }, R$Condorcet.s(String(index + 1 | 0) + ". ")), React.createElement(Items.DraggableItem.make, {
+                    id: choice,
+                    containerId: /* () */0,
+                    index: index,
+                    className: (function (dragging) {
+                        return "take-choice-draggable";
+                      }),
+                    children: /* `Children */[
+                      -904145569,
+                      renderChoiceChild(index, choice)
+                    ],
+                    key: choice + String(index)
+                  }));
   };
   return React.createElement("div", {
               className: "page"

@@ -131,3 +131,9 @@
     @content;
   }
 }
+
+@mixin tablet-or-desktop {
+  @media only screen and (min-width: #{$breakpoint-tablet}) {
+    @content;
+  }
+}

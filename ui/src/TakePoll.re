@@ -64,11 +64,8 @@ let make = (~poll: Data.poll) => {
   };
 
   let renderChoiceChild = (index: int, choice: string) => {
-    <div className="take-choice-inner">
-      <p className="take-choice-text">
-        {R.s(string_of_int(index + 1) ++ ": ")}
-        {R.s(choice)}
-      </p>
+    <div className="take-choice-draggable-inner">
+      <p className="take-choice-text"> {R.s(choice)} </p>
       {switch (index) {
        | 0 => React.null
        | _ =>
@@ -94,14 +91,19 @@ let make = (~poll: Data.poll) => {
   };
 
   let renderChoice = (index, choice) => {
-    <Items.DraggableItem
-      className={(~dragging: bool) => "take-choice"}
-      id=choice
-      key={choice ++ string_of_int(index)}
-      containerId={Container.id()}
-      index>
-      {`Children(renderChoiceChild(index, choice))}
-    </Items.DraggableItem>;
+    <div key={choice ++ string_of_int(index)} className="take-choice">
+      <div className="take-choice-number">
+        {R.s(string_of_int(index + 1) ++ ". ")}
+      </div>
+      <Items.DraggableItem
+        className={(~dragging: bool) => "take-choice-draggable"}
+        id=choice
+        key={choice ++ string_of_int(index)}
+        containerId={Container.id()}
+        index>
+        {`Children(renderChoiceChild(index, choice))}
+      </Items.DraggableItem>
+    </div>;
   };
 
   <div className="page">

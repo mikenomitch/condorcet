@@ -1,15 +1,20 @@
 .content {
+  margin: $spacing-md;
+
   display: flex;
   justify-content: center;
-  margin: $spacing-md;
   @include fade-in;
 }
 
 .page {
-  padding: $spacing-md $spacing-xl;
   min-width: 22rem;
-  max-width: 46rem;
-  @include floating;
+  padding: $spacing-md $spacing-lg;
+
+  @include tablet-or-desktop {
+    padding: $spacing-md $spacing-xl;
+    max-width: 46rem;
+    @include floating;
+  }
 }
 
 .header {
