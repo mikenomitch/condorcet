@@ -43,7 +43,7 @@ type pollVariant =
   | PollRes(poll);
 
 type responseVariant =
-  | ResponstErrors(errors)
+  | ResponseErrors(errors)
   | ResponseRes(response);
 
 // === JSON DECODING ===
@@ -109,7 +109,7 @@ module Decode = {
     Json.Decode.(
       either(
         dResponse |> map(r => ResponseRes(r)),
-        dErrors |> map(r => ResponstErrors(r)),
+        dErrors |> map(r => ResponseErrors(r)),
       )
     );
 };

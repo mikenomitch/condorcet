@@ -54,22 +54,18 @@ let make = (~poll: Data.poll, ~addError) => {
       switch (poll.id) {
       | None => Js.Promise.(resolve())
       | Some(id) =>
-        Js.log("aaaaaaaaa");
         Js.Promise.(
           Api.submitPoll(id, response)
           |> then_(responseVariant => {
-               Js.log("bbbbbbbbb");
                switch (responseVariant) {
-               | Data.ResultErrors(_errors) =>
-                 Js.log("ccccccc");
+               | Data.ResponseErrors(_errors) =>
                  addError("You must provide a name");
                  resolve();
                | Data.ResponseRes(_resp) =>
-                 Js.log("WOOT");
-                 ReasonReactRouter.push("/results/" ++ id) |> resolve;
-               };
+                 ReasonReactRouter.push("/results/" ++ id) |> resolve
+               }
              })
-        );
+        )
       }
     )
     |> ignore;

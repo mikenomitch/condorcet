@@ -81,13 +81,10 @@ function TakePoll(Props) {
     var match = poll.id;
     if (match !== undefined) {
       var id = match;
-      Api$Condorcet.submitPoll(id, response).then((function (resVariant) {
-              console.log("AAA");
-              if (resVariant.tag) {
-                console.log("TEST");
+      Api$Condorcet.submitPoll(id, response).then((function (responseVariant) {
+              if (responseVariant.tag) {
                 return Promise.resolve(ReasonReactRouter.push("/results/" + id));
               } else {
-                console.log("BB");
                 Curry._1(addError, "You must provide a name");
                 return Promise.resolve(/* () */0);
               }

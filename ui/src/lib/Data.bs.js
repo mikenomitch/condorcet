@@ -118,7 +118,7 @@ var dResponseOrErrors = Json_decode.either((function (param) {
                     }), dResponse, param);
       }), (function (param) {
         return Json_decode.map((function (r) {
-                      return /* ResponstErrors */Block.__(0, [r]);
+                      return /* ResponseErrors */Block.__(0, [r]);
                     }), dErrors, param);
       }));
 
