@@ -3,7 +3,7 @@
 module RList = Rationale.RList;
 
 [@react.component]
-let make = () => {
+let make = (~addError) => {
   let blankPoll: Data.poll = {
     id: None,
     question: "",
@@ -35,7 +35,7 @@ let make = () => {
 
   let savePoll = _ => {
     Js.Promise.(
-      Api.createPoll(poll)
+      Api.createPoll(poll, addError)
       |> then_(res => {
            switch (res) {
            | None => resolve()
@@ -45,7 +45,7 @@ let make = () => {
                ReasonReactRouter.push("/manage-poll/" ++ manageToken)
                |> resolve
              | _ =>
-               alert("There was an issue making this poll");
+               addError("There was an issue making this poll");
                resolve();
              }
            }

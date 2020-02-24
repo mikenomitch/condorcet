@@ -2,12 +2,16 @@
 'use strict';
 
 var React = require("react");
-var R$Condorcet = require("./R.bs.js");
+var R$Condorcet = require("./lib/R.bs.js");
 var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
+var Notifications$Condorcet = require("./Notifications.bs.js");
 
 function Layout(Props) {
+  var notifications = Props.notifications;
   var children = Props.children;
-  return React.createElement("div", undefined, React.createElement("div", {
+  return React.createElement("div", undefined, React.createElement(Notifications$Condorcet.make, {
+                  notifications: notifications
+                }), React.createElement("div", {
                   className: "header",
                   onClick: (function (param) {
                       return ReasonReactRouter.push("/");

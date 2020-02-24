@@ -25,4 +25,6 @@ S src
 B lib/bs/src
 S src/lib
 B lib/bs/src/lib
+S src/ui
+B lib/bs/src/ui
 ####BSB GENERATED: NO EDIT}

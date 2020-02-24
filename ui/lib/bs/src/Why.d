@@ -1,1 +1,1 @@
-src/Why-Condorcet.cmj : Condorcet.cmi src/R-Condorcet.cmj src/R-Condorcet.cmi
+src/Why-Condorcet.cmj : Condorcet.cmi src/lib/R-Condorcet.cmj src/lib/R-Condorcet.cmi

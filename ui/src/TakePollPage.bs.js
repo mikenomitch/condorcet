@@ -2,11 +2,12 @@
 'use strict';
 
 var React = require("react");
-var Api$Condorcet = require("./Api.bs.js");
+var Api$Condorcet = require("./lib/Api.bs.js");
 var TakePoll$Condorcet = require("./TakePoll.bs.js");
 
 function TakePollPage(Props) {
   var id = Props.id;
+  var addError = Props.addError;
   var match = React.useState((function () {
           return ;
         }));
@@ -18,7 +19,8 @@ function TakePollPage(Props) {
         }), ([]));
   if (poll !== undefined) {
     return React.createElement(TakePoll$Condorcet.make, {
-                poll: poll
+                poll: poll,
+                addError: addError
               });
   } else {
     return null;

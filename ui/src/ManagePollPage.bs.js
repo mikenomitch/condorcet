@@ -2,7 +2,7 @@
 'use strict';
 
 var React = require("react");
-var Api$Condorcet = require("./Api.bs.js");
+var Api$Condorcet = require("./lib/Api.bs.js");
 var ManagePoll$Condorcet = require("./ManagePoll.bs.js");
 
 function ManagePollPage(Props) {

@@ -6,13 +6,14 @@ var $$Array = require("bs-platform/lib/js/array.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
 var Caml_array = require("bs-platform/lib/js/caml_array.js");
-var R$Condorcet = require("./R.bs.js");
-var Api$Condorcet = require("./Api.bs.js");
-var Input$Condorcet = require("./Input.bs.js");
+var R$Condorcet = require("./lib/R.bs.js");
+var Api$Condorcet = require("./lib/Api.bs.js");
+var Input$Condorcet = require("./ui/Input.bs.js");
 var RList$Rationale = require("rationale/src/RList.js");
 var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
 
 function NewPoll(Props) {
+  var addError = Props.addError;
   var match = React.useState((function () {
           return {
                   id: undefined,
@@ -50,13 +51,13 @@ function NewPoll(Props) {
                 }));
   };
   var savePoll = function (param) {
-    Api$Condorcet.createPoll(poll).then((function (res) {
+    Api$Condorcet.createPoll(poll, addError).then((function (res) {
             if (res !== undefined) {
               var match = res.manageToken;
               if (match !== undefined) {
                 return Promise.resolve(ReasonReactRouter.push("/manage-poll/" + match));
               } else {
-                alert("There was an issue making this poll");
+                Curry._1(addError, "There was an issue making this poll");
                 return Promise.resolve(/* () */0);
               }
             } else {

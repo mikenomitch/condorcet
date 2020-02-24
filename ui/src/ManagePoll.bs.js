@@ -2,11 +2,11 @@
 'use strict';
 
 var React = require("react");
-var R$Condorcet = require("./R.bs.js");
+var R$Condorcet = require("./lib/R.bs.js");
 var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
-var Constants$Condorcet = require("./Constants.bs.js");
+var Constants$Condorcet = require("./lib/Constants.bs.js");
 var PollResults$Condorcet = require("./PollResults.bs.js");
-var CopyableLink$Condorcet = require("./CopyableLink.bs.js");
+var CopyableLink$Condorcet = require("./ui/CopyableLink.bs.js");
 
 function ManagePoll(Props) {
   var result = Props.result;

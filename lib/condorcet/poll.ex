@@ -17,6 +17,7 @@ defmodule Condorcet.Poll do
   def changeset(poll, attrs) do
     poll
     |> cast(attrs, [:question, :choices, :take_token, :manage_token])
+    |> validate_required([:question])
     |> validate_choices_not_blank()
     |> validate_choices_not_same()
     |> validate_required([:question, :choices, :take_token, :manage_token])

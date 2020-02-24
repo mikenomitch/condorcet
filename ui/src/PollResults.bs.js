@@ -6,7 +6,7 @@ var $$Array = require("bs-platform/lib/js/array.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
 var Js_dict = require("bs-platform/lib/js/js_dict.js");
-var R$Condorcet = require("./R.bs.js");
+var R$Condorcet = require("./lib/R.bs.js");
 var Ordinal$Condorcet = require("./lib/Ordinal.bs.js");
 
 function PollResults(Props) {

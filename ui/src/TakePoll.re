@@ -42,7 +42,7 @@ let reducer = (state, action) =>
   };
 
 [@react.component]
-let make = (~poll: Data.poll) => {
+let make = (~poll: Data.poll, ~addError) => {
   let (name, changeName) = React.useState(_ => "");
   let (state, dispatch) =
     reducer->React.useReducer(Array.of_list(poll.choices));
@@ -54,10 +54,22 @@ let make = (~poll: Data.poll) => {
       switch (poll.id) {
       | None => Js.Promise.(resolve())
       | Some(id) =>
+        Js.log("aaaaaaaaa");
         Js.Promise.(
           Api.submitPoll(id, response)
-          |> then_(_ => ReasonReactRouter.push("/results/" ++ id) |> resolve)
-        )
+          |> then_(responseVariant => {
+               Js.log("bbbbbbbbb");
+               switch (responseVariant) {
+               | Data.ResultErrors(_errors) =>
+                 Js.log("ccccccc");
+                 addError("You must provide a name");
+                 resolve();
+               | Data.ResponseRes(_resp) =>
+                 Js.log("WOOT");
+                 ReasonReactRouter.push("/results/" ++ id) |> resolve;
+               };
+             })
+        );
       }
     )
     |> ignore;

@@ -1,6 +1,7 @@
 [@react.component]
-let make = (~children) => {
+let make = (~notifications, ~children) => {
   <div>
+    <Notifications notifications />
     <div onClick={_ => ReasonReactRouter.push("/")} className="header">
       {R.s("Poller.io")}
     </div>

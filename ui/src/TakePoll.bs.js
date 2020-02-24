@@ -9,9 +9,9 @@ var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
 var Caml_obj = require("bs-platform/lib/js/caml_obj.js");
 var Caml_array = require("bs-platform/lib/js/caml_array.js");
-var R$Condorcet = require("./R.bs.js");
-var Api$Condorcet = require("./Api.bs.js");
-var Input$Condorcet = require("./Input.bs.js");
+var R$Condorcet = require("./lib/R.bs.js");
+var Api$Condorcet = require("./lib/Api.bs.js");
+var Input$Condorcet = require("./ui/Input.bs.js");
 var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
 var ArrayExt$Condorcet = require("./lib/ArrayExt.bs.js");
 
@@ -62,6 +62,7 @@ function reducer(state, action) {
 
 function TakePoll(Props) {
   var poll = Props.poll;
+  var addError = Props.addError;
   var match = React.useState((function () {
           return "";
         }));
@@ -80,8 +81,16 @@ function TakePoll(Props) {
     var match = poll.id;
     if (match !== undefined) {
       var id = match;
-      Api$Condorcet.submitPoll(id, response).then((function (param) {
-              return Promise.resolve(ReasonReactRouter.push("/results/" + id));
+      Api$Condorcet.submitPoll(id, response).then((function (resVariant) {
+              console.log("AAA");
+              if (resVariant.tag) {
+                console.log("TEST");
+                return Promise.resolve(ReasonReactRouter.push("/results/" + id));
+              } else {
+                console.log("BB");
+                Curry._1(addError, "You must provide a name");
+                return Promise.resolve(/* () */0);
+              }
             }));
     } else {
       Promise.resolve(/* () */0);

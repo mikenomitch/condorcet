@@ -2,7 +2,7 @@
 'use strict';
 
 var React = require("react");
-var R$Condorcet = require("./R.bs.js");
+var R$Condorcet = require("./lib/R.bs.js");
 var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
 
 function Home(Props) {

@@ -1,0 +1,33 @@
+.notifications {
+  position: fixed;
+  top: 0rem;
+  right: 1rem;
+}
+
+.notification {
+  z-index: $z-index-higher;
+  border: solid $border-width-thick;
+  border-radius: $border-radius-base;
+
+  min-height: 2rem;
+  min-width: 5rem;
+
+  padding: $spacing-md;
+  margin: $spacing-sm;
+  background-color: white;
+}
+
+.notification.error {
+  border-color: $color-error;
+  color: $color-error;
+}
+
+.notification.info {
+  border-color: $color-info;
+  color: $color-info;
+}
+
+.notification.success {
+  border-color: $color-success;
+  color: $color-success;
+}

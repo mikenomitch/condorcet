@@ -25,6 +25,9 @@ defmodule CondorcetWeb.Api.V1.ResponseController do
       conn
       |> put_status(:created)
       |> render("show.json", response: response)
+    else
+      {:error, :response, error, _} -> {:error, error}
+      other -> other
     end
   end
 end
