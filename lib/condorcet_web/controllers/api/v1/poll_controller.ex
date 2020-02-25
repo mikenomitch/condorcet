@@ -50,4 +50,22 @@ defmodule CondorcetWeb.Api.V1.PollController do
       responses: responses
     )
   end
+
+  @doc false
+  def remove_choice(conn, %{"poll_id" => manage_token, "choice" => choice}) do
+    poll = Repo.get_by(Poll, manage_token: manage_token)
+    result = Repo.get_by(Result, poll_id: poll.id) || %Result{response_count: 0}
+
+    query = from(Response, where: [poll_id: ^poll.id])
+    responses = Repo.all(query) || []
+
+    # TODO: update all the responses and retally it
+
+    render(conn,
+      "manage_results.json",
+      poll: poll,
+      result: result,
+      responses: responses
+    )
+  end
 end

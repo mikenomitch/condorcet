@@ -35,7 +35,15 @@ function EditChoices(Props) {
                                                       var choice$1 = choice;
                                                       console.log(choice$1);
                                                       console.log(manageToken$2);
-                                                      Api$Condorcet.removeChoice(manageToken$2, choice$1);
+                                                      Api$Condorcet.removeChoice(manageToken$2, choice$1).then((function (resultVariant) {
+                                                              if (resultVariant.tag) {
+                                                                console.log("YAY");
+                                                                return Promise.resolve(/* () */0);
+                                                              } else {
+                                                                console.log("OOPS");
+                                                                return Promise.resolve(/* () */0);
+                                                              }
+                                                            }));
                                                       return /* () */0;
                                                     })
                                                 }, React.createElement("i", {

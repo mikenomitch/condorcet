@@ -86,7 +86,7 @@ function submitPoll(id, response) {
 
 function removeChoice(manageToken, choice) {
   var payload = Data$Condorcet.encodeChoice(choice);
-  return fetch(baseUrl + ("/api/v1/polls/" + (manageToken + "/remove-choice")), Fetch.RequestInit.make(/* Post */2, {
+  return fetch(baseUrl + ("/api/v1/polls/" + (manageToken + "/remove_choice")), Fetch.RequestInit.make(/* Post */2, {
                         "Content-Type": "application/json"
                       }, Caml_option.some(JSON.stringify(payload)), undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined)(/* () */0)).then((function (prim) {
                   return prim.json();

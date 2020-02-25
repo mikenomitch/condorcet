@@ -107,7 +107,7 @@ let removeChoice = (manageToken, choice) => {
   let payload = Data.encodeChoice(choice);
   Js.Promise.(
     Fetch.fetchWithInit(
-      baseUrl ++ "/api/v1/polls/" ++ manageToken ++ "/remove-choice",
+      baseUrl ++ "/api/v1/polls/" ++ manageToken ++ "/remove_choice",
       Fetch.RequestInit.make(
         ~method_=Post,
         ~body=Fetch.BodyInit.make(Js.Json.stringify(payload)),

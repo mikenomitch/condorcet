@@ -3,7 +3,20 @@ let make = (~result: Data.result) => {
   let removeChoice = (manageToken, choice) => {
     Js.log(choice);
     Js.log(manageToken);
-    Api.removeChoice(manageToken, choice) |> ignore;
+    Js.Promise.(
+      Api.removeChoice(manageToken, choice)
+      |> then_(resultVariant => {
+           switch (resultVariant) {
+           | Data.ResultRes(_res) =>
+             Js.log("YAY");
+             resolve();
+           | Data.ResultErrors(_error) =>
+             Js.log("OOPS");
+             resolve();
+           }
+         })
+    )
+    |> ignore;
   };
 
   let renderChoice = (manageToken, choice) => {

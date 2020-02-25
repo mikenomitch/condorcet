@@ -18,6 +18,7 @@ defmodule CondorcetWeb.Router do
 
     resources("/polls", PollController) do
       post("/respond", ResponseController, :create)
+      post("/remove_choice", PollController, :remove_choice)
       resources("/responses", ResponseController)
       get("/results", PollController, :results)
       get("/manage", PollController, :manage_results)
