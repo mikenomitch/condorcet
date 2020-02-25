@@ -3,3 +3,18 @@
   padding: $spacing-sm;
   border-bottom: solid $border-width-base $border-color-base;
 }
+
+.remove-choice-list {
+  width: 100%;
+  margin-top: $spacing-md;
+
+  .remove-choice {
+    flex: 1 0 5rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacing-sm;
+    button {
+      margin-right: $spacing-sm;
+    }
+  }
+}

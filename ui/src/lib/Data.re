@@ -46,6 +46,10 @@ type responseVariant =
   | ResponseErrors(errors)
   | ResponseRes(response);
 
+type resultVariant =
+  | ResultErrors(errors)
+  | ResultRes(result);
+
 // === JSON DECODING ===
 
 module Decode = {
@@ -88,28 +92,38 @@ module Decode = {
       names: json |> field("names", list(string)),
     };
 
-  let dErrorsMap = (json): errorsMap =>
+  let dErrorsPollMap = (json): errorsMap =>
     Json.Decode.{
       choices: json |> optional(field("choices", list(string))),
       question: json |> optional(field("question", list(string))),
     };
 
-  let dErrors = (json): errors =>
-    Json.Decode.{errors: json |> field("errors", dErrorsMap)};
+  let dPollErrors = (json): errors =>
+    Json.Decode.{errors: json |> field("errors", dErrorsPollMap)};
 
   let dPollOrErrors =
     Json.Decode.(
       either(
         dPoll |> map(p => PollRes(p)),
-        dErrors |> map(s => PollErrors(s)),
+        dPollErrors |> map(s => PollErrors(s)),
       )
     );
 
+  // TODO: FIX THE ERRORS OPTION
   let dResponseOrErrors =
     Json.Decode.(
       either(
         dResponse |> map(r => ResponseRes(r)),
-        dErrors |> map(r => ResponseErrors(r)),
+        dPollErrors |> map(r => ResponseErrors(r)),
+      )
+    );
+
+  // TODO: FIX THE ERRORS OPTION
+  let dResultOrErrors =
+    Json.Decode.(
+      either(
+        dResult |> map(r => ResultRes(r)),
+        dPollErrors |> map(r => ResultErrors(r)),
       )
     );
 };
@@ -127,6 +141,9 @@ let encodeResponse = response =>
     ("name", Json.Encode.string(response.name)),
     ("order", Json.Encode.list(Json.Encode.string, response.order)),
   ]);
+
+let encodeChoice = (choice: string) =>
+  Json.Encode.object_([("choice", Json.Encode.string(choice))]);
 
 let encodePollPost = poll =>
   Json.Encode.object_([("poll", encodePoll(poll))]);

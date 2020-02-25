@@ -17,6 +17,8 @@ let make = () => {
     | ["why"] => <Why />
     | ["new"] => <NewPoll addError />
     | ["manage-poll", manageToken] => <ManagePollPage manageToken />
+    | ["manage-poll", manageToken, "edit-choices"] =>
+      <EditChoicesPage manageToken />
     | ["take-poll", pollId] => <TakePollPage addError id=pollId />
     | ["results", pollId] => <PollResultsPage id=pollId />
     | _ => <NotFound />

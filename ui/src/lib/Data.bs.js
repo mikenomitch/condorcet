@@ -81,7 +81,7 @@ function dResult(json) {
         };
 }
 
-function dErrorsMap(json) {
+function dErrorsPollMap(json) {
   return {
           choices: Json_decode.optional((function (param) {
                   return Json_decode.field("choices", (function (param) {
@@ -96,9 +96,9 @@ function dErrorsMap(json) {
         };
 }
 
-function dErrors(json) {
+function dPollErrors(json) {
   return {
-          errors: Json_decode.field("errors", dErrorsMap, json)
+          errors: Json_decode.field("errors", dErrorsPollMap, json)
         };
 }
 
@@ -109,7 +109,7 @@ var dPollOrErrors = Json_decode.either((function (param) {
       }), (function (param) {
         return Json_decode.map((function (s) {
                       return /* PollErrors */Block.__(0, [s]);
-                    }), dErrors, param);
+                    }), dPollErrors, param);
       }));
 
 var dResponseOrErrors = Json_decode.either((function (param) {
@@ -119,7 +119,17 @@ var dResponseOrErrors = Json_decode.either((function (param) {
       }), (function (param) {
         return Json_decode.map((function (r) {
                       return /* ResponseErrors */Block.__(0, [r]);
-                    }), dErrors, param);
+                    }), dPollErrors, param);
+      }));
+
+var dResultOrErrors = Json_decode.either((function (param) {
+        return Json_decode.map((function (r) {
+                      return /* ResultRes */Block.__(1, [r]);
+                    }), dResult, param);
+      }), (function (param) {
+        return Json_decode.map((function (r) {
+                      return /* ResultErrors */Block.__(0, [r]);
+                    }), dPollErrors, param);
       }));
 
 var Decode = {
@@ -128,10 +138,11 @@ var Decode = {
   dfullResults: dfullResults,
   dWinnerMap: dWinnerMap,
   dResult: dResult,
-  dErrorsMap: dErrorsMap,
-  dErrors: dErrors,
+  dErrorsPollMap: dErrorsPollMap,
+  dPollErrors: dPollErrors,
   dPollOrErrors: dPollOrErrors,
-  dResponseOrErrors: dResponseOrErrors
+  dResponseOrErrors: dResponseOrErrors,
+  dResultOrErrors: dResultOrErrors
 };
 
 function encodePoll(poll) {
@@ -170,6 +181,16 @@ function encodeResponse(response) {
             ]);
 }
 
+function encodeChoice(choice) {
+  return Json_encode.object_(/* :: */[
+              /* tuple */[
+                "choice",
+                choice
+              ],
+              /* [] */0
+            ]);
+}
+
 function encodePollPost(poll) {
   return Json_encode.object_(/* :: */[
               /* tuple */[
@@ -193,6 +214,7 @@ function encodeResponsePost(poll) {
 exports.Decode = Decode;
 exports.encodePoll = encodePoll;
 exports.encodeResponse = encodeResponse;
+exports.encodeChoice = encodeChoice;
 exports.encodePollPost = encodePollPost;
 exports.encodeResponsePost = encodeResponsePost;
 /* dPollOrErrors Not a pure module */

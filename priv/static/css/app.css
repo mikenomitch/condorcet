@@ -248,6 +248,20 @@ h5 {
   border-bottom: solid 1px #eee;
 }
 
+.remove-choice-list {
+  width: 100%;
+  margin-top: 1rem;
+}
+.remove-choice-list .remove-choice {
+  flex: 1 0 5rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.remove-choice-list .remove-choice button {
+  margin-right: 0.5rem;
+}
+
 .take-poll-choice-list {
   min-width: 15rem;
 }

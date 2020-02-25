@@ -115,6 +115,15 @@ let make = (~result: Data.result) => {
           } else {
             React.null;
           }}
+         {switch (result.winners) {
+          | Some(_winners) =>
+            <div>
+              <a href="/why#alternative-methods">
+                {R.s("What do these results mean?")}
+              </a>
+            </div>
+          | _ => React.null
+          }}
        </div>;
      | _ => React.null
      }}
@@ -123,14 +132,5 @@ let make = (~result: Data.result) => {
       {renderResponseNames(result.names)}
     </div>
     <br />
-    {switch (result.winners) {
-     | Some(_winners) =>
-       <div>
-         <a href="/why#alternative-methods">
-           {R.s("What do these results mean?")}
-         </a>
-       </div>
-     | _ => React.null
-     }}
   </div>;
 };

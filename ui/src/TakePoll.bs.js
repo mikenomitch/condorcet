@@ -130,7 +130,7 @@ function TakePoll(Props) {
                     id: choice,
                     containerId: /* () */0,
                     index: index,
-                    className: (function (dragging) {
+                    className: (function (_ignore) {
                         return "take-choice-draggable";
                       }),
                     children: /* `Children */[

@@ -11,37 +11,42 @@ var CopyableLink$Condorcet = require("./ui/CopyableLink.bs.js");
 function ManagePoll(Props) {
   var result = Props.result;
   var match = result.poll.id;
-  var tmp;
-  if (match !== undefined) {
-    var id = match;
-    tmp = React.createElement("div", {
-          className: "centered"
-        }, React.createElement("button", {
-              className: "button",
-              onClick: (function (param) {
-                  return ReasonReactRouter.push("/take-poll/" + id);
-                })
-            }, R$Condorcet.s("Take the Poll Yourself")));
-  } else {
-    tmp = null;
-  }
   var match$1 = result.poll.manageToken;
   var match$2 = result.poll.id;
-  return React.createElement("div", {
-              className: "page"
-            }, React.createElement("h3", {
-                  className: "centered"
-                }, R$Condorcet.s("Poll: " + result.poll.question)), tmp, React.createElement("div", undefined, React.createElement("h3", undefined, R$Condorcet.s("Links")), match$1 !== undefined ? React.createElement("div", {
-                        className: "link-holder"
-                      }, React.createElement("p", undefined, R$Condorcet.s("Manage Poll:")), React.createElement(CopyableLink$Condorcet.make, {
-                            link: Constants$Condorcet.host + ("/manage-poll/" + match$1)
-                          }), React.createElement("p", undefined, React.createElement("b", undefined, R$Condorcet.s("This link is a password. Don't lose it!")))) : null, match$2 !== undefined ? React.createElement("div", {
-                        className: "link-holder"
-                      }, React.createElement("p", undefined, R$Condorcet.s("Take Poll:")), React.createElement(CopyableLink$Condorcet.make, {
-                            link: Constants$Condorcet.host + ("/take-poll/" + match$2)
-                          })) : null), React.createElement("div", undefined, React.createElement(PollResults$Condorcet.make, {
-                      result: result
-                    })));
+  if (match !== undefined && match$1 !== undefined && match$2 !== undefined) {
+    var pollId = match;
+    var manageToken = match$1;
+    var takeToken = match$2;
+    return React.createElement("div", {
+                className: "page"
+              }, React.createElement("h3", {
+                    className: "centered"
+                  }, R$Condorcet.s(result.poll.question)), React.createElement("div", {
+                    className: "centered"
+                  }, React.createElement("button", {
+                        className: "button",
+                        onClick: (function (param) {
+                            return ReasonReactRouter.push("/take-poll/" + pollId);
+                          })
+                      }, R$Condorcet.s("Take the Poll Yourself"))), React.createElement("div", {
+                    className: "link-holder"
+                  }, React.createElement("h4", undefined, R$Condorcet.s("Manage Poll Link")), React.createElement(CopyableLink$Condorcet.make, {
+                        link: Constants$Condorcet.host + ("/manage-poll/" + manageToken)
+                      }), React.createElement("p", undefined, React.createElement("b", undefined, R$Condorcet.s("This link is a password. Don't lose it!")))), React.createElement("div", {
+                    className: "link-holder"
+                  }, React.createElement("h4", undefined, R$Condorcet.s("Take Poll Link")), React.createElement(CopyableLink$Condorcet.make, {
+                        link: Constants$Condorcet.host + ("/take-poll/" + takeToken)
+                      })), React.createElement(PollResults$Condorcet.make, {
+                    result: result
+                  }), React.createElement("div", undefined, React.createElement("button", {
+                        className: "button",
+                        onClick: (function (param) {
+                            return ReasonReactRouter.push("/manage-poll/" + (manageToken + "/edit-choices"));
+                          })
+                      }, R$Condorcet.s("Edit Choices"))));
+  } else {
+    return null;
+  }
 }
 
 var make = ManagePoll;

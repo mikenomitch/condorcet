@@ -104,7 +104,7 @@ let make = (~poll: Data.poll, ~addError) => {
         {R.s(string_of_int(index + 1) ++ ". ")}
       </div>
       <Items.DraggableItem
-        className={(~dragging: bool) => "take-choice-draggable"}
+        className={(~dragging as _ignore) => "take-choice-draggable"}
         id=choice
         key={choice ++ string_of_int(index)}
         containerId={Container.id()}

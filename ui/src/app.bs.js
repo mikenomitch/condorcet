@@ -11,6 +11,7 @@ var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
 var NotFound$Condorcet = require("./NotFound.bs.js");
 var TakePollPage$Condorcet = require("./TakePollPage.bs.js");
 var ManagePollPage$Condorcet = require("./ManagePollPage.bs.js");
+var EditChoicesPage$Condorcet = require("./EditChoicesPage.bs.js");
 var PollResultsPage$Condorcet = require("./PollResultsPage.bs.js");
 
 function App(Props) {
@@ -44,10 +45,22 @@ function App(Props) {
     switch (match$1[0]) {
       case "manage-poll" :
           var match$2 = match$1[1];
-          if (match$2 && !match$2[1]) {
-            body = React.createElement(ManagePollPage$Condorcet.make, {
-                  manageToken: match$2[0]
-                });
+          if (match$2) {
+            var match$3 = match$2[1];
+            var manageToken = match$2[0];
+            if (match$3) {
+              if (match$3[0] === "edit-choices" && !match$3[1]) {
+                body = React.createElement(EditChoicesPage$Condorcet.make, {
+                      manageToken: manageToken
+                    });
+              } else {
+                exit = 1;
+              }
+            } else {
+              body = React.createElement(ManagePollPage$Condorcet.make, {
+                    manageToken: manageToken
+                  });
+            }
           } else {
             exit = 1;
           }
@@ -62,20 +75,20 @@ function App(Props) {
           }
           break;
       case "results" :
-          var match$3 = match$1[1];
-          if (match$3 && !match$3[1]) {
+          var match$4 = match$1[1];
+          if (match$4 && !match$4[1]) {
             body = React.createElement(PollResultsPage$Condorcet.make, {
-                  id: match$3[0]
+                  id: match$4[0]
                 });
           } else {
             exit = 1;
           }
           break;
       case "take-poll" :
-          var match$4 = match$1[1];
-          if (match$4 && !match$4[1]) {
+          var match$5 = match$1[1];
+          if (match$5 && !match$5[1]) {
             body = React.createElement(TakePollPage$Condorcet.make, {
-                  id: match$4[0],
+                  id: match$5[0],
                   addError: addError
                 });
           } else {

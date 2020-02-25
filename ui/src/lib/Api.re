@@ -101,4 +101,21 @@ let submitPoll = (id, response) => {
     |> then_(Fetch.Response.json)
     |> then_(json => Data.Decode.dResponseOrErrors(json) |> resolve)
   );
+} /* }*/;
+
+let removeChoice = (manageToken, choice) => {
+  let payload = Data.encodeChoice(choice);
+  Js.Promise.(
+    Fetch.fetchWithInit(
+      baseUrl ++ "/api/v1/polls/" ++ manageToken ++ "/remove-choice",
+      Fetch.RequestInit.make(
+        ~method_=Post,
+        ~body=Fetch.BodyInit.make(Js.Json.stringify(payload)),
+        ~headers=Fetch.HeadersInit.make({"Content-Type": "application/json"}),
+        (),
+      ),
+    )
+    |> then_(Fetch.Response.json)
+    |> then_(json => Data.Decode.dResultOrErrors(json) |> resolve)
+  );
 };
