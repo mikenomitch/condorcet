@@ -1,17 +1,16 @@
 [@react.component]
-let make = (~result: Data.result) => {
+let make = (~notify, ~result: Data.result) => {
   let removeChoice = (manageToken, choice) => {
-    Js.log(choice);
-    Js.log(manageToken);
     Js.Promise.(
       Api.removeChoice(manageToken, choice)
       |> then_(resultVariant => {
            switch (resultVariant) {
            | Data.ResultRes(_res) =>
-             Js.log("YAY");
+             ReasonReactRouter.push("/manage-poll/" ++ manageToken);
+             notify("info", "Results recalculated without choice");
              resolve();
            | Data.ResultErrors(_error) =>
-             Js.log("OOPS");
+             notify("error", "There was an issue removing the choice");
              resolve();
            }
          })

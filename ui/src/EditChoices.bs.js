@@ -3,11 +3,14 @@
 
 var List = require("bs-platform/lib/js/list.js");
 var $$Array = require("bs-platform/lib/js/array.js");
+var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
 var R$Condorcet = require("./lib/R.bs.js");
 var Api$Condorcet = require("./lib/Api.bs.js");
+var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
 
 function EditChoices(Props) {
+  var notify = Props.notify;
   var result = Props.result;
   var match = result.poll.id;
   var match$1 = result.poll.manageToken;
@@ -33,14 +36,13 @@ function EditChoices(Props) {
                                                   onClick: (function (param) {
                                                       var manageToken$2 = manageToken$1;
                                                       var choice$1 = choice;
-                                                      console.log(choice$1);
-                                                      console.log(manageToken$2);
                                                       Api$Condorcet.removeChoice(manageToken$2, choice$1).then((function (resultVariant) {
                                                               if (resultVariant.tag) {
-                                                                console.log("YAY");
+                                                                ReasonReactRouter.push("/manage-poll/" + manageToken$2);
+                                                                Curry._2(notify, "info", "Results recalculated without choice");
                                                                 return Promise.resolve(/* () */0);
                                                               } else {
-                                                                console.log("OOPS");
+                                                                Curry._2(notify, "error", "There was an issue removing the choice");
                                                                 return Promise.resolve(/* () */0);
                                                               }
                                                             }));

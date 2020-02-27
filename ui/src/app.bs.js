@@ -19,9 +19,9 @@ function App(Props) {
           return /* [] */0;
         }));
   var setNotifications = match[1];
-  var addError = function (text) {
+  var notify = function (notificationType, text) {
     var notif = {
-      t: "error",
+      t: notificationType,
       text: text
     };
     Curry._1(setNotifications, (function (param) {
@@ -51,7 +51,8 @@ function App(Props) {
             if (match$3) {
               if (match$3[0] === "edit-choices" && !match$3[1]) {
                 body = React.createElement(EditChoicesPage$Condorcet.make, {
-                      manageToken: manageToken
+                      manageToken: manageToken,
+                      notify: notify
                     });
               } else {
                 exit = 1;
@@ -70,7 +71,7 @@ function App(Props) {
             exit = 1;
           } else {
             body = React.createElement(NewPoll$Condorcet.make, {
-                  addError: addError
+                  notify: notify
                 });
           }
           break;
@@ -89,7 +90,7 @@ function App(Props) {
           if (match$5 && !match$5[1]) {
             body = React.createElement(TakePollPage$Condorcet.make, {
                   id: match$5[0],
-                  addError: addError
+                  notify: notify
                 });
           } else {
             exit = 1;

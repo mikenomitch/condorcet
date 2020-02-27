@@ -7,7 +7,7 @@ var TakePoll$Condorcet = require("./TakePoll.bs.js");
 
 function TakePollPage(Props) {
   var id = Props.id;
-  var addError = Props.addError;
+  var notify = Props.notify;
   var match = React.useState((function () {
           return ;
         }));
@@ -20,7 +20,7 @@ function TakePollPage(Props) {
   if (poll !== undefined) {
     return React.createElement(TakePoll$Condorcet.make, {
                 poll: poll,
-                addError: addError
+                notify: notify
               });
   } else {
     return null;

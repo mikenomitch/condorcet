@@ -1,5 +1,5 @@
 [@react.component]
-let make = (~manageToken) => {
+let make = (~manageToken, ~notify) => {
   let (result, setResult) = React.useState(() => None);
 
   React.useEffect0(() => {
@@ -9,6 +9,6 @@ let make = (~manageToken) => {
 
   switch (result) {
   | None => React.null
-  | Some(result) => <EditChoices result />
+  | Some(result) => <EditChoices result notify />
   };
 };

@@ -1,5 +1,5 @@
 [@react.component]
-let make = (~id, ~addError) => {
+let make = (~id, ~notify) => {
   let (poll, setPoll) = React.useState(() => None);
 
   React.useEffect0(() => {
@@ -9,6 +9,6 @@ let make = (~id, ~addError) => {
 
   switch (poll) {
   | None => React.null
-  | Some(poll) => <TakePoll addError poll />
+  | Some(poll) => <TakePoll notify poll />
   };
 };

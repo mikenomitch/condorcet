@@ -13,7 +13,7 @@ var RList$Rationale = require("rationale/src/RList.js");
 var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
 
 function NewPoll(Props) {
-  var addError = Props.addError;
+  var notify = Props.notify;
   var match = React.useState((function () {
           return {
                   id: undefined,
@@ -51,13 +51,13 @@ function NewPoll(Props) {
                 }));
   };
   var savePoll = function (param) {
-    Api$Condorcet.createPoll(poll, addError).then((function (res) {
+    Api$Condorcet.createPoll(poll, notify).then((function (res) {
             if (res !== undefined) {
               var match = res.manageToken;
               if (match !== undefined) {
                 return Promise.resolve(ReasonReactRouter.push("/manage-poll/" + match));
               } else {
-                Curry._1(addError, "There was an issue making this poll");
+                Curry._2(notify, "error", "There was an issue making this poll");
                 return Promise.resolve(/* () */0);
               }
             } else {

@@ -42,7 +42,7 @@ let reducer = (state, action) =>
   };
 
 [@react.component]
-let make = (~poll: Data.poll, ~addError) => {
+let make = (~poll: Data.poll, ~notify) => {
   let (name, changeName) = React.useState(_ => "");
   let (state, dispatch) =
     reducer->React.useReducer(Array.of_list(poll.choices));
@@ -59,7 +59,7 @@ let make = (~poll: Data.poll, ~addError) => {
           |> then_(responseVariant => {
                switch (responseVariant) {
                | Data.ResponseErrors(_errors) =>
-                 addError("You must provide a name");
+                 notify("error", "You must provide a name");
                  resolve();
                | Data.ResponseRes(_resp) =>
                  ReasonReactRouter.push("/results/" ++ id) |> resolve

@@ -62,7 +62,7 @@ function reducer(state, action) {
 
 function TakePoll(Props) {
   var poll = Props.poll;
-  var addError = Props.addError;
+  var notify = Props.notify;
   var match = React.useState((function () {
           return "";
         }));
@@ -85,7 +85,7 @@ function TakePoll(Props) {
               if (responseVariant.tag) {
                 return Promise.resolve(ReasonReactRouter.push("/results/" + id));
               } else {
-                Curry._1(addError, "You must provide a name");
+                Curry._2(notify, "error", "You must provide a name");
                 return Promise.resolve(/* () */0);
               }
             }));

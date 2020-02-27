@@ -7,6 +7,7 @@ var EditChoices$Condorcet = require("./EditChoices.bs.js");
 
 function EditChoicesPage(Props) {
   var manageToken = Props.manageToken;
+  var notify = Props.notify;
   var match = React.useState((function () {
           return ;
         }));
@@ -18,6 +19,7 @@ function EditChoicesPage(Props) {
         }), ([]));
   if (result !== undefined) {
     return React.createElement(EditChoices$Condorcet.make, {
+                notify: notify,
                 result: result
               });
   } else {
