@@ -1,14 +1,14 @@
 defmodule Condorcet.Poll do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Condorcet.{Repo, Response}
+  alias Condorcet.{Repo, Result}
 
   schema "polls" do
     field :choices, {:array, :string}
     field :question, :string
     field :take_token, :string
     field :manage_token, :string
-    has_one :response, Response
+    has_one :result, Result
 
     timestamps()
   end
@@ -21,6 +21,10 @@ defmodule Condorcet.Poll do
     |> validate_choices_not_blank()
     |> validate_choices_not_same()
     |> validate_required([:question, :choices, :take_token, :manage_token])
+  end
+
+  def update_changeset(poll, attrs) do
+    cast(poll, attrs, [:question, :choices])
   end
 
   def create_changeset(poll, attrs) do

@@ -34,14 +34,14 @@ defmodule Condorcet.Response do
         responses = Repo.all(query)
 
         result_attrs = %{
-          winners: Tally.calc_winners(poll.id),
-          full_results: Tally.full_results(poll.id),
+          winners: Tally.calc_winners(responses),
+          full_results: Tally.full_results(responses),
           response_count: Enum.count(responses)
         }
 
         case repo.get_by(Result, poll_id: poll.id) do
           nil  -> %Result{poll_id: poll.id}
-          post -> post
+          res -> res
         end
         |> Result.changeset(result_attrs)
         |> repo.insert_or_update()

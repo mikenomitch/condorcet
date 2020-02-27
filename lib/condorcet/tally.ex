@@ -2,9 +2,7 @@ defmodule Condorcet.Tally do
   import Ecto.Query
   alias Condorcet.{Repo, Response}
 
-  def calc_winners(poll_id) do
-    query = from(Response, where: [poll_id: ^poll_id])
-    responses = Repo.all(query)
+  def calc_winners(responses) do
     choices = responses |> Enum.map(&(&1.order))
 
     %{
@@ -15,9 +13,7 @@ defmodule Condorcet.Tally do
     }
   end
 
-  def full_results(poll_id) do
-    query = from(Response, where: [poll_id: ^poll_id])
-    responses = Repo.all(query)
+  def full_results(responses) do
     choices = responses |> Enum.map(&(&1.order))
 
     %{

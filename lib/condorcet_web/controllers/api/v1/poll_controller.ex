@@ -1,6 +1,6 @@
 defmodule CondorcetWeb.Api.V1.PollController do
   import Ecto.Query
-  alias Condorcet.{Repo, Poll, Result, Response}
+  alias Condorcet.{Repo, Poll, Result, Response, PollEditor}
 
   use CondorcetWeb, :controller
   @type conn_t :: Plug.Conn.t()
@@ -53,11 +53,15 @@ defmodule CondorcetWeb.Api.V1.PollController do
 
   @doc false
   def remove_choice(conn, %{"poll_id" => manage_token, "choice" => choice}) do
-    poll = Repo.get_by(Poll, manage_token: manage_token)
-    result = Repo.get_by(Result, poll_id: poll.id) || %Result{response_count: 0}
+    orig_poll = Repo.get_by(Poll, manage_token: manage_token)
 
-    query = from(Response, where: [poll_id: ^poll.id])
-    responses = Repo.all(query) || []
+    {:ok,
+      %{
+        poll: poll,
+        result: result,
+        responses: responses
+      }
+    } = PollEditor.remove_choice_from_poll(orig_poll, choice)
 
     # TODO: update all the responses and retally it
 
