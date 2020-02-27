@@ -24,29 +24,43 @@ defmodule Condorcet.Response do
     poll = Poll |> Repo.get_by(take_token: take_token)
 
     response_cs = poll
-      |> Ecto.build_assoc(:response, attrs)
+      |> Ecto.build_assoc(:responses, attrs)
       |> changeset(attrs)
 
     Multi.new()
       |> Multi.insert(:response, response_cs)
       |> Multi.run(:result, fn (repo, _) ->
-        query = from(Response, where: [poll_id: ^poll.id])
-        responses = repo.all(query)
-
-        result_attrs = %{
-          winners: Tally.calc_winners(responses),
-          full_results: Tally.full_results(responses),
-          response_count: Enum.count(responses)
-        }
-
-        case repo.get_by(Result, poll_id: poll.id) do
-          nil  -> %Result{poll_id: poll.id}
-          res -> res
-        end
-        |> Result.changeset(result_attrs)
-        |> repo.insert_or_update()
+        recalc_responses(repo, poll.id)
       end
       )
       |> Repo.transaction()
   end
+
+  def destroy_and_update_result(id) do
+    response = Repo.get(Response, id)
+    Multi.new()
+    |> Multi.destroy(:response, id)
+    |> Multi.run(:result, fn (repo, _) ->
+      recalc_responses(repo, response.poll_id)
+    end)
+    |> Repo.transaction()
+  end
+
+  # PRIVATE
+
+ defp recalc_responses(repo, poll_id) do
+  query = from(Response, where: [poll_id: ^poll_id])
+  responses = repo.all(query)
+
+  result_attrs = %{
+    winners: Tally.calc_winners(responses),
+    full_results: Tally.full_results(responses),
+    response_count: Enum.count(responses)
+  }
+
+  case repo.get_by(Result, poll_id: poll_id) do
+    nil  -> %Result{poll_id: poll_id}
+    res -> res
+  end
+ end
 end

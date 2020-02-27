@@ -27,10 +27,10 @@ let make = (~result: Data.result) => {
           className="button"
           onClick={_ =>
             ReasonReactRouter.push(
-              "/manage-poll/" ++ manageToken ++ "/edit-choices",
+              "/manage-poll/" ++ manageToken ++ "/edit-results",
             )
           }>
-          {R.s("Edit Choices")}
+          {R.s("Edit Results")}
         </button>
       </div>
     </div>;

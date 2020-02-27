@@ -11,6 +11,11 @@ type response = {
   order: list(string),
 };
 
+type resultResponse = {
+  id: option(int),
+  name: string,
+};
+
 type winnerMap = {
   borda: list(string),
   ranked: list(string),
@@ -27,7 +32,7 @@ type fullResultsMap = {
 type result = {
   winners: option(winnerMap),
   fullResults: option(fullResultsMap),
-  names: list(string),
+  responses: list(resultResponse),
   responseCount: int,
   poll,
 };
@@ -83,13 +88,17 @@ module Decode = {
       condorcet: json |> field("condorcet", optional(string)),
     };
 
+  let dResultResponse = (json): resultResponse => {
+    Json.Decode.{};
+  };
+
   let dResult = (json): result =>
     Json.Decode.{
       poll: json |> field("poll", dPoll),
       winners: json |> optional(field("winners", dWinnerMap)),
       fullResults: json |> optional(field("full_results", dfullResults)),
       responseCount: json |> field("response_count", int),
-      names: json |> field("names", list(string)),
+      responses: json |> field("responses", dResultResponse),
     };
 
   let dErrorsPollMap = (json): errorsMap =>

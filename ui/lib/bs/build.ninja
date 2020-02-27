@@ -15,7 +15,7 @@ rule build_ast_from_re
   description = [34mBuilding[39m [2m${out}[22m
 build  src/App.reast : build_ast_from_re $src_root_dir/src/App.re
 rule build_deps
-  command = $bsdep -hash 9e8c32e1b37b06dcd351e823f6e56d9f $g_ns -g $bsb_dir_group $in
+  command = $bsdep -hash 88f7bbbc53af9ebbc5ba70765950aa85 $g_ns -g $bsb_dir_group $in
   restat = 1
   description = [34mBuilding[39m [2m${out}[22m
 build  src/App.d : build_deps src/App.reast
@@ -58,9 +58,9 @@ build  src/ManagePoll.reast : build_ast_from_re $src_root_dir/src/ManagePoll.re
 build  src/ManagePoll.d : build_deps src/ManagePoll.reast
 build  src/ManagePoll-Condorcet.cmj |  src/ManagePoll-Condorcet.cmi $src_root_dir/src/ManagePoll.bs.js : ml_cmj_cmi src/ManagePoll.reast ||  src/ManagePoll.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
-build  src/EditChoices.reast : build_ast_from_re $src_root_dir/src/EditChoices.re
-build  src/EditChoices.d : build_deps src/EditChoices.reast
-build  src/EditChoices-Condorcet.cmj |  src/EditChoices-Condorcet.cmi $src_root_dir/src/EditChoices.bs.js : ml_cmj_cmi src/EditChoices.reast ||  src/EditChoices.d
+build  src/EditResults.reast : build_ast_from_re $src_root_dir/src/EditResults.re
+build  src/EditResults.d : build_deps src/EditResults.reast
+build  src/EditResults-Condorcet.cmj |  src/EditResults-Condorcet.cmi $src_root_dir/src/EditResults.bs.js : ml_cmj_cmi src/EditResults.reast ||  src/EditResults.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
 build  src/PollResults.reast : build_ast_from_re $src_root_dir/src/PollResults.re
 build  src/PollResults.d : build_deps src/PollResults.reast
@@ -78,9 +78,9 @@ build  src/ManagePollPage.reast : build_ast_from_re $src_root_dir/src/ManagePoll
 build  src/ManagePollPage.d : build_deps src/ManagePollPage.reast
 build  src/ManagePollPage-Condorcet.cmj |  src/ManagePollPage-Condorcet.cmi $src_root_dir/src/ManagePollPage.bs.js : ml_cmj_cmi src/ManagePollPage.reast ||  src/ManagePollPage.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
-build  src/EditChoicesPage.reast : build_ast_from_re $src_root_dir/src/EditChoicesPage.re
-build  src/EditChoicesPage.d : build_deps src/EditChoicesPage.reast
-build  src/EditChoicesPage-Condorcet.cmj |  src/EditChoicesPage-Condorcet.cmi $src_root_dir/src/EditChoicesPage.bs.js : ml_cmj_cmi src/EditChoicesPage.reast ||  src/EditChoicesPage.d
+build  src/EditResultsPage.reast : build_ast_from_re $src_root_dir/src/EditResultsPage.re
+build  src/EditResultsPage.d : build_deps src/EditResultsPage.reast
+build  src/EditResultsPage-Condorcet.cmj |  src/EditResultsPage-Condorcet.cmi $src_root_dir/src/EditResultsPage.bs.js : ml_cmj_cmi src/EditResultsPage.reast ||  src/EditResultsPage.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
 build  src/PollResultsPage.reast : build_ast_from_re $src_root_dir/src/PollResultsPage.re
 build  src/PollResultsPage.d : build_deps src/PollResultsPage.reast

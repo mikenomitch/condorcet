@@ -9,6 +9,6 @@ let make = (~manageToken, ~notify) => {
 
   switch (result) {
   | None => React.null
-  | Some(result) => <EditChoices result notify />
+  | Some(result) => <EditResults result notify />
   };
 };

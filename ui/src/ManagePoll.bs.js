@@ -41,9 +41,9 @@ function ManagePoll(Props) {
                   }), React.createElement("div", undefined, React.createElement("button", {
                         className: "button",
                         onClick: (function (param) {
-                            return ReasonReactRouter.push("/manage-poll/" + (manageToken + "/edit-choices"));
+                            return ReasonReactRouter.push("/manage-poll/" + (manageToken + "/edit-results"));
                           })
-                      }, R$Condorcet.s("Edit Choices"))));
+                      }, R$Condorcet.s("Edit Results"))));
   } else {
     return null;
   }

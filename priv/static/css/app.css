@@ -134,8 +134,16 @@ h5 {
   margin-bottom: 1rem;
 }
 
+/* =========== */
+/*   SPACING   */
+/* =========== */
 .m-t-sm {
   margin-top: 0.5rem;
+}
+
+.m-h-sm {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .alert {

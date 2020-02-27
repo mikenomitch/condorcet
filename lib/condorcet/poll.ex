@@ -1,7 +1,7 @@
 defmodule Condorcet.Poll do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Condorcet.{Repo, Result}
+  alias Condorcet.{Repo, Result, Response}
 
   schema "polls" do
     field :choices, {:array, :string}
@@ -9,6 +9,7 @@ defmodule Condorcet.Poll do
     field :take_token, :string
     field :manage_token, :string
     has_one :result, Result
+    has_many :responses, Response
 
     timestamps()
   end

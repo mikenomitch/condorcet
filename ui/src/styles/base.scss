@@ -123,6 +123,15 @@ h5 {
   margin-bottom: $spacing-md;
 }
 
+/* =========== */
+/*   SPACING   */
+/* =========== */
+
 .m-t-sm {
   margin-top: $spacing-sm;
+}
+
+.m-h-sm {
+  margin-left: $spacing-sm;
+  margin-right: $spacing-sm;
 }

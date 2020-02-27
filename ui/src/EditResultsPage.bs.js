@@ -3,9 +3,9 @@
 
 var React = require("react");
 var Api$Condorcet = require("./lib/Api.bs.js");
-var EditChoices$Condorcet = require("./EditChoices.bs.js");
+var EditResults$Condorcet = require("./EditResults.bs.js");
 
-function EditChoicesPage(Props) {
+function EditResultsPage(Props) {
   var manageToken = Props.manageToken;
   var notify = Props.notify;
   var match = React.useState((function () {
@@ -18,7 +18,7 @@ function EditChoicesPage(Props) {
           return ;
         }), ([]));
   if (result !== undefined) {
-    return React.createElement(EditChoices$Condorcet.make, {
+    return React.createElement(EditResults$Condorcet.make, {
                 notify: notify,
                 result: result
               });
@@ -27,7 +27,7 @@ function EditChoicesPage(Props) {
   }
 }
 
-var make = EditChoicesPage;
+var make = EditResultsPage;
 
 exports.make = make;
 /* react Not a pure module */

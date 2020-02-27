@@ -11,7 +11,7 @@ var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
 var NotFound$Condorcet = require("./NotFound.bs.js");
 var TakePollPage$Condorcet = require("./TakePollPage.bs.js");
 var ManagePollPage$Condorcet = require("./ManagePollPage.bs.js");
-var EditChoicesPage$Condorcet = require("./EditChoicesPage.bs.js");
+var EditResultsPage$Condorcet = require("./EditResultsPage.bs.js");
 var PollResultsPage$Condorcet = require("./PollResultsPage.bs.js");
 
 function App(Props) {
@@ -49,8 +49,8 @@ function App(Props) {
             var match$3 = match$2[1];
             var manageToken = match$2[0];
             if (match$3) {
-              if (match$3[0] === "edit-choices" && !match$3[1]) {
-                body = React.createElement(EditChoicesPage$Condorcet.make, {
+              if (match$3[0] === "edit-results" && !match$3[1]) {
+                body = React.createElement(EditResultsPage$Condorcet.make, {
                       manageToken: manageToken,
                       notify: notify
                     });

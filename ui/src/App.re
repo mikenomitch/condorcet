@@ -17,8 +17,8 @@ let make = () => {
     | ["why"] => <Why />
     | ["new"] => <NewPoll notify />
     | ["manage-poll", manageToken] => <ManagePollPage manageToken />
-    | ["manage-poll", manageToken, "edit-choices"] =>
-      <EditChoicesPage notify manageToken />
+    | ["manage-poll", manageToken, "edit-results"] =>
+      <EditResultsPage notify manageToken />
     | ["take-poll", pollId] => <TakePollPage notify id=pollId />
     | ["results", pollId] => <PollResultsPage id=pollId />
     | _ => <NotFound />
