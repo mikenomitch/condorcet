@@ -6,9 +6,11 @@ defmodule Condorcet.PollEditor do
   def remove_choice_from_poll(orig_poll = %Poll{}, choice) do
     Multi.new()
     |> Multi.run(:poll, fn(repo, _) ->
+      new_choices = orig_poll.choices -- [choice]
+
       new_attrs = %{
-        "question" => orig_poll.question <> "hey",
-        "choices" => orig_poll.choices,
+        "question" => orig_poll.question,
+        "choices" => new_choices,
         "take_token" => orig_poll.take_token,
         "manage_token" => orig_poll.manage_token,
       }
@@ -18,9 +20,9 @@ defmodule Condorcet.PollEditor do
       |> repo.insert_or_update()
     end)
     |> Multi.run(:responses, fn(repo, %{poll: poll}) ->
-      query = from(Response, where: [poll_id: ^poll.id])
-      responses = repo.all(query)
-      {:ok, responses}
+      query = from(r in Response, where: [poll_id: ^poll.id])
+      repo.update_all(query, pull: [order: choice])
+      {:ok, repo.all(query)}
     end)
     |> Multi.run(:result, fn(repo, changes) ->
         %{responses: responses, poll: poll} = changes
@@ -35,7 +37,6 @@ defmodule Condorcet.PollEditor do
         |> repo.get_by(poll_id: poll.id)
         |> Result.changeset(result_attrs)
         |> repo.insert_or_update()
-      # recalculate the result
     end)
     |> Repo.transaction()
   end

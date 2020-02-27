@@ -63,8 +63,6 @@ defmodule CondorcetWeb.Api.V1.PollController do
       }
     } = PollEditor.remove_choice_from_poll(orig_poll, choice)
 
-    # TODO: update all the responses and retally it
-
     render(conn,
       "manage_results.json",
       poll: poll,

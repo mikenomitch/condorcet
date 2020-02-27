@@ -31,7 +31,7 @@ defmodule Condorcet.Response do
       |> Multi.insert(:response, response_cs)
       |> Multi.run(:result, fn (repo, _) ->
         query = from(Response, where: [poll_id: ^poll.id])
-        responses = Repo.all(query)
+        responses = repo.all(query)
 
         result_attrs = %{
           winners: Tally.calc_winners(responses),
