@@ -29,5 +29,6 @@ condorcet-*.tar
 
 /ui/.cache
 /ui/node_modules
+/ui/lib/bs
 
 /node_modules

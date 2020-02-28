@@ -15,8 +15,8 @@ let make = (~result: Data.result) => {
     };
   };
 
-  let renderResponseNames = names => {
-    switch (names) {
+  let renderResponseNames = responses => {
+    switch (List.map((r: Data.resultResponse) => r.name, responses)) {
     | [] => React.null
     | nameList =>
       <p> {nameList |> Array.of_list |> Js.Array.joinWith(", ") |> R.s} </p>
@@ -117,7 +117,7 @@ let make = (~result: Data.result) => {
           }}
          {switch (result.winners) {
           | Some(_winners) =>
-            <div>
+            <div className="m-t-sm">
               <a href="/why#alternative-methods">
                 {R.s("What do these results mean?")}
               </a>
@@ -129,7 +129,7 @@ let make = (~result: Data.result) => {
      }}
     <div className="responses-holder">
       {renderResponseCount(result.responseCount)}
-      {renderResponseNames(result.names)}
+      {renderResponseNames(result.responses)}
     </div>
     <br />
   </div>;

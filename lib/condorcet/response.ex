@@ -39,9 +39,15 @@ defmodule Condorcet.Response do
   def destroy_and_update_result(id) do
     response = Repo.get(Response, id)
     Multi.new()
-    |> Multi.destroy(:response, id)
+    |> Multi.run(:response, fn (repo, _) ->
+      repo.delete(response)
+    end)
     |> Multi.run(:result, fn (repo, _) ->
-      recalc_responses(repo, response.poll_id)
+      with res = %Result{} <- recalc_responses(repo, response.poll_id) do
+        {:ok, res}
+      else
+        error -> error
+      end
     end)
     |> Repo.transaction()
   end
@@ -58,9 +64,9 @@ defmodule Condorcet.Response do
     response_count: Enum.count(responses)
   }
 
-  case repo.get_by(Result, poll_id: poll_id) do
-    nil  -> %Result{poll_id: poll_id}
-    res -> res
-  end
+  Result
+  |> repo.get_by(poll_id: poll_id)
+  |> Result.changeset(result_attrs)
+  |> repo.insert_or_update()
  end
 end

@@ -95,6 +95,15 @@ function removeChoice(manageToken, choice) {
               }));
 }
 
+function destroyResponse(manageToken, responseId) {
+  var url = baseUrl + ("/api/v1/polls/" + (manageToken + ("/remove_response/" + String(responseId))));
+  return fetch(url, Fetch.RequestInit.make(/* Delete */4, {
+                      "Content-Type": "application/json"
+                    }, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined)(/* () */0)).then((function (res) {
+                return Promise.resolve(res);
+              }));
+}
+
 var protocol = Constants$Condorcet.protocol;
 
 var host = Constants$Condorcet.host;
@@ -108,4 +117,5 @@ exports.fetchManageResult = fetchManageResult;
 exports.createPoll = createPoll;
 exports.submitPoll = submitPoll;
 exports.removeChoice = removeChoice;
+exports.destroyResponse = destroyResponse;
 /* Data-Condorcet Not a pure module */

@@ -1,7 +1,7 @@
 [@react.component]
 let make = (~notify, ~result: Data.result) => {
   let (choiceToRemove, setChoiceToRemove) = React.useState(_ => None);
-  let (ballotToRemove, setBallotToRemove) = React.useState(_ => None);
+  let (responseToRemove, setResponseToRemove) = React.useState(_ => None);
 
   let removeChoice = (manageToken, choice) => {
     Js.Promise.(
@@ -21,20 +21,36 @@ let make = (~notify, ~result: Data.result) => {
     |> ignore;
   };
 
-  let removeBallot = (_manageToken, name) => {
-    notify("info", "TODO: " ++ name);
+  let removeResponse = (manageToken, id) => {
+    Js.Promise.(
+      Api.destroyResponse(manageToken, id)
+      |> then_((res: Fetch.Response.t) => {
+           switch (Fetch.Response.status(res)) {
+           | 200
+           | 201
+           | 204 =>
+             ReasonReactRouter.push("/manage-poll/" ++ manageToken);
+             notify("info", "Results recalculated without response");
+             resolve();
+           | _ =>
+             notify("error", "There was an error removing this response");
+             resolve();
+           }
+         })
+    )
+    |> ignore;
   };
 
-  let renderResponse = name => {
-    <div className="remove-choice" key=name>
+  let renderResponse = (response: Data.resultResponse) => {
+    <div className="remove-choice" key={response.name}>
       <div>
         <button
           className="button button-sm"
-          onClick={_ => setBallotToRemove(_state => Some(name))}>
+          onClick={_ => setResponseToRemove(_state => Some(response))}>
           <i className="far fa-trash-alt" />
         </button>
       </div>
-      <div> {R.s(name)} </div>
+      <div> {R.s(response.name)} </div>
     </div>;
   };
 
@@ -72,11 +88,11 @@ let make = (~notify, ~result: Data.result) => {
     };
   };
 
-  let renderBallotRemove = (result: Data.result) => {
+  let renderResponseRemove = (result: Data.result) => {
     <div>
       <h4 className="centered"> {R.s("Select a response to remove:")} </h4>
       <div className="remove-choice-list">
-        {result.names
+        {result.responses
          |> List.map(renderResponse)
          |> Array.of_list
          |> React.array}
@@ -113,7 +129,8 @@ let make = (~notify, ~result: Data.result) => {
     };
   };
 
-  let renderBallotRemoveConfirmation = (poll: Data.poll, name) => {
+  let renderResponseRemovalConfitmation =
+      (poll: Data.poll, response: Data.resultResponse) => {
     switch (poll.manageToken) {
     | None => React.null
     | Some(token) =>
@@ -122,19 +139,19 @@ let make = (~notify, ~result: Data.result) => {
         <p>
           {R.s(
              "'"
-             ++ name
+             ++ response.name
              ++ "' will be permanently removed and the results will be recalculated",
            )}
         </p>
         <div className="centered">
           <button
             className="button m-h-sm"
-            onClick={_ => setBallotToRemove(_state => None)}>
+            onClick={_ => setResponseToRemove(_state => None)}>
             {R.s("Keep Response")}
           </button>
           <button
             className="button m-h-sm"
-            onClick={_ => removeBallot(token, name)}>
+            onClick={_ => removeResponse(token, response.id)}>
             {R.s("Remove Response")}
           </button>
         </div>
@@ -144,15 +161,28 @@ let make = (~notify, ~result: Data.result) => {
 
   <div className="page">
     <h3 className="centered"> {R.s("Edit Results")} </h3>
-    {switch (choiceToRemove, ballotToRemove) {
+    {switch (choiceToRemove, responseToRemove) {
      | (Some(choice), _) =>
        renderChoiceRemovalConfirmation(result.poll, choice)
-     | (_, Some(ballot)) =>
-       renderBallotRemoveConfirmation(result.poll, ballot)
+     | (_, Some(response)) =>
+       renderResponseRemovalConfitmation(result.poll, response)
      | _ =>
        <div>
          {renderChoiceRemove(result.poll)}
-         {renderBallotRemove(result)}
+         {renderResponseRemove(result)}
+         {switch (result.poll.manageToken) {
+          | None => React.null
+          | Some(manageToken) =>
+            <div className="centered m-t-sm">
+              <button
+                className="button"
+                onClick={_ =>
+                  ReasonReactRouter.push("/manage-poll/" ++ manageToken)
+                }>
+                {R.s("Back")}
+              </button>
+            </div>
+          }}
        </div>
      }}
   </div>;

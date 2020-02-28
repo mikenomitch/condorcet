@@ -12,7 +12,7 @@ type response = {
 };
 
 type resultResponse = {
-  id: option(int),
+  id: int,
   name: string,
 };
 
@@ -89,7 +89,10 @@ module Decode = {
     };
 
   let dResultResponse = (json): resultResponse => {
-    Json.Decode.{};
+    Json.Decode.{
+      id: json |> field("id", int),
+      name: json |> field("name", string),
+    };
   };
 
   let dResult = (json): result =>
@@ -98,7 +101,7 @@ module Decode = {
       winners: json |> optional(field("winners", dWinnerMap)),
       fullResults: json |> optional(field("full_results", dfullResults)),
       responseCount: json |> field("response_count", int),
-      responses: json |> field("responses", dResultResponse),
+      responses: json |> field("responses", list(dResultResponse)),
     };
 
   let dErrorsPollMap = (json): errorsMap =>
@@ -145,7 +148,7 @@ let encodePoll = (poll: poll) =>
     ("choices", Json.Encode.list(Json.Encode.string, poll.choices)),
   ]);
 
-let encodeResponse = response =>
+let encodeResponse = (response: response) =>
   Json.Encode.object_([
     ("name", Json.Encode.string(response.name)),
     ("order", Json.Encode.list(Json.Encode.string, response.order)),

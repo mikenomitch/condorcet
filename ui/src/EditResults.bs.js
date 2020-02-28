@@ -20,22 +20,22 @@ function EditResults(Props) {
   var match$1 = React.useState((function () {
           return ;
         }));
-  var setBallotToRemove = match$1[1];
-  var ballotToRemove = match$1[0];
-  var renderResponse = function (name) {
+  var setResponseToRemove = match$1[1];
+  var responseToRemove = match$1[0];
+  var renderResponse = function (response) {
     return React.createElement("div", {
-                key: name,
+                key: response.name,
                 className: "remove-choice"
               }, React.createElement("div", undefined, React.createElement("button", {
                         className: "button button-sm",
                         onClick: (function (param) {
-                            return Curry._1(setBallotToRemove, (function (_state) {
-                                          return name;
+                            return Curry._1(setResponseToRemove, (function (_state) {
+                                          return response;
                                         }));
                           })
                       }, React.createElement("i", {
                             className: "far fa-trash-alt"
-                          }))), React.createElement("div", undefined, R$Condorcet.s(name)));
+                          }))), React.createElement("div", undefined, R$Condorcet.s(response.name)));
   };
   var renderChoice = function (choice) {
     return React.createElement("div", {
@@ -70,12 +70,12 @@ function EditResults(Props) {
       return null;
     }
   };
-  var renderBallotRemove = function (result) {
+  var renderResponseRemove = function (result) {
     return React.createElement("div", undefined, React.createElement("h4", {
                     className: "centered"
                   }, R$Condorcet.s("Select a response to remove:")), React.createElement("div", {
                     className: "remove-choice-list"
-                  }, $$Array.of_list(List.map(renderResponse, result.names))));
+                  }, $$Array.of_list(List.map(renderResponse, result.responses))));
   };
   var renderChoiceRemovalConfirmation = function (poll, choice) {
     var match = poll.manageToken;
@@ -114,39 +114,77 @@ function EditResults(Props) {
       return null;
     }
   };
-  var renderBallotRemoveConfirmation = function (poll, name) {
+  var renderResponseRemovalConfitmation = function (poll, response) {
     var match = poll.manageToken;
     if (match !== undefined) {
       var token = match;
       return React.createElement("div", undefined, React.createElement("h4", {
                       className: "centered"
-                    }, R$Condorcet.s("Are you sure?")), React.createElement("p", undefined, R$Condorcet.s("'" + (name + "' will be permanently removed and the results will be recalculated"))), React.createElement("div", {
+                    }, R$Condorcet.s("Are you sure?")), React.createElement("p", undefined, R$Condorcet.s("'" + (response.name + "' will be permanently removed and the results will be recalculated"))), React.createElement("div", {
                       className: "centered"
                     }, React.createElement("button", {
                           className: "button m-h-sm",
                           onClick: (function (param) {
-                              return Curry._1(setBallotToRemove, (function (_state) {
+                              return Curry._1(setResponseToRemove, (function (_state) {
                                             return ;
                                           }));
                             })
                         }, R$Condorcet.s("Keep Response")), React.createElement("button", {
                           className: "button m-h-sm",
                           onClick: (function (param) {
-                              var name$1 = name;
-                              return Curry._2(notify, "info", "TODO: " + name$1);
+                              var manageToken = token;
+                              var id = response.id;
+                              Api$Condorcet.destroyResponse(manageToken, id).then((function (res) {
+                                      var match = res.status;
+                                      if (match >= 202) {
+                                        if (match !== 204) {
+                                          Curry._2(notify, "error", "There was an error removing this response");
+                                          return Promise.resolve(/* () */0);
+                                        }
+                                        
+                                      } else if (match < 200) {
+                                        Curry._2(notify, "error", "There was an error removing this response");
+                                        return Promise.resolve(/* () */0);
+                                      }
+                                      ReasonReactRouter.push("/manage-poll/" + manageToken);
+                                      Curry._2(notify, "info", "Results recalculated without response");
+                                      return Promise.resolve(/* () */0);
+                                    }));
+                              return /* () */0;
                             })
                         }, R$Condorcet.s("Remove Response"))));
     } else {
       return null;
     }
   };
+  var tmp;
+  if (choiceToRemove !== undefined) {
+    tmp = renderChoiceRemovalConfirmation(result.poll, choiceToRemove);
+  } else if (responseToRemove !== undefined) {
+    tmp = renderResponseRemovalConfitmation(result.poll, responseToRemove);
+  } else {
+    var match$2 = result.poll.manageToken;
+    var tmp$1;
+    if (match$2 !== undefined) {
+      var manageToken = match$2;
+      tmp$1 = React.createElement("div", {
+            className: "centered m-t-sm"
+          }, React.createElement("button", {
+                className: "button",
+                onClick: (function (param) {
+                    return ReasonReactRouter.push("/manage-poll/" + manageToken);
+                  })
+              }, R$Condorcet.s("Back")));
+    } else {
+      tmp$1 = null;
+    }
+    tmp = React.createElement("div", undefined, renderChoiceRemove(result.poll), renderResponseRemove(result), tmp$1);
+  }
   return React.createElement("div", {
               className: "page"
             }, React.createElement("h3", {
                   className: "centered"
-                }, R$Condorcet.s("Edit Results")), choiceToRemove !== undefined ? renderChoiceRemovalConfirmation(result.poll, choiceToRemove) : (
-                ballotToRemove !== undefined ? renderBallotRemoveConfirmation(result.poll, ballotToRemove) : React.createElement("div", undefined, renderChoiceRemove(result.poll), renderBallotRemove(result))
-              ));
+                }, R$Condorcet.s("Edit Results")), tmp);
 }
 
 var make = EditResults;

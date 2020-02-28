@@ -30,13 +30,4 @@ defmodule CondorcetWeb.Api.V1.ResponseController do
       other -> other
     end
   end
-
-  def destroy(conn, %{"response_id" => response_id}) do
-    with {:ok, _changes} <- Response.destroy_and_update_result(response_id) do
-      put_status(conn, :destroyed)
-    else
-      {:error, _, error, _} -> {:error, error}
-      other -> other
-    end
-  end
 end

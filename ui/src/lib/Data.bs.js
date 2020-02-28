@@ -65,6 +65,13 @@ function dWinnerMap(json) {
         };
 }
 
+function dResultResponse(json) {
+  return {
+          id: Json_decode.field("id", Json_decode.$$int, json),
+          name: Json_decode.field("name", Json_decode.string, json)
+        };
+}
+
 function dResult(json) {
   return {
           winners: Json_decode.optional((function (param) {
@@ -73,8 +80,8 @@ function dResult(json) {
           fullResults: Json_decode.optional((function (param) {
                   return Json_decode.field("full_results", dfullResults, param);
                 }), json),
-          names: Json_decode.field("names", (function (param) {
-                  return Json_decode.list(Json_decode.string, param);
+          responses: Json_decode.field("responses", (function (param) {
+                  return Json_decode.list(dResultResponse, param);
                 }), json),
           responseCount: Json_decode.field("response_count", Json_decode.$$int, json),
           poll: Json_decode.field("poll", dPoll, json)
@@ -137,6 +144,7 @@ var Decode = {
   dResponse: dResponse,
   dfullResults: dfullResults,
   dWinnerMap: dWinnerMap,
+  dResultResponse: dResultResponse,
   dResult: dResult,
   dErrorsPollMap: dErrorsPollMap,
   dPollErrors: dPollErrors,

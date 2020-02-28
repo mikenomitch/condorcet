@@ -70,4 +70,13 @@ defmodule CondorcetWeb.Api.V1.PollController do
       responses: responses
     )
   end
+
+  def remove_response(conn, %{"poll_id" => manage_token, "response_id" => response_id}) do
+    with {:ok, _changes} <- Response.destroy_and_update_result(response_id) do
+      send_resp(conn, :no_content, "")
+    else
+      {:error, _, error, _} -> {:error, error}
+      other -> other
+    end
+  end
 end

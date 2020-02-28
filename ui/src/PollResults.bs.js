@@ -35,9 +35,12 @@ function PollResults(Props) {
       return React.createElement("p", undefined, R$Condorcet.s("No responses yet"));
     }
   };
-  var renderResponseNames = function (names) {
-    if (names) {
-      return React.createElement("p", undefined, R$Condorcet.s($$Array.of_list(names).join(", ")));
+  var renderResponseNames = function (responses) {
+    var nameList = List.map((function (r) {
+            return r.name;
+          }), responses);
+    if (nameList) {
+      return React.createElement("p", undefined, R$Condorcet.s($$Array.of_list(nameList).join(", ")));
     } else {
       return null;
     }
@@ -84,7 +87,9 @@ function PollResults(Props) {
     var pluralityString = renderWinnerString(winnerMap.plurality, "Plurality");
     var match$4 = winnerMap.condorcet;
     var match$5 = result.winners;
-    tmp = React.createElement("div", undefined, match$4 !== undefined ? React.createElement("p", undefined, R$Condorcet.s("Condorcet Winner: "), React.createElement("b", undefined, R$Condorcet.s(match$4))) : React.createElement("p", undefined, R$Condorcet.s("No Condorcet Winner")), React.createElement("p", undefined, R$Condorcet.s(rankedString), renderWinners(winnerMap.ranked)), showingFullResults ? renderRankedResults(resultsMap.ranked) : null, React.createElement("p", undefined, R$Condorcet.s(bordaString), renderWinners(winnerMap.borda)), showingFullResults ? renderFullResult(resultsMap.borda, "point", "points") : null, React.createElement("p", undefined, R$Condorcet.s(pluralityString), renderWinners(winnerMap.plurality)), showingFullResults ? renderFullResult(resultsMap.plurality, "first place vote", "first place votes") : null, match$5 !== undefined ? React.createElement("div", undefined, React.createElement("a", {
+    tmp = React.createElement("div", undefined, match$4 !== undefined ? React.createElement("p", undefined, R$Condorcet.s("Condorcet Winner: "), React.createElement("b", undefined, R$Condorcet.s(match$4))) : React.createElement("p", undefined, R$Condorcet.s("No Condorcet Winner")), React.createElement("p", undefined, R$Condorcet.s(rankedString), renderWinners(winnerMap.ranked)), showingFullResults ? renderRankedResults(resultsMap.ranked) : null, React.createElement("p", undefined, R$Condorcet.s(bordaString), renderWinners(winnerMap.borda)), showingFullResults ? renderFullResult(resultsMap.borda, "point", "points") : null, React.createElement("p", undefined, R$Condorcet.s(pluralityString), renderWinners(winnerMap.plurality)), showingFullResults ? renderFullResult(resultsMap.plurality, "first place vote", "first place votes") : null, match$5 !== undefined ? React.createElement("div", {
+                className: "m-t-sm"
+              }, React.createElement("a", {
                     href: "/why#alternative-methods"
                   }, R$Condorcet.s("What do these results mean?"))) : null);
   } else {
@@ -97,7 +102,7 @@ function PollResults(Props) {
                         onClick: changeFullRes
                       }, R$Condorcet.s(showingFullResults ? "Hide full results" : "Show full results")) : null), tmp, React.createElement("div", {
                   className: "responses-holder"
-                }, renderResponseCount(result.responseCount), renderResponseNames(result.names)), React.createElement("br", undefined));
+                }, renderResponseCount(result.responseCount), renderResponseNames(result.responses)), React.createElement("br", undefined));
 }
 
 var make = PollResults;

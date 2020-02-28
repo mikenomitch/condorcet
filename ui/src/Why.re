@@ -58,17 +58,16 @@ let make = () => {
          ",
        )}
     </p>
-    <h4 id="alternative-methods" className="centered">
-      {R.s("The alternative methods")}
-    </h4>
     <p>
       {R.s(
          "
-          Luckily, some solutions to this problem already exist.
-          These are the methods that Poller.io uses:
+          Poller.io uses a few methods to improve the results.
          ",
        )}
     </p>
+    <h4 id="alternative-methods" className="centered">
+      {R.s("The alternative methods")}
+    </h4>
     <p>
       <b> {R.s("Instant Runoff Voting (IRV):")} </b>
       <br />

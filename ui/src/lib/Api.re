@@ -119,3 +119,24 @@ let removeChoice = (manageToken, choice) => {
     |> then_(json => Data.Decode.dResultOrErrors(json) |> resolve)
   );
 };
+
+let destroyResponse = (manageToken, responseId) => {
+  let url =
+    baseUrl
+    ++ "/api/v1/polls/"
+    ++ manageToken
+    ++ "/remove_response/"
+    ++ string_of_int(responseId);
+
+  Js.Promise.(
+    Fetch.fetchWithInit(
+      url,
+      Fetch.RequestInit.make(
+        ~method_=Delete,
+        ~headers=Fetch.HeadersInit.make({"Content-Type": "application/json"}),
+        (),
+      ),
+    )
+    |> then_(res => res |> resolve)
+  );
+};
