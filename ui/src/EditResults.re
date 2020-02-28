@@ -89,15 +89,20 @@ let make = (~notify, ~result: Data.result) => {
   };
 
   let renderResponseRemove = (result: Data.result) => {
-    <div>
-      <h4 className="centered"> {R.s("Select a response to remove:")} </h4>
-      <div className="remove-choice-list">
-        {result.responses
-         |> List.map(renderResponse)
-         |> Array.of_list
-         |> React.array}
-      </div>
-    </div>;
+    let showRemove = List.length(result.responses) > 0;
+    if (showRemove) {
+      <div>
+        <h4 className="centered"> {R.s("Select a response to remove:")} </h4>
+        <div className="remove-choice-list">
+          {result.responses
+           |> List.map(renderResponse)
+           |> Array.of_list
+           |> React.array}
+        </div>
+      </div>;
+    } else {
+      React.null;
+    };
   };
 
   let renderChoiceRemovalConfirmation = (poll: Data.poll, choice) => {
@@ -173,7 +178,7 @@ let make = (~notify, ~result: Data.result) => {
          {switch (result.poll.manageToken) {
           | None => React.null
           | Some(manageToken) =>
-            <div className="centered m-t-sm">
+            <div className="centered m-t-md">
               <button
                 className="button"
                 onClick={_ =>

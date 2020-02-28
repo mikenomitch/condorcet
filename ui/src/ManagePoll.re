@@ -1,5 +1,8 @@
 [@react.component]
 let make = (~result: Data.result) => {
+  let showEditLink =
+    List.length(result.poll.choices) > 2 || List.length(result.responses) > 0;
+
   let renderManage = (pollId, manageToken, takeToken) => {
     <div className="page">
       <h3 className="centered"> {R.s(result.poll.question)} </h3>
@@ -23,15 +26,17 @@ let make = (~result: Data.result) => {
       </div>
       <PollResults result />
       <div>
-        <button
-          className="button"
-          onClick={_ =>
-            ReasonReactRouter.push(
-              "/manage-poll/" ++ manageToken ++ "/edit-results",
-            )
-          }>
-          {R.s("Edit Results")}
-        </button>
+        {showEditLink
+           ? <button
+               className="button"
+               onClick={_ =>
+                 ReasonReactRouter.push(
+                   "/manage-poll/" ++ manageToken ++ "/edit-results",
+                 )
+               }>
+               {R.s("Edit Results")}
+             </button>
+           : React.null}
       </div>
     </div>;
   };

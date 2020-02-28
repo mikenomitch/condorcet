@@ -20,9 +20,9 @@ let make = () => {
     </div>
     <br />
     <p className="centered">
-      <a className="centered" onClick={_ => ReasonReactRouter.push("/why")}>
+      <Link className="centered" linkTo="/why">
         {R.s("What are the advantages compared to standard elections?")}
-      </a>
+      </Link>
     </p>
   </div>;
 };

@@ -141,6 +141,14 @@ h5 {
   margin-top: 0.5rem;
 }
 
+.m-t-md {
+  margin-top: 1rem;
+}
+
+.m-t-lg {
+  margin-top: 1rem;
+}
+
 .m-h-sm {
   margin-left: 0.5rem;
   margin-right: 0.5rem;

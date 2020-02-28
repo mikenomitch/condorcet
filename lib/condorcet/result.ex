@@ -13,6 +13,9 @@ defmodule Condorcet.Result do
 
   @doc false
   def changeset(result, attrs) do
+    IO.puts "==attrs=="
+    IO.inspect attrs
+
     result
     |> cast(attrs, [:winners, :full_results, :response_count])
     |> validate_required([:winners, :full_results, :response_count])

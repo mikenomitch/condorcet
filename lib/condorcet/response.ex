@@ -36,21 +36,23 @@ defmodule Condorcet.Response do
       |> Repo.transaction()
   end
 
-  # PRIVATE
+  def recalc_responses(repo, poll_id) do
+   query = from(Response, where: [poll_id: ^poll_id])
+   responses = repo.all(query)
 
- defp recalc_responses(repo, poll_id) do
-  query = from(Response, where: [poll_id: ^poll_id])
-  responses = repo.all(query)
+   result_attrs = %{
+     winners: Tally.calc_winners(responses),
+     full_results: Tally.full_results(responses),
+     response_count: Enum.count(responses)
+   }
 
-  result_attrs = %{
-    winners: Tally.calc_winners(responses),
-    full_results: Tally.full_results(responses),
-    response_count: Enum.count(responses)
-  }
+   result = case repo.get_by(Result, poll_id: poll_id) do
+     nil  -> %Result{poll_id: poll_id}
+     res -> res
+   end
 
-  Result
-  |> repo.get_by(poll_id: poll_id)
-  |> Result.changeset(result_attrs)
-  |> repo.insert_or_update()
- end
+   result
+   |> Result.changeset(result_attrs)
+   |> repo.insert_or_update()
+  end
 end

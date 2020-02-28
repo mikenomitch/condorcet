@@ -3,6 +3,7 @@
 
 var React = require("react");
 var R$Condorcet = require("./lib/R.bs.js");
+var Link$Condorcet = require("./ui/Link.bs.js");
 var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
 
 function Home(Props) {
@@ -23,12 +24,11 @@ function Home(Props) {
                         })
                     }, R$Condorcet.s("Create a Poll"))), React.createElement("br", undefined), React.createElement("p", {
                   className: "centered"
-                }, React.createElement("a", {
+                }, React.createElement(Link$Condorcet.make, {
+                      linkTo: "/why",
                       className: "centered",
-                      onClick: (function (param) {
-                          return ReasonReactRouter.push("/why");
-                        })
-                    }, R$Condorcet.s("What are the advantages compared to standard elections?"))));
+                      children: R$Condorcet.s("What are the advantages compared to standard elections?")
+                    })));
 }
 
 var make = Home;

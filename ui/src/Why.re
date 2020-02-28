@@ -5,7 +5,7 @@ let make = () => {
     <h4 className="centered"> {R.s("The problem with plurality voting")} </h4>
     <p>
       {R.s(
-         "Deciding between two options is often simple, as you can just select whichever gets the most votes.
+         "Deciding between two options is often simple, as you can just select the option with the most votes.
          Once more than two options are included, it become significantly harder to determine the ideal winner.
          ",
        )}
@@ -77,8 +77,8 @@ let make = () => {
       </a>
       {R.s(
          ", voters rank each option. If no single option has a majority of
-        first place votes, the option with the lowest number of first place votes is eliminated, and
-        the process is run again. This continues until a single option has a majority of first place
+        first place votes, the option with the lowest number of first place votes is removed from the rankings,
+        and the process is run again. This continues until a single option has a majority of first place
         votes.
       ",
        )}
@@ -126,9 +126,8 @@ let make = () => {
         {R.s("none of these methods are perfect")}
       </a>
       {R.s(
-         ", but we hope by
-         making all of these easy to conduct simultaneously, you can make the best choice
-         for your specific situation.",
+         ",but with all methods run simultaneously, hopefully you can make
+         the best choice for your specific situation.",
        )}
     </p>
     <p>

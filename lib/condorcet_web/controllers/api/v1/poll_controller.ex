@@ -72,10 +72,12 @@ defmodule CondorcetWeb.Api.V1.PollController do
   end
 
   def remove_response(conn, %{"poll_id" => manage_token, "response_id" => response_id}) do
-    with {:ok, _changes} <- PollEditor.remove_response_from_poll(response_id) do
+    with %Poll{} <- Repo.get_by(Poll, manage_token: manage_token),
+      {:ok, _changes} <- PollEditor.remove_response_from_poll(response_id) do
       send_resp(conn, :no_content, "")
     else
       {:error, _, error, _} -> {:error, error}
+      nil -> {:error, :unauthorized}
       other -> other
     end
   end

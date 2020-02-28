@@ -71,11 +71,16 @@ function EditResults(Props) {
     }
   };
   var renderResponseRemove = function (result) {
-    return React.createElement("div", undefined, React.createElement("h4", {
-                    className: "centered"
-                  }, R$Condorcet.s("Select a response to remove:")), React.createElement("div", {
-                    className: "remove-choice-list"
-                  }, $$Array.of_list(List.map(renderResponse, result.responses))));
+    var showRemove = List.length(result.responses) > 0;
+    if (showRemove) {
+      return React.createElement("div", undefined, React.createElement("h4", {
+                      className: "centered"
+                    }, R$Condorcet.s("Select a response to remove:")), React.createElement("div", {
+                      className: "remove-choice-list"
+                    }, $$Array.of_list(List.map(renderResponse, result.responses))));
+    } else {
+      return null;
+    }
   };
   var renderChoiceRemovalConfirmation = function (poll, choice) {
     var match = poll.manageToken;
@@ -168,7 +173,7 @@ function EditResults(Props) {
     if (match$2 !== undefined) {
       var manageToken = match$2;
       tmp$1 = React.createElement("div", {
-            className: "centered m-t-sm"
+            className: "centered m-t-md"
           }, React.createElement("button", {
                 className: "button",
                 onClick: (function (param) {

@@ -25,8 +25,11 @@ defmodule Condorcet.PollEditor do
       {:ok, repo.all(query)}
     end)
     |> Multi.run(:result, fn(repo, changes) ->
-        %{responses: responses, poll: poll} = changes
+      %{responses: responses, poll: poll} = changes
 
+      if has_no_response(repo, poll.id) do
+        {:ok, %Result{response_count: 0}}
+      else
         result_attrs = %{
           winners: Tally.calc_winners(responses),
           full_results: Tally.full_results(responses),
@@ -37,6 +40,7 @@ defmodule Condorcet.PollEditor do
         |> repo.get_by(poll_id: poll.id)
         |> Result.changeset(result_attrs)
         |> repo.insert_or_update()
+      end
     end)
     |> Repo.transaction()
   end
@@ -48,11 +52,8 @@ defmodule Condorcet.PollEditor do
     |> Multi.run(:response, fn (repo, _) ->
       repo.delete(response)
     end)
-    |> Multi.run(:result, fn (repo, _) ->
-      count_query = from(r in Response, where: [poll_id: ^response.poll_id], select: count(r.id))
-      count = repo.one(count_query)
-
-      if (count == 0) do
+    |> Multi.run(:result, fn (repo, changes) ->
+      if has_no_response(repo, response.poll_id) do
         result = repo.get_by(Result, poll_id: response.poll_id)
         repo.delete(result)
       else
@@ -65,5 +66,11 @@ defmodule Condorcet.PollEditor do
 
     end)
     |> Repo.transaction()
+  end
+
+  defp has_no_response(repo, poll_id) do
+    count_query = from(r in Response, where: [poll_id: ^poll_id], select: count(r.id))
+    count = repo.one(count_query)
+    count == 0
   end
 end
