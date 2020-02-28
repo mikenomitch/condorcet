@@ -21,7 +21,7 @@ defmodule Condorcet.Response do
   end
 
   def create_for_poll(take_token, attrs) do
-    poll = Poll |> Repo.get_by(take_token: take_token)
+    poll = Repo.get_by(Poll, take_token: take_token)
 
     response_cs = poll
       |> Ecto.build_assoc(:responses, attrs)
@@ -34,22 +34,6 @@ defmodule Condorcet.Response do
       end
       )
       |> Repo.transaction()
-  end
-
-  def destroy_and_update_result(id) do
-    response = Repo.get(Response, id)
-    Multi.new()
-    |> Multi.run(:response, fn (repo, _) ->
-      repo.delete(response)
-    end)
-    |> Multi.run(:result, fn (repo, _) ->
-      with res = %Result{} <- recalc_responses(repo, response.poll_id) do
-        {:ok, res}
-      else
-        error -> error
-      end
-    end)
-    |> Repo.transaction()
   end
 
   # PRIVATE

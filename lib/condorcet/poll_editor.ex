@@ -40,4 +40,30 @@ defmodule Condorcet.PollEditor do
     end)
     |> Repo.transaction()
   end
+
+  def remove_response_from_poll(resp_id) do
+    response = Repo.get(Response, resp_id)
+
+    Multi.new()
+    |> Multi.run(:response, fn (repo, _) ->
+      repo.delete(response)
+    end)
+    |> Multi.run(:result, fn (repo, _) ->
+      count_query = from(r in Response, where: [poll_id: ^response.poll_id], select: count(r.id))
+      count = repo.one(count_query)
+
+      if (count == 0) do
+        result = repo.get_by(Result, poll_id: response.poll_id)
+        repo.delete(result)
+      else
+        with res = %Result{} <- Response.recalc_responses(repo, response.poll_id) do
+          {:ok, res}
+        else
+          error -> error
+        end
+      end
+
+    end)
+    |> Repo.transaction()
+  end
 end

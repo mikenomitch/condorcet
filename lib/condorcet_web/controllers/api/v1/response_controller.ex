@@ -18,8 +18,8 @@ defmodule CondorcetWeb.Api.V1.ResponseController do
     render(conn, "index.json", responses: responses)
   end
 
-  @doc false
   # TODO: this pattern match is incomplete
+  @doc false
   def create(conn, %{"poll_id" => take_token, "response" => attrs}) do
     with {:ok, %{response: response}} <- Response.create_for_poll(take_token, attrs) do
       conn

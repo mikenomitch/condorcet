@@ -30,5 +30,6 @@ condorcet-*.tar
 /ui/.cache
 /ui/node_modules
 /ui/lib/bs
+ui/lib/bs/.ninja_log
 
 /node_modules
