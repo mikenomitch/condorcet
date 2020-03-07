@@ -1,1 +1,1 @@
-cd api && iex -S mix & cd ui && npm run dev
+cd api && mix phx.server & cd ui && npm run dev
