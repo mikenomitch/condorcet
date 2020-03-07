@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
+    <meta name="description" content="Make simple polls using ranked choice voting and alternative election schemes.">
+    <meta name="keywords" content="Poller, Poller.io, Ranked Choice Voting, Instant Runoff, IRV, Preferential Voting, Borda Count, Condorcet, Alternative Vote">
+    <script src="https://kit.fontawesome.com/4897ff24ff.js" crossorigin="anonymous"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-158906511-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-158906511-1');
+    </script>
+
+
+    <script>
+      window.env = {
+        host:  "<%= host %>",
+        protocol:  "<%= protocol %>",
+        indexType: "server",
+      };
+    </script>
+
+    <title>Poller.io</title>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+  </head>
+  <body>
+    <main role="main" class="container">
+      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <div id="app"></div>
+    </main>
+    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/index.js") %>"></script>
+  </body>
+</html>
