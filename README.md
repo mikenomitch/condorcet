@@ -10,6 +10,7 @@
 
 # Running the App (Local)
 
+- Change to `./api` directory
 - Install dependencies with `mix deps.get`
 - Create and migrate your database with `mix ecto.setup`
 - Change to `./ui` directory
@@ -17,7 +18,7 @@
 - `npm install`
 - `npm run dev`
 - `npm run js`
-- Change to home dir
+- Change to `./api` dir
 - `iex -S mix phx.server`
 
 # Running the App (Docker)
