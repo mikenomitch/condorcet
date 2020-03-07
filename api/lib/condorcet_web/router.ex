@@ -28,6 +28,6 @@ defmodule CondorcetWeb.Router do
 
   scope "/", CondorcetWeb do
     pipe_through :browser
-    get "/*_anything", PageController, :index
+    get "/*", PageController, :index
   end
 end

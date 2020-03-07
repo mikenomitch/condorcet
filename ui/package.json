@@ -1,8 +1,7 @@
 {
   "scripts": {
     "deps": "npm install && bsb -make-world",
-    "build": "parcel build ./src/index.re && cp ./dist/index.js ../api/priv/static/js/app.js",
-    "deploy": "parcel build ./src/index.re -d ../api/priv/static/js && parcel build ./src/styles/app.scss -d ../api/priv/static/css",
+    "build": "parcel build ./src/index.re -d ../api/priv/static/js && parcel build ./src/styles/app.scss -d ../api/priv/static/css",
     "dev": "parcel watch ./src/index.re -d ../api/priv/static/js & parcel watch ./src/styles/app.scss -d ../api/priv/static/css"
   },
   "dependencies": {

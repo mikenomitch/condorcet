@@ -38,7 +38,7 @@ let make = () => {
          "
          Aspen wins, but there is an issue. If you were to re-poll the group,
          but instead ask \"Do you want to go to the beach or to the mountains?\",
-         the beach would actually win, and Aspen would lose.
+         the beach would actually win:
          ",
        )}
     </p>
@@ -99,7 +99,7 @@ let make = () => {
       </a>
       {R.s(
          ", the list of ranked options gets converted into a series
-      of head to head polls. If any single option can beat every other option when pitted head
+      of head to head polls. If any single option can beat every other option when compared head
       to head, that option is the \"Condorcet Winner\". Unfortunately, not every election will
       have a Condorcet Winner.
       ",
@@ -113,7 +113,7 @@ let make = () => {
         {R.s("Borda Count")}
       </a>
       {R.s(
-         ", voters rank each option, and points are distributed to each depending on their rank.
+         ", voters rank each option and points are distributed to each according to their rank.
          If there are 3 options, the option in first place on a ballot gets 2 points,
          the option in second gets 1 point, and the option in last place gets 0 points.
          Whichever option has the most points across all ballots wins.
@@ -126,14 +126,13 @@ let make = () => {
         {R.s("none of these methods are perfect")}
       </a>
       {R.s(
-         ",but with all methods run simultaneously, hopefully you can make
+         ", but with all methods run simultaneously, hopefully you can make
          the best choice for your specific situation.",
        )}
     </p>
     <p>
       {R.s("If you prefer learning via video, CPG Grey has a ")}
-      <a
-        href="https://www.youtube.com/watch?v=s7tWHJfhiyo&list=PL7679C7ACE93A5638">
+      <a href="https://www.cgpgrey.com/politics-in-the-animal-kingdom">
         {R.s("YouTube series on this topic")}
       </a>
       {R.s(" that is worth watching.")}

@@ -25,15 +25,15 @@ ENV PARCEL_WORKERS=1
 
 # install mix dependencies
 COPY api/mix.exs api/mix.lock api/config api/
-RUN mix deps.get
-RUN mix deps.compile
+RUN cd api && mix deps.get
+RUN cd api && mix deps.compile
 
 # build assets
 COPY ui ui
 RUN cd ui && npm link bs-platform
 RUN cd ui && npm install
 RUN cd ui && bsb -make-world
-RUN cd ui && npm run deploy
+RUN cd ui && npm run build
 
 COPY ./api ./api/
 EXPOSE 4000
