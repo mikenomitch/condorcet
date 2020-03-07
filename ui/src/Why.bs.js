@@ -40,7 +40,7 @@ function Why(Props) {
                       href: "https://www.fairvote.org/"
                     }, R$Condorcet.s("FairVote")), R$Condorcet.s(" if you would like to see alternative voting in American politics.")), React.createElement("p", undefined, R$Condorcet.s("If you prefer more direct way to do good, consider donating to "), React.createElement("a", {
                       href: "https://secure.givewell.org/"
-                    }, R$Condorcet.s("GiveWell")), R$Condorcet.s(". An organization that specializes in finding the most effective uses of charitable donations.")), React.createElement("br", undefined));
+                    }, R$Condorcet.s("GiveWell")), R$Condorcet.s(". An organization that specializes in finding the most effective uses for charitable donations.")), React.createElement("br", undefined));
 }
 
 var make = Why;

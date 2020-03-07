@@ -163,7 +163,7 @@ let make = () => {
       {R.s("If you prefer more direct way to do good, consider donating to ")}
       <a href="https://secure.givewell.org/"> {R.s("GiveWell")} </a>
       {R.s(
-         ". An organization that specializes in finding the most effective uses of charitable donations.",
+         ". An organization that specializes in finding the most effective uses for charitable donations.",
        )}
     </p>
     <br />
