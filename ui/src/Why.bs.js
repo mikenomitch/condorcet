@@ -38,7 +38,9 @@ function Why(Props) {
                   className: "centered"
                 }, R$Condorcet.s("About the site")), React.createElement("p", undefined, R$Condorcet.s("This site was made to be the simplest way to make group decisions.\n          I really enjoy getting feedback, so feel free to email me at poller(at)mikenomitch(dot)com.")), React.createElement("p", undefined, R$Condorcet.s("Check out "), React.createElement("a", {
                       href: "https://www.fairvote.org/"
-                    }, R$Condorcet.s("FairVote")), R$Condorcet.s(" if you would like to see alternative voting in American politics.")), React.createElement("br", undefined));
+                    }, R$Condorcet.s("FairVote")), R$Condorcet.s(" if you would like to see alternative voting in American politics.")), React.createElement("p", undefined, R$Condorcet.s("If you prefer more direct way to do good, consider donating to "), React.createElement("a", {
+                      href: "https://secure.givewell.org/"
+                    }, R$Condorcet.s("GiveWell")), R$Condorcet.s(". An organization that specializes in finding the most effective uses of charitable donations.")), React.createElement("br", undefined));
 }
 
 var make = Why;
