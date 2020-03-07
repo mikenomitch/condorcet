@@ -22,7 +22,6 @@ defmodule CondorcetWeb.Router do
       resources("/responses", ResponseController)
       get("/results", PollController, :results)
       get("/manage", PollController, :manage_results)
-      get("/manage", PollController, :manage_results)
       delete("/remove_response/:response_id", PollController, :remove_response)
     end
   end

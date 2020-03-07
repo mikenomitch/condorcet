@@ -20,8 +20,8 @@
 
     <script>
       window.env = {
-        host:  "<%= host %>",
-        protocol:  "<%= protocol %>",
+        host:  "<%= host() %>",
+        protocol:  "<%= protocol() %>",
         indexType: "server",
       };
     </script>

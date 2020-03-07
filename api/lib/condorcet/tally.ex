@@ -1,7 +1,4 @@
 defmodule Condorcet.Tally do
-  import Ecto.Query
-  alias Condorcet.{Repo, Response}
-
   def calc_winners(responses) do
     choices = responses |> Enum.map(&(&1.order))
 

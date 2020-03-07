@@ -52,7 +52,7 @@ defmodule Condorcet.PollEditor do
     |> Multi.run(:response, fn (repo, _) ->
       repo.delete(response)
     end)
-    |> Multi.run(:result, fn (repo, changes) ->
+    |> Multi.run(:result, fn (repo, _changes) ->
       if has_no_response(repo, response.poll_id) do
         result = repo.get_by(Result, poll_id: response.poll_id)
         repo.delete(result)

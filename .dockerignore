@@ -1,9 +1,11 @@
 .git
-_build
-deps
-priv/static
+.gitignore
+
+api/_build
+api/deps
+api/priv/static
+
 ui/.cache
 ui/node_modules
 ui/lib/bs
-.formatter.exs
-.gitignore
+api/.formatter.exs

@@ -24,7 +24,7 @@ ENV NODE_ENV=production
 ENV PARCEL_WORKERS=1
 
 # install mix dependencies
-COPY mix.exs mix.lock config ./
+COPY api/mix.exs api/mix.lock api/config api/
 RUN mix deps.get
 RUN mix deps.compile
 
@@ -35,10 +35,7 @@ RUN cd ui && npm install
 RUN cd ui && bsb -make-world
 RUN cd ui && npm run deploy
 
-# ...I think I only need this for a real phx build?
-# RUN mix phx.digest
-
-COPY ./ ./
+COPY ./api ./api/
 EXPOSE 4000
 
-CMD mix phx.server
+CMD cd api && mix phx.server
