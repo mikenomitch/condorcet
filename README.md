@@ -1,6 +1,6 @@
 # Condorcet
 
-# Dependencies
+## Dependencies
 
 - Elixir
 - Postgres
@@ -8,29 +8,26 @@
 - Bucklescript `npm install -g bs-platform`
 - Parcel `npm install -g parcel-bundler`
 
-# Running the App (Local)
+## Running the App (Local)
 
 - Change to `./api` directory
 - Install dependencies with `mix deps.get`
 - Create and migrate your database with `mix ecto.setup`
+
 - Change to `./ui` directory
 - `bsb -make-world`
 - `npm install`
 - `npm run dev`
 - `npm run js`
-- Change to `./api` dir
-- `iex -S mix phx.server`
 
-# Running the App (Docker)
+- Change to home directory
+- Run `./bin/run.sh`
 
-- Run ./bin/docker_build.sh
-- Run ./bin/docker_dun.sh
 - Access the app at localhost:4000
 
-# Running the App (Docker)
+## Running the App (Docker)
 
-To start your Phoenix server:
+- Run `./bin/docker_build.sh`
+- Run `./bin/docker_run.sh`
 
-- Install dependencies with `mix deps.get`
-- Create and migrate your database with `mix ecto.setup`
-- Start Phoenix endpoint with `mix phx.server`
+- Access the app at localhost:4000
