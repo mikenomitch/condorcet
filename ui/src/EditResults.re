@@ -68,41 +68,37 @@ let make = (~notify, ~result: Data.result) => {
   };
 
   let renderChoiceRemove = (poll: Data.poll) => {
-    switch (poll.id, poll.manageToken) {
-    | (Some(_takeToken), Some(_manageToken)) =>
-      let showRemove = List.length(poll.choices) > 2;
-      if (showRemove) {
-        <div>
-          <h4 className="centered"> {R.s("Select a choice to remove:")} </h4>
-          <div className="remove-choice-list">
-            {poll.choices
-             |> List.map(renderChoice)
-             |> Array.of_list
-             |> React.array}
-          </div>
-        </div>;
-      } else {
-        <div> {R.s("Cannot remove a choice when only two exist.")} </div>;
-      };
+    let showRemove = List.length(poll.choices) > 2;
+    switch (showRemove, poll.id, poll.manageToken) {
+    | (true, Some(_takeToken), Some(_manageToken)) =>
+      <div>
+        <h4 className="centered"> {R.s("Select a choice to remove:")} </h4>
+        <div className="remove-choice-list">
+          {poll.choices
+           |> List.map(renderChoice)
+           |> Array.of_list
+           |> React.array}
+        </div>
+      </div>
     | _ => React.null
     };
   };
 
   let renderResponseRemove = (result: Data.result) => {
     let showRemove = List.length(result.responses) > 0;
-    if (showRemove) {
-      <div>
-        <h4 className="centered"> {R.s("Select a response to remove:")} </h4>
-        <div className="remove-choice-list">
-          {result.responses
-           |> List.map(renderResponse)
-           |> Array.of_list
-           |> React.array}
+    showRemove
+      ? <div>
+          <h4 className="centered">
+            {R.s("Select a response to remove:")}
+          </h4>
+          <div className="remove-choice-list">
+            {result.responses
+             |> List.map(renderResponse)
+             |> Array.of_list
+             |> React.array}
+          </div>
         </div>
-      </div>;
-    } else {
-      React.null;
-    };
+      : React.null;
   };
 
   let renderChoiceRemovalConfirmation = (poll: Data.poll, choice) => {
@@ -164,6 +160,22 @@ let make = (~notify, ~result: Data.result) => {
     };
   };
 
+  let renderBackBtn = manageToken => {
+    switch (manageToken) {
+    | None => React.null
+    | Some(manageToken) =>
+      <div className="centered m-t-md">
+        <button
+          className="button"
+          onClick={_ =>
+            ReasonReactRouter.push("/manage-poll/" ++ manageToken)
+          }>
+          {R.s("Back")}
+        </button>
+      </div>
+    };
+  };
+
   <div className="page">
     <h3 className="centered"> {R.s("Edit Results")} </h3>
     {switch (choiceToRemove, responseToRemove) {
@@ -175,19 +187,7 @@ let make = (~notify, ~result: Data.result) => {
        <div>
          {renderChoiceRemove(result.poll)}
          {renderResponseRemove(result)}
-         {switch (result.poll.manageToken) {
-          | None => React.null
-          | Some(manageToken) =>
-            <div className="centered m-t-md">
-              <button
-                className="button"
-                onClick={_ =>
-                  ReasonReactRouter.push("/manage-poll/" ++ manageToken)
-                }>
-                {R.s("Back")}
-              </button>
-            </div>
-          }}
+         {renderBackBtn(result.poll.manageToken)}
        </div>
      }}
   </div>;
