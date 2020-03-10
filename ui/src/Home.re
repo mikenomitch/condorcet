@@ -7,7 +7,7 @@ let make = () => {
     </p>
     <p className="centered">
       {R.s(
-         "Get results for Instant Runoffs, Borda Counts, the Condorcet method, and simple plurality elections.",
+         "Get results for Instant Runoff Voting, Borda Counts, the Condorcet Method, and Plurality elections.",
        )}
     </p>
     <br />

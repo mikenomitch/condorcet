@@ -26,3 +26,5 @@ api/.elixir_ls
 /ui/lib/bs
 /ui/lib/bs/.ninja_log
 /ui/lib/bs/.*.cmt
+
+node_modules/.lsp/debug.log
