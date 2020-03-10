@@ -6,13 +6,13 @@ type poll = {
 };
 
 type response = {
-  id: option(int),
+  id: option(string),
   name: string,
   order: list(string),
 };
 
 type resultResponse = {
-  id: int,
+  id: string,
   name: string,
 };
 
@@ -68,7 +68,7 @@ module Decode = {
 
   let dResponse = (json): response =>
     Json.Decode.{
-      id: json |> optional(field("id", int)),
+      id: json |> optional(field("id", string)),
       name: json |> field("name", string),
       order: json |> field("order", list(string)),
     };
@@ -90,7 +90,7 @@ module Decode = {
 
   let dResultResponse = (json): resultResponse => {
     Json.Decode.{
-      id: json |> field("id", int),
+      id: json |> field("id", string),
       name: json |> field("name", string),
     };
   };

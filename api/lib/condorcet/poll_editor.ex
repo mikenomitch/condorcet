@@ -5,26 +5,26 @@ defmodule Condorcet.PollEditor do
 
   def remove_choice_from_poll(orig_poll = %Poll{}, choice) do
     Multi.new()
-    |> Multi.run(:poll, fn(repo, _) ->
+    |> Multi.run(:poll, fn repo, _ ->
       new_choices = orig_poll.choices -- [choice]
 
       new_attrs = %{
         "question" => orig_poll.question,
         "choices" => new_choices,
         "take_token" => orig_poll.take_token,
-        "manage_token" => orig_poll.manage_token,
+        "manage_token" => orig_poll.manage_token
       }
 
       orig_poll
       |> Poll.update_changeset(new_attrs)
       |> repo.insert_or_update()
     end)
-    |> Multi.run(:responses, fn(repo, %{poll: poll}) ->
+    |> Multi.run(:responses, fn repo, %{poll: poll} ->
       query = from(r in Response, where: [poll_id: ^poll.id])
       repo.update_all(query, pull: [order: choice])
       {:ok, repo.all(query)}
     end)
-    |> Multi.run(:result, fn(repo, changes) ->
+    |> Multi.run(:result, fn repo, changes ->
       %{responses: responses, poll: poll} = changes
 
       if has_no_response(repo, poll.id) do
@@ -46,13 +46,13 @@ defmodule Condorcet.PollEditor do
   end
 
   def remove_response_from_poll(resp_id) do
-    response = Repo.get(Response, resp_id)
+    response = Repo.get_by(Response, external_id: resp_id)
 
     Multi.new()
-    |> Multi.run(:response, fn (repo, _) ->
+    |> Multi.run(:response, fn repo, _ ->
       repo.delete(response)
     end)
-    |> Multi.run(:result, fn (repo, _changes) ->
+    |> Multi.run(:result, fn repo, _changes ->
       if has_no_response(repo, response.poll_id) do
         result = repo.get_by(Result, poll_id: response.poll_id)
         repo.delete(result)
@@ -63,7 +63,6 @@ defmodule Condorcet.PollEditor do
           error -> error
         end
       end
-
     end)
     |> Repo.transaction()
   end

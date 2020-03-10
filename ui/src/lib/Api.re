@@ -126,7 +126,7 @@ let destroyResponse = (manageToken, responseId) => {
     ++ "/api/v1/polls/"
     ++ manageToken
     ++ "/remove_response/"
-    ++ string_of_int(responseId);
+    ++ responseId;
 
   Js.Promise.(
     Fetch.fetchWithInit(

@@ -27,7 +27,8 @@ defmodule CondorcetWeb.Api.V1.PollController do
     query = from(Response, where: [poll_id: ^poll.id])
     responses = Repo.all(query) || []
 
-    render(conn,
+    render(
+      conn,
       "results.json",
       poll: poll,
       result: result,
@@ -43,7 +44,8 @@ defmodule CondorcetWeb.Api.V1.PollController do
     query = from(Response, where: [poll_id: ^poll.id])
     responses = Repo.all(query) || []
 
-    render(conn,
+    render(
+      conn,
       "manage_results.json",
       poll: poll,
       result: result,
@@ -56,14 +58,14 @@ defmodule CondorcetWeb.Api.V1.PollController do
     orig_poll = Repo.get_by(Poll, manage_token: manage_token)
 
     {:ok,
-      %{
-        poll: poll,
-        result: result,
-        responses: responses
-      }
-    } = PollEditor.remove_choice_from_poll(orig_poll, choice)
+     %{
+       poll: poll,
+       result: result,
+       responses: responses
+     }} = PollEditor.remove_choice_from_poll(orig_poll, choice)
 
-    render(conn,
+    render(
+      conn,
       "manage_results.json",
       poll: poll,
       result: result,
@@ -73,7 +75,7 @@ defmodule CondorcetWeb.Api.V1.PollController do
 
   def remove_response(conn, %{"poll_id" => manage_token, "response_id" => response_id}) do
     with %Poll{} <- Repo.get_by(Poll, manage_token: manage_token),
-      {:ok, _changes} <- PollEditor.remove_response_from_poll(response_id) do
+         {:ok, _changes} <- PollEditor.remove_response_from_poll(response_id) do
       send_resp(conn, :no_content, "")
     else
       {:error, _, error, _} -> {:error, error}

@@ -23,7 +23,7 @@ function dPoll(json) {
 function dResponse(json) {
   return {
           id: Json_decode.optional((function (param) {
-                  return Json_decode.field("id", Json_decode.$$int, param);
+                  return Json_decode.field("id", Json_decode.string, param);
                 }), json),
           name: Json_decode.field("name", Json_decode.string, json),
           order: Json_decode.field("order", (function (param) {
@@ -67,7 +67,7 @@ function dWinnerMap(json) {
 
 function dResultResponse(json) {
   return {
-          id: Json_decode.field("id", Json_decode.$$int, json),
+          id: Json_decode.field("id", Json_decode.string, json),
           name: Json_decode.field("name", Json_decode.string, json)
         };
 }

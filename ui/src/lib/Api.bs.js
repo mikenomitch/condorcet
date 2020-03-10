@@ -96,7 +96,7 @@ function removeChoice(manageToken, choice) {
 }
 
 function destroyResponse(manageToken, responseId) {
-  var url = baseUrl + ("/api/v1/polls/" + (manageToken + ("/remove_response/" + String(responseId))));
+  var url = baseUrl + ("/api/v1/polls/" + (manageToken + ("/remove_response/" + responseId)));
   return fetch(url, Fetch.RequestInit.make(/* Delete */4, {
                       "Content-Type": "application/json"
                     }, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined)(/* () */0)).then((function (res) {
