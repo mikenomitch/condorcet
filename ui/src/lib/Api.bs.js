@@ -67,7 +67,7 @@ function createPoll(poll, addError) {
                   var match$2 = errors.errors.choices;
                   var choiceErrors = match$2 !== undefined ? match$2 : /* [] */0;
                   var showErrors = $$Array.of_list(Pervasives.$at(choiceErrors, questionErrors)).join(", ");
-                  Curry._1(addError, showErrors);
+                  Curry._2(addError, "error", showErrors);
                   return Promise.resolve(undefined);
                 }
               }));

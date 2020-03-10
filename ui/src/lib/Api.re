@@ -78,7 +78,7 @@ let createPoll = (poll, addError) => {
              |> Array.of_list
              |> Js.Array.joinWith(", ");
 
-           addError(showErrors);
+           addError("error", showErrors);
            resolve(None);
          | PollRes(poll) => resolve(Some(poll))
          }
