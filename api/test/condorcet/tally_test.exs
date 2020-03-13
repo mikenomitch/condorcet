@@ -22,7 +22,7 @@ defmodule Condorcet.TallyTest do
       ["A", "B", "C"],
       ["A", "C", "B"],
       ["B", "A", "C"],
-      ["B", "C", "A"],
+      ["B", "C", "A"]
     ]
 
     assert Tally.calc_plurality(choices) == ["A", "B"]
@@ -151,7 +151,7 @@ defmodule Condorcet.TallyTest do
       ["B", "A", "C", "D"],
       ["B", "A", "C", "D"],
       ["C", "B", "A", "D"],
-      ["D", "B", "A", "C"],
+      ["D", "B", "A", "C"]
     ]
 
     assert Tally.calc_irv(choices) == ["B"]
@@ -179,7 +179,7 @@ defmodule Condorcet.TallyTest do
       ["A", "B", "C", "D"],
       ["A", "B", "C", "D"],
       ["B", "A", "C", "D"],
-      ["D", "A", "B", "C"],
+      ["D", "A", "B", "C"]
     ]
 
     assert Tally.calc_condorcet(choices) == "A"
@@ -191,7 +191,7 @@ defmodule Condorcet.TallyTest do
       ["A", "B", "C", "D"],
       ["B", "A", "C", "D"],
       ["D", "B", "A", "C"],
-      ["D", "B", "A", "C"],
+      ["D", "B", "A", "C"]
     ]
 
     assert Tally.calc_condorcet(choices) == "B"
@@ -202,7 +202,7 @@ defmodule Condorcet.TallyTest do
       ["A", "B", "C", "D"],
       ["A", "B", "C", "D"],
       ["B", "A", "C", "D"],
-      ["B", "A", "C", "D"],
+      ["B", "A", "C", "D"]
     ]
 
     assert Tally.calc_condorcet(choices) == nil
@@ -212,7 +212,7 @@ defmodule Condorcet.TallyTest do
     choices = [
       ["D", "A", "B", "C"],
       ["B", "C", "A", "D"],
-      ["C", "D", "A", "B"],
+      ["C", "D", "A", "B"]
     ]
 
     assert Tally.calc_condorcet(choices) == nil
@@ -236,5 +236,148 @@ defmodule Condorcet.TallyTest do
     }
 
     assert Tally.get_borda_count_numbers(choices) == expected_tally
+  end
+
+  test "calcs full irv results" do
+    choices = [
+      [
+        "Frat",
+        "Killzone",
+        "Ben",
+        "Nikhil",
+        "Austin",
+        "Nomitch",
+        "Jordan",
+        "Noll",
+        "Kloster",
+        "Konsk"
+      ],
+      [
+        "Frat",
+        "Killzone",
+        "Ben",
+        "Noll",
+        "Nomitch",
+        "Jordan",
+        "Nikhil",
+        "Konsk",
+        "Kloster",
+        "Austin"
+      ],
+      [
+        "Frat",
+        "Killzone",
+        "Nikhil",
+        "Nomitch",
+        "Konsk",
+        "Austin",
+        "Noll",
+        "Ben",
+        "Jordan",
+        "Kloster"
+      ],
+      [
+        "Noll",
+        "Jordan",
+        "Frat",
+        "Nomitch",
+        "Konsk",
+        "Killzone",
+        "Austin",
+        "Ben",
+        "Kloster",
+        "Nikhil"
+      ]
+    ]
+
+    assert Tally.get_ranked_list(choices) == [
+             ["Frat"],
+             ["Killzone"],
+             ["Ben"],
+             ["Nikhil", "Noll"],
+             ["Nomitch"],
+             ["Jordan"],
+             ["Konsk"],
+             ["Austin"],
+             ["Kloster"]
+           ]
+  end
+
+  test "calcs full irv results 2" do
+    choices = [
+      [
+        "Frat",
+        "Killzone",
+        "Ben",
+        "Nikhil",
+        "Austin",
+        "Nomitch",
+        "Jordan",
+        "Noll",
+        "Kloster",
+        "Konsk"
+      ],
+      [
+        "Frat",
+        "Killzone",
+        "Ben",
+        "Noll",
+        "Nomitch",
+        "Jordan",
+        "Nikhil",
+        "Konsk",
+        "Kloster",
+        "Austin"
+      ],
+      [
+        "Frat",
+        "Killzone",
+        "Nikhil",
+        "Nomitch",
+        "Konsk",
+        "Austin",
+        "Noll",
+        "Ben",
+        "Jordan",
+        "Kloster"
+      ],
+      [
+        "Noll",
+        "Jordan",
+        "Frat",
+        "Nomitch",
+        "Konsk",
+        "Killzone",
+        "Austin",
+        "Ben",
+        "Kloster",
+        "Nikhil"
+      ],
+      [
+        "Noll",
+        "Jordan",
+        "Frat",
+        "Nomitch",
+        "Konsk",
+        "Killzone",
+        "Austin",
+        "Ben",
+        "Kloster",
+        "Nikhil"
+      ]
+    ]
+
+    assert Tally.get_ranked_list(choices) == [
+             ["Frat"],
+             ["Killzone"],
+             ["Noll"],
+             ["Ben"],
+             ["Jordan"],
+             ["Nomitch"],
+             ["Nikhil"],
+             ["Konsk"],
+             ["Austin"],
+             ["Kloster"]
+           ]
   end
 end
