@@ -12,9 +12,10 @@
   flex-wrap: nowrap;
 
   .take-choice-number {
-    flex: 0 0 $spacing-sm;
+    flex: 0 0 1.4rem;
     font-weight: $font-weight-bold;
     margin-right: $spacing-sm;
+    text-align: right;
   }
 
   .take-choice-draggable {
