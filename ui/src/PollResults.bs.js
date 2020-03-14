@@ -54,6 +54,39 @@ function PollResults(Props) {
                                             }), R$Condorcet.s(": ")), R$Condorcet.s($$Array.of_list(winners).join(", ")));
                         }), rankedResults)));
   };
+  var renderFullBorda = function (resultMap, unit, units) {
+    return React.createElement("div", undefined, $$Array.of_list(List.map((function (param) {
+                          var res = param.res;
+                          var key = param.key;
+                          return React.createElement("div", {
+                                      key: key,
+                                      className: "full-results"
+                                    }, React.createElement("i", undefined, R$Condorcet.s(key + ": ")), res !== 1 ? R$Condorcet.s(String(res) + (" " + units)) : R$Condorcet.s(String(res) + (" " + unit)));
+                        }), List.sort((function (a, b) {
+                              var match = a.res < b.res;
+                              var match$1 = a.res === b.res;
+                              if (match) {
+                                return 1;
+                              } else if (match$1) {
+                                return 0;
+                              } else {
+                                return -1;
+                              }
+                            }), List.map((function (key) {
+                                  var match = Js_dict.get(resultMap, key);
+                                  if (match !== undefined) {
+                                    return {
+                                            key: key,
+                                            res: match
+                                          };
+                                  } else {
+                                    return {
+                                            key: key,
+                                            res: 0
+                                          };
+                                  }
+                                }), $$Array.to_list(Object.keys(resultMap)))))));
+  };
   var renderFullResult = function (resultMap, unit, units) {
     return React.createElement("div", undefined, $$Array.of_list(List.map((function (key) {
                           var match = Js_dict.get(resultMap, key);
@@ -87,7 +120,7 @@ function PollResults(Props) {
     var pluralityString = renderWinnerString(winnerMap.plurality, "Plurality");
     var match$4 = winnerMap.condorcet;
     var match$5 = result.winners;
-    tmp = React.createElement("div", undefined, match$4 !== undefined ? React.createElement("p", undefined, R$Condorcet.s("Condorcet Winner: "), React.createElement("b", undefined, R$Condorcet.s(match$4))) : React.createElement("p", undefined, R$Condorcet.s("No Condorcet Winner")), React.createElement("p", undefined, R$Condorcet.s(rankedString), renderWinners(winnerMap.ranked)), showingFullResults ? renderRankedResults(resultsMap.ranked) : null, React.createElement("p", undefined, R$Condorcet.s(bordaString), renderWinners(winnerMap.borda)), showingFullResults ? renderFullResult(resultsMap.borda, "point", "points") : null, React.createElement("p", undefined, R$Condorcet.s(pluralityString), renderWinners(winnerMap.plurality)), showingFullResults ? renderFullResult(resultsMap.plurality, "first place vote", "first place votes") : null, match$5 !== undefined ? React.createElement("div", {
+    tmp = React.createElement("div", undefined, match$4 !== undefined ? React.createElement("p", undefined, R$Condorcet.s("Condorcet Winner: "), React.createElement("b", undefined, R$Condorcet.s(match$4))) : React.createElement("p", undefined, R$Condorcet.s("No Condorcet Winner")), React.createElement("p", undefined, R$Condorcet.s(rankedString), renderWinners(winnerMap.ranked)), showingFullResults ? renderRankedResults(resultsMap.ranked) : null, React.createElement("p", undefined, R$Condorcet.s(bordaString), renderWinners(winnerMap.borda)), showingFullResults ? renderFullBorda(resultsMap.borda, "point", "points") : null, React.createElement("p", undefined, R$Condorcet.s(pluralityString), renderWinners(winnerMap.plurality)), showingFullResults ? renderFullResult(resultsMap.plurality, "first place vote", "first place votes") : null, match$5 !== undefined ? React.createElement("div", {
                 className: "m-t-sm"
               }, React.createElement("a", {
                     href: "/why#alternative-methods"

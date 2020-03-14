@@ -1,3 +1,8 @@
+type nameAndRes = {
+  key: string,
+  res: int,
+};
+
 [@react.component]
 let make = (~result: Data.result) => {
   let (showingFullResults, setFullResults) = React.useState(() => false);
@@ -30,6 +35,37 @@ let make = (~result: Data.result) => {
             <div key={idx->string_of_int}>
               <i> <Ordinal num={idx + 1} /> {R.s(": ")} </i>
               {winners |> Array.of_list |> Js.Array.joinWith(", ") |> R.s}
+            </div>
+          })
+       |> Array.of_list
+       |> React.array}
+    </div>;
+  };
+
+  let renderFullBorda = (resultMap, unit, units) => {
+    <div>
+      {Js.Dict.keys(resultMap)
+       |> Array.to_list
+       |> List.map(key => {
+            switch (Js.Dict.get(resultMap, key)) {
+            | Some(res) => {key, res}
+            | _ => {key, res: 0}
+            }
+          })
+       |> List.sort((a, b) => {
+            switch (a.res < b.res, a.res == b.res) {
+            | (true, _) => 1
+            | (_, true) => 0
+            | _ => (-1)
+            }
+          })
+       |> List.map(({key, res}) => {
+            <div key className="full-results">
+              <i> {R.s(key ++ ": ")} </i>
+              {switch (res) {
+               | 1 => R.s(res->string_of_int ++ " " ++ unit)
+               | _ => R.s(res->string_of_int ++ " " ++ units)
+               }}
             </div>
           })
        |> Array.of_list
@@ -101,7 +137,7 @@ let make = (~result: Data.result) => {
           }}
          <p> {R.s(bordaString)} {renderWinners(winnerMap.borda)} </p>
          {if (showingFullResults) {
-            renderFullResult(resultsMap.borda, "point", "points");
+            renderFullBorda(resultsMap.borda, "point", "points");
           } else {
             React.null;
           }}
