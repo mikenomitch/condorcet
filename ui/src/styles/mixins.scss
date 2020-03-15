@@ -1,10 +1,20 @@
-/* ================== */
-/*   HELPER CLASSES   */
-/* ================== */
+@mixin tablet {
+  @media only screen and (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-desktop - 1px}) {
+    @content;
+  }
+}
 
-/* ================== */
-/*   MIXINS   */
-/* ================== */
+@mixin desktop {
+  @media only screen and (min-width: #{$breakpoint-desktop}) {
+    @content;
+  }
+}
+
+@mixin tablet-or-desktop {
+  @media only screen and (min-width: #{$breakpoint-tablet}) {
+    @content;
+  }
+}
 
 @mixin input {
   display: block;
@@ -99,9 +109,14 @@
 
   transition: background-color $transition-time-short;
 
-  &:hover,
-  &:focus {
+  &:hover {
     background-color: $hover-color;
+  }
+
+  @include tablet-or-desktop {
+    &:focus {
+      background-color: $hover-color;
+    }
   }
 }
 
@@ -118,22 +133,4 @@
 
 @mixin error-coloring {
   color: $color-error;
-}
-
-@mixin tablet {
-  @media only screen and (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-desktop - 1px}) {
-    @content;
-  }
-}
-
-@mixin desktop {
-  @media only screen and (min-width: #{$breakpoint-desktop}) {
-    @content;
-  }
-}
-
-@mixin tablet-or-desktop {
-  @media only screen and (min-width: #{$breakpoint-tablet}) {
-    @content;
-  }
 }

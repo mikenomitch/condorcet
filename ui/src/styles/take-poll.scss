@@ -1,5 +1,10 @@
 .take-poll-choice-list {
   min-width: 15rem;
+  user-select: none;
+
+  @include desktop {
+    user-select: auto;
+  }
 }
 
 .take-choice {
