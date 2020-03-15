@@ -4,28 +4,12 @@ type nameAndRes = {
 };
 
 [@react.component]
-let make = (~result: Data.result) => {
+let make = (~result: Data.result, ~showLink=false) => {
   let (showingFullResults, setFullResults) = React.useState(() => false);
   let changeFullRes = _ => setFullResults(_ => !showingFullResults);
 
   let renderWinners = winnersList => {
     <b> {R.s(winnersList |> Array.of_list |> Js.Array.joinWith(", "))} </b>;
-  };
-
-  let renderResponseCount = count => {
-    switch (count) {
-    | 0 => <p> {R.s("No responses yet")} </p>
-    | 1 => <p> {R.s("1 response from: ")} </p>
-    | count => <p> {R.s(string_of_int(count) ++ " responses from:")} </p>
-    };
-  };
-
-  let renderResponseNames = responses => {
-    switch (List.map((r: Data.resultResponse) => r.name, responses)) {
-    | [] => React.null
-    | nameList =>
-      <p> {nameList |> Array.of_list |> Js.Array.joinWith(", ") |> R.s} </p>
-    };
   };
 
   let renderRankedResults = rankedResults => {
@@ -99,6 +83,17 @@ let make = (~result: Data.result) => {
     typ ++ (List.length(lst) > 1 ? " winners: " : " winner: ");
   };
 
+  let renderResultsLink = () => {
+    switch (result.poll.id) {
+    | Some(id) =>
+      <div className="resuts-link-holder">
+        <p> <b> {R.s("Come back to this url to view results:")} </b> </p>
+        <CopyableLink link={Constants.host ++ "/results/" ++ id} />
+      </div>
+    | _ => React.null
+    };
+  };
+
   <div>
     <div className="results-title">
       <h3> {R.s("Results")} </h3>
@@ -130,27 +125,20 @@ let make = (~result: Data.result) => {
           | _ => <p> {R.s("No Condorcet Winner")} </p>
           }}
          <p> {R.s(rankedString)} {renderWinners(winnerMap.ranked)} </p>
-         {if (showingFullResults) {
-            renderRankedResults(resultsMap.ranked);
-          } else {
-            React.null;
-          }}
+         {showingFullResults
+            ? renderRankedResults(resultsMap.ranked) : React.null}
          <p> {R.s(bordaString)} {renderWinners(winnerMap.borda)} </p>
-         {if (showingFullResults) {
-            renderFullBorda(resultsMap.borda, "point", "points");
-          } else {
-            React.null;
-          }}
+         {showingFullResults
+            ? renderFullBorda(resultsMap.borda, "point", "points")
+            : React.null}
          <p> {R.s(pluralityString)} {renderWinners(winnerMap.plurality)} </p>
-         {if (showingFullResults) {
-            renderFullResult(
-              resultsMap.plurality,
-              "first place vote",
-              "first place votes",
-            );
-          } else {
-            React.null;
-          }}
+         {showingFullResults
+            ? renderFullResult(
+                resultsMap.plurality,
+                "first place vote",
+                "first place votes",
+              )
+            : React.null}
          {switch (result.winners) {
           | Some(_winners) =>
             <div className="m-t-sm">
@@ -163,10 +151,7 @@ let make = (~result: Data.result) => {
        </div>;
      | _ => React.null
      }}
-    <div className="responses-holder">
-      {renderResponseCount(result.responseCount)}
-      {renderResponseNames(result.responses)}
-    </div>
-    <br />
+    <PollResponseDetails result />
+    {showLink ? renderResultsLink() : React.null}
   </div>;
 };

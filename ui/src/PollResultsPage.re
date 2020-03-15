@@ -9,6 +9,7 @@ let make = (~id) => {
 
   switch (result) {
   | None => React.null
-  | Some(result) => <div className="page"> <PollResults result /> </div>
+  | Some(result) =>
+    <div className="page"> <PollResults result showLink=true /> </div>
   };
 };

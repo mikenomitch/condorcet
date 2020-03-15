@@ -8,9 +8,14 @@ var React = require("react");
 var Js_dict = require("bs-platform/lib/js/js_dict.js");
 var R$Condorcet = require("./lib/R.bs.js");
 var Ordinal$Condorcet = require("./lib/Ordinal.bs.js");
+var Constants$Condorcet = require("./lib/Constants.bs.js");
+var CopyableLink$Condorcet = require("./ui/CopyableLink.bs.js");
+var PollResponseDetails$Condorcet = require("./PollResponseDetails.bs.js");
 
 function PollResults(Props) {
   var result = Props.result;
+  var $staropt$star = Props.showLink;
+  var showLink = $staropt$star !== undefined ? $staropt$star : false;
   var match = React.useState((function () {
           return false;
         }));
@@ -23,27 +28,6 @@ function PollResults(Props) {
   };
   var renderWinners = function (winnersList) {
     return React.createElement("b", undefined, R$Condorcet.s($$Array.of_list(winnersList).join(", ")));
-  };
-  var renderResponseCount = function (count) {
-    if (count !== 0) {
-      if (count !== 1) {
-        return React.createElement("p", undefined, R$Condorcet.s(String(count) + " responses from:"));
-      } else {
-        return React.createElement("p", undefined, R$Condorcet.s("1 response from: "));
-      }
-    } else {
-      return React.createElement("p", undefined, R$Condorcet.s("No responses yet"));
-    }
-  };
-  var renderResponseNames = function (responses) {
-    var nameList = List.map((function (r) {
-            return r.name;
-          }), responses);
-    if (nameList) {
-      return React.createElement("p", undefined, R$Condorcet.s($$Array.of_list(nameList).join(", ")));
-    } else {
-      return null;
-    }
   };
   var renderRankedResults = function (rankedResults) {
     return React.createElement("div", undefined, $$Array.of_list(List.mapi((function (idx, winners) {
@@ -108,6 +92,18 @@ function PollResults(Props) {
             List.length(lst) > 1 ? " winners: " : " winner: "
           );
   };
+  var renderResultsLink = function (param) {
+    var match = result.poll.id;
+    if (match !== undefined) {
+      return React.createElement("div", {
+                  className: "resuts-link-holder"
+                }, React.createElement("p", undefined, React.createElement("b", undefined, R$Condorcet.s("Come back to this url to view results:"))), React.createElement(CopyableLink$Condorcet.make, {
+                      link: Constants$Condorcet.host + ("/results/" + match)
+                    }));
+    } else {
+      return null;
+    }
+  };
   var match$1 = result.winners;
   var match$2 = result.winners;
   var match$3 = result.fullResults;
@@ -133,9 +129,9 @@ function PollResults(Props) {
                 }, React.createElement("h3", undefined, R$Condorcet.s("Results")), match$1 !== undefined ? React.createElement("button", {
                         className: "button button-sm",
                         onClick: changeFullRes
-                      }, R$Condorcet.s(showingFullResults ? "Hide full results" : "Show full results")) : null), tmp, React.createElement("div", {
-                  className: "responses-holder"
-                }, renderResponseCount(result.responseCount), renderResponseNames(result.responses)), React.createElement("br", undefined));
+                      }, R$Condorcet.s(showingFullResults ? "Hide full results" : "Show full results")) : null), tmp, React.createElement(PollResponseDetails$Condorcet.make, {
+                  result: result
+                }), showLink ? renderResultsLink(/* () */0) : null);
 }
 
 var make = PollResults;

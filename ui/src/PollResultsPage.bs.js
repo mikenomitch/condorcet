@@ -20,7 +20,8 @@ function PollResultsPage(Props) {
     return React.createElement("div", {
                 className: "page"
               }, React.createElement(PollResults$Condorcet.make, {
-                    result: result
+                    result: result,
+                    showLink: true
                   }));
   } else {
     return null;
