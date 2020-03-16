@@ -83,6 +83,7 @@ let make = (~notify) => {
     <div className="poll-form">
       <div>
         <Input
+          focusOnRender=true
           label="Your Question:"
           onChange={event =>
             changeQuestion(ReactEvent.Form.target(event)##value)

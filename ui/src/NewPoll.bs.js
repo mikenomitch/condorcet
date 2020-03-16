@@ -136,6 +136,7 @@ function NewPoll(Props) {
                                                   };
                                           }));
                             }),
+                          focusOnRender: true,
                           label: "Your Question:"
                         })), React.createElement("div", {
                       className: "choice-list"
