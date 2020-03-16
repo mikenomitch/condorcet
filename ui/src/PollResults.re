@@ -94,64 +94,71 @@ let make = (~result: Data.result, ~showLink=false) => {
     };
   };
 
-  <div>
-    <div className="results-title">
-      <h3> {R.s("Results")} </h3>
-      {switch (result.winners) {
-       | Some(_winners) =>
-         <button className="button button-sm" onClick=changeFullRes>
-           {R.s(
-              showingFullResults ? "Hide full results" : "Show full results",
-            )}
-         </button>
-       | _ => React.null
-       }}
-    </div>
-    {switch (result.winners, result.fullResults) {
-     | (Some(winnerMap), Some(resultsMap)) =>
-       let rankedString =
-         renderWinnerString(winnerMap.ranked, "Instant Runoff");
-       let bordaString = renderWinnerString(winnerMap.borda, "Borda Count");
-       let pluralityString =
-         renderWinnerString(winnerMap.plurality, "Plurality");
+  result.responseCount == 0
+    ? <h4> {R.s("No responses yet")} </h4>
+    : <div>
+        <div className="results-title">
+          <h3> {R.s("Results")} </h3>
+          {switch (result.winners) {
+           | Some(_winners) =>
+             <button className="button button-sm" onClick=changeFullRes>
+               {R.s(
+                  showingFullResults
+                    ? "Hide full results" : "Show full results",
+                )}
+             </button>
+           | _ => React.null
+           }}
+        </div>
+        {switch (result.winners, result.fullResults) {
+         | (Some(winnerMap), Some(resultsMap)) =>
+           let rankedString =
+             renderWinnerString(winnerMap.ranked, "Instant Runoff");
+           let bordaString =
+             renderWinnerString(winnerMap.borda, "Borda Count");
+           let pluralityString =
+             renderWinnerString(winnerMap.plurality, "Plurality");
 
-       <div>
-         {switch (winnerMap.condorcet) {
-          | Some(condorcetWinner) =>
-            <p>
-              {R.s("Condorcet Winner: ")}
-              <b> {R.s(condorcetWinner)} </b>
-            </p>
-          | _ => <p> {R.s("No Condorcet Winner")} </p>
-          }}
-         <p> {R.s(rankedString)} {renderWinners(winnerMap.ranked)} </p>
-         {showingFullResults
-            ? renderRankedResults(resultsMap.ranked) : React.null}
-         <p> {R.s(bordaString)} {renderWinners(winnerMap.borda)} </p>
-         {showingFullResults
-            ? renderFullBorda(resultsMap.borda, "point", "points")
-            : React.null}
-         <p> {R.s(pluralityString)} {renderWinners(winnerMap.plurality)} </p>
-         {showingFullResults
-            ? renderFullResult(
-                resultsMap.plurality,
-                "first place vote",
-                "first place votes",
-              )
-            : React.null}
-         {switch (result.winners) {
-          | Some(_winners) =>
-            <div className="m-t-sm">
-              <a href="/why#alternative-methods">
-                {R.s("What do these results mean?")}
-              </a>
-            </div>
-          | _ => React.null
-          }}
-       </div>;
-     | _ => React.null
-     }}
-    <PollResponseDetails result />
-    {showLink ? renderResultsLink() : React.null}
-  </div>;
+           <div>
+             {switch (winnerMap.condorcet) {
+              | Some(condorcetWinner) =>
+                <p>
+                  {R.s("Condorcet Winner: ")}
+                  <b> {R.s(condorcetWinner)} </b>
+                </p>
+              | _ => <p> {R.s("No Condorcet Winner")} </p>
+              }}
+             <p> {R.s(rankedString)} {renderWinners(winnerMap.ranked)} </p>
+             {showingFullResults
+                ? renderRankedResults(resultsMap.ranked) : React.null}
+             <p> {R.s(bordaString)} {renderWinners(winnerMap.borda)} </p>
+             {showingFullResults
+                ? renderFullBorda(resultsMap.borda, "point", "points")
+                : React.null}
+             <p>
+               {R.s(pluralityString)}
+               {renderWinners(winnerMap.plurality)}
+             </p>
+             {showingFullResults
+                ? renderFullResult(
+                    resultsMap.plurality,
+                    "first place vote",
+                    "first place votes",
+                  )
+                : React.null}
+             {switch (result.winners) {
+              | Some(_winners) =>
+                <div className="m-t-sm">
+                  <a href="/why#alternative-methods">
+                    {R.s("What do these results mean?")}
+                  </a>
+                </div>
+              | _ => React.null
+              }}
+           </div>;
+         | _ => React.null
+         }}
+        <PollResponseDetails result />
+        {showLink ? renderResultsLink() : React.null}
+      </div>;
 };

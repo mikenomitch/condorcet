@@ -23,9 +23,10 @@ let make = (~result: Data.result) => {
       <div className="link-holder">
         <h4> {R.s("Take Poll Link")} </h4>
         <CopyableLink link={Constants.host ++ "/take-poll/" ++ takeToken} />
+        <p />
       </div>
-      <div className="padding-sm"> <PollResults result /> </div>
-      <div>
+      <div className="p-sm"> <PollResults result /> </div>
+      <div className="m-sm">
         {showEditLink
            ? <button
                className="button"
@@ -34,7 +35,8 @@ let make = (~result: Data.result) => {
                    "/manage-poll/" ++ manageToken ++ "/edit-results",
                  )
                }>
-               {R.s("Edit Results")}
+               (result.responseCount == 0 ? "Edit Choices" : "Edit Results")
+               ->R.s
              </button>
            : React.null}
       </div>

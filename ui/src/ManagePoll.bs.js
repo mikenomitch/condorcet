@@ -38,16 +38,18 @@ function ManagePoll(Props) {
                     className: "link-holder"
                   }, React.createElement("h4", undefined, R$Condorcet.s("Take Poll Link")), React.createElement(CopyableLink$Condorcet.make, {
                         link: Constants$Condorcet.host + ("/take-poll/" + takeToken)
-                      })), React.createElement("div", {
-                    className: "padding-sm"
+                      }), React.createElement("p", undefined)), React.createElement("div", {
+                    className: "p-sm"
                   }, React.createElement(PollResults$Condorcet.make, {
                         result: result
-                      })), React.createElement("div", undefined, showEditLink ? React.createElement("button", {
+                      })), React.createElement("div", {
+                    className: "m-sm"
+                  }, showEditLink ? React.createElement("button", {
                           className: "button",
                           onClick: (function (param) {
                               return ReasonReactRouter.push("/manage-poll/" + (manageToken + "/edit-results"));
                             })
-                        }, R$Condorcet.s("Edit Results")) : null));
+                        }, R$Condorcet.s(result.responseCount === 0 ? "Edit Choices" : "Edit Results")) : null));
   } else {
     return null;
   }

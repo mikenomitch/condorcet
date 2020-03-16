@@ -71,10 +71,12 @@ h3 {
 }
 
 h4 {
+  margin: $spacing-md 0;
   font-size: $font-size-md;
 }
 
 h5 {
+  margin: $spacing-md 0;
   font-size: $font-size-sm;
 }
 
@@ -127,6 +129,10 @@ h5 {
 /*   SPACING   */
 /* =========== */
 
+.m-sm {
+  margin: $spacing-sm;
+}
+
 .m-t-sm {
   margin-top: $spacing-sm;
 }
@@ -144,6 +150,6 @@ h5 {
   margin-right: $spacing-sm;
 }
 
-.padding-sm {
+.p-sm {
   padding: $spacing-sm;
 }
