@@ -97,7 +97,7 @@ function PollResults(Props) {
     if (match !== undefined) {
       return React.createElement("div", {
                   className: "resuts-link-holder"
-                }, React.createElement("p", undefined, React.createElement("b", undefined, R$Condorcet.s("Come back to this url to view results:"))), React.createElement(CopyableLink$Condorcet.make, {
+                }, React.createElement("p", undefined, React.createElement("b", undefined, R$Condorcet.s("Save this URL to return to restuls:"))), React.createElement(CopyableLink$Condorcet.make, {
                       link: Constants$Condorcet.host + ("/results/" + match)
                     }));
     } else {

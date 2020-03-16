@@ -36,8 +36,16 @@ function NewPoll(Props) {
         }));
   var setPoll = match[1];
   var poll = match[0];
+  var match$1 = React.useState((function () {
+          return false;
+        }));
+  var setHasAdded = match$1[1];
+  var hasAdded = match$1[0];
   var showButtons = List.length(poll.choices) > 2;
   var addChoice = function (param) {
+    Curry._1(setHasAdded, (function (param) {
+            return true;
+          }));
     return Curry._1(setPoll, (function (param) {
                   return {
                           id: poll.id,
@@ -67,6 +75,7 @@ function NewPoll(Props) {
     return /* () */0;
   };
   var renderChoice = function (idx, answer) {
+    var finalChoice = (idx + 1 | 0) === List.length(poll.choices);
     return React.createElement("div", {
                 key: String(idx),
                 className: "choice"
@@ -87,7 +96,8 @@ function NewPoll(Props) {
                                               question: poll.question
                                             };
                                     }));
-                      })
+                      }),
+                    focusOnRender: finalChoice && hasAdded
                   }), showButtons ? React.createElement("div", undefined, React.createElement("button", {
                           className: "button button-sm",
                           onClick: (function (param) {

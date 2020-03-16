@@ -87,7 +87,7 @@ let make = (~result: Data.result, ~showLink=false) => {
     switch (result.poll.id) {
     | Some(id) =>
       <div className="resuts-link-holder">
-        <p> <b> {R.s("Come back to this url to view results:")} </b> </p>
+        <p> <b> {R.s("Save this URL to return to restuls:")} </b> </p>
         <CopyableLink link={Constants.host ++ "/results/" ++ id} />
       </div>
     | _ => React.null

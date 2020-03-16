@@ -11,6 +11,7 @@ let make = (~notify) => {
     manageToken: None,
   };
   let (poll, setPoll) = React.useState(() => blankPoll);
+  let (hasAdded, setHasAdded) = React.useState(() => false);
   let showButtons = poll.choices |> List.length > 2;
 
   let changeQuestion = question => {
@@ -25,6 +26,7 @@ let make = (~notify) => {
   };
 
   let addChoice = _ => {
+    setHasAdded(_ => true);
     setPoll(_ => {...poll, choices: List.append(poll.choices, [""])});
   };
 
@@ -55,8 +57,10 @@ let make = (~notify) => {
   };
 
   let renderChoice = (idx, answer) => {
+    let finalChoice = idx + 1 == List.length(poll.choices);
     <div className="choice" key={string_of_int(idx)}>
       <Input
+        focusOnRender={finalChoice && hasAdded}
         onChange={event =>
           changeChoice(ReactEvent.Form.target(event)##value, idx)
         }
