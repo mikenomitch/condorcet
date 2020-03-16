@@ -109,11 +109,8 @@
 
   transition: background-color $transition-time-short;
 
-  &:hover {
-    background-color: $hover-color;
-  }
-
   @include tablet-or-desktop {
+    &:hover,
     &:focus {
       background-color: $hover-color;
     }
