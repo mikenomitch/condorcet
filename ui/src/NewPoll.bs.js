@@ -10,6 +10,7 @@ var R$Condorcet = require("./lib/R.bs.js");
 var Api$Condorcet = require("./lib/Api.bs.js");
 var Input$Condorcet = require("./ui/Input.bs.js");
 var RList$Rationale = require("rationale/src/RList.js");
+var Toggle$Condorcet = require("./ui/Toggle.bs.js");
 var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
 
 function NewPoll(Props) {
@@ -154,7 +155,15 @@ function NewPoll(Props) {
                 }, React.createElement("button", {
                       className: "button button-mdlg",
                       onClick: savePoll
-                    }, R$Condorcet.s("Create Poll"))));
+                    }, R$Condorcet.s("Create Poll"))), React.createElement("div", undefined, React.createElement("h4", {
+                      className: "centered"
+                    }, R$Condorcet.s("Customize Poll")), React.createElement(Toggle$Condorcet.make, {
+                      on: true,
+                      onClick: (function (param) {
+                          return /* () */0;
+                        }),
+                      label: "Allow Comments"
+                    })));
 }
 
 var RList = /* alias */0;

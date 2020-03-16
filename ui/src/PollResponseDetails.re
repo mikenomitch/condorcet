@@ -24,7 +24,8 @@ let make = (~result: Data.result) => {
 
   let renderComment = (r: Data.resultResponse) => {
     switch (r.comment) {
-    | Some(comment) => <p> <b> {(r.name ++ ":")->R.s} </b> comment->R.s </p>
+    | Some(comment) =>
+      <p key={r.id}> <b> {(r.name ++ ":")->R.s} </b> comment->R.s </p>
     | None => React.null
     };
   };

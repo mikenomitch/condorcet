@@ -111,5 +111,9 @@ let make = (~notify) => {
         {R.s("Create Poll")}
       </button>
     </div>
+    <div>
+      <h4 className="centered"> {R.s("Customize Poll")} </h4>
+      <Toggle on=true label="Allow Comments" onClick={_ => ignore()} />
+    </div>
   </div>;
 };

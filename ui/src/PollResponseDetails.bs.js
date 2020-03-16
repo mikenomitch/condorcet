@@ -31,7 +31,9 @@ function PollResponseDetails(Props) {
   var renderComment = function (r) {
     var match = r.comment;
     if (match !== undefined) {
-      return React.createElement("p", undefined, React.createElement("b", undefined, R$Condorcet.s(r.name + ":")), R$Condorcet.s(match));
+      return React.createElement("p", {
+                  key: r.id
+                }, React.createElement("b", undefined, R$Condorcet.s(r.name + ":")), R$Condorcet.s(match));
     } else {
       return null;
     }
