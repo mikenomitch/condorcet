@@ -20,18 +20,32 @@ function PollResponseDetails(Props) {
     }
   };
   var renderResponseNames = function (responses) {
-    var nameList = List.map((function (r) {
-            return r.name;
-          }), responses);
-    if (nameList) {
-      return React.createElement("p", undefined, R$Condorcet.s($$Array.of_list(nameList).join(", ")));
+    if (responses) {
+      return React.createElement("p", undefined, R$Condorcet.s($$Array.of_list(List.map((function (r) {
+                                  return r.name;
+                                }), responses)).join(", ")));
+    } else {
+      return null;
+    }
+  };
+  var renderComment = function (r) {
+    var match = r.comment;
+    if (match !== undefined) {
+      return React.createElement("p", undefined, React.createElement("b", undefined, R$Condorcet.s(r.name + ":")), R$Condorcet.s(match));
+    } else {
+      return null;
+    }
+  };
+  var renderResponseComments = function (responses) {
+    if (responses) {
+      return React.createElement("div", undefined, $$Array.of_list(List.map(renderComment, responses)));
     } else {
       return null;
     }
   };
   return React.createElement("div", {
               className: "responses-holder"
-            }, renderResponseCount(result.responseCount), renderResponseNames(result.responses));
+            }, renderResponseCount(result.responseCount), renderResponseNames(result.responses), renderResponseComments(result.responses));
 }
 
 var make = PollResponseDetails;

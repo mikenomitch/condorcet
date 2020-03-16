@@ -44,10 +44,17 @@ let reducer = (state, action) =>
 [@react.component]
 let make = (~poll: Data.poll, ~notify) => {
   let (name, changeName) = React.useState(_ => "");
+  let (comment, changeComment) = React.useState(_ => None);
+
   let (state, dispatch) =
     reducer->React.useReducer(Array.of_list(poll.choices));
   let state_as_list = Array.to_list(state);
-  let response: Data.response = {id: None, name, order: state_as_list};
+  let response: Data.response = {
+    id: None,
+    name,
+    comment,
+    order: state_as_list,
+  };
 
   let submitChoices = _ => {
     (
@@ -134,6 +141,22 @@ let make = (~poll: Data.poll, ~notify) => {
       onChange={event => changeName(ReactEvent.Form.target(event)##value)}
       value=name
       placeholder="..."
+    />
+    <br />
+    <br />
+    <Input
+      label="Comment:"
+      onChange={event => {
+        let comment = ReactEvent.Form.target(event)##value;
+        changeComment(comment);
+      }}
+      value={
+        switch (comment) {
+        | Some(cmt) => cmt
+        | None => ""
+        }
+      }
+      placeholder="(optional)"
     />
     <br />
     <br />

@@ -30,7 +30,7 @@ defmodule CondorcetWeb.Api.V1.PollView do
       winners: result.winners,
       full_results: result.full_results,
       response_count: result.response_count,
-      responses: responses |> Enum.map(&%{name: &1.name, id: &1.external_id})
+      responses: responses |> Enum.map(&%{name: &1.name, id: &1.external_id, comment: &1.comment})
     }
   end
 
@@ -42,7 +42,7 @@ defmodule CondorcetWeb.Api.V1.PollView do
       winners: result.winners,
       full_results: result.full_results,
       response_count: result.response_count,
-      responses: responses |> Enum.map(&%{name: &1.name, id: &1.external_id})
+      responses: responses |> Enum.map(&%{name: &1.name, id: &1.external_id, comment: &1.comment})
     }
   end
 end

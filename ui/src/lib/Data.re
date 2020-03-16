@@ -8,12 +8,14 @@ type poll = {
 type response = {
   id: option(string),
   name: string,
+  comment: option(string),
   order: list(string),
 };
 
 type resultResponse = {
   id: string,
   name: string,
+  comment: option(string),
 };
 
 type winnerMap = {
@@ -70,6 +72,7 @@ module Decode = {
     Json.Decode.{
       id: json |> optional(field("id", string)),
       name: json |> field("name", string),
+      comment: json |> field("comment", optional(string)),
       order: json |> field("order", list(string)),
     };
 
@@ -92,6 +95,7 @@ module Decode = {
     Json.Decode.{
       id: json |> field("id", string),
       name: json |> field("name", string),
+      comment: json |> field("comment", optional(string)),
     };
   };
 
@@ -151,6 +155,7 @@ let encodePoll = (poll: poll) =>
 let encodeResponse = (response: response) =>
   Json.Encode.object_([
     ("name", Json.Encode.string(response.name)),
+    ("comment", Json.Encode.nullable(Json.Encode.string, response.comment)),
     ("order", Json.Encode.list(Json.Encode.string, response.order)),
   ]);
 

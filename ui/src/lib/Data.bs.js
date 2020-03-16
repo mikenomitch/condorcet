@@ -26,6 +26,9 @@ function dResponse(json) {
                   return Json_decode.field("id", Json_decode.string, param);
                 }), json),
           name: Json_decode.field("name", Json_decode.string, json),
+          comment: Json_decode.field("comment", (function (param) {
+                  return Json_decode.optional(Json_decode.string, param);
+                }), json),
           order: Json_decode.field("order", (function (param) {
                   return Json_decode.list(Json_decode.string, param);
                 }), json)
@@ -68,7 +71,10 @@ function dWinnerMap(json) {
 function dResultResponse(json) {
   return {
           id: Json_decode.field("id", Json_decode.string, json),
-          name: Json_decode.field("name", Json_decode.string, json)
+          name: Json_decode.field("name", Json_decode.string, json),
+          comment: Json_decode.field("comment", (function (param) {
+                  return Json_decode.optional(Json_decode.string, param);
+                }), json)
         };
 }
 
@@ -179,12 +185,20 @@ function encodeResponse(response) {
               ],
               /* :: */[
                 /* tuple */[
-                  "order",
-                  Json_encode.list((function (prim) {
+                  "comment",
+                  Json_encode.nullable((function (prim) {
                           return prim;
-                        }), response.order)
+                        }), response.comment)
                 ],
-                /* [] */0
+                /* :: */[
+                  /* tuple */[
+                    "order",
+                    Json_encode.list((function (prim) {
+                            return prim;
+                          }), response.order)
+                  ],
+                  /* [] */0
+                ]
               ]
             ]);
 }

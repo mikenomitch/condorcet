@@ -9,15 +9,39 @@ let make = (~result: Data.result) => {
   };
 
   let renderResponseNames = responses => {
-    switch (List.map((r: Data.resultResponse) => r.name, responses)) {
+    switch (responses) {
     | [] => React.null
-    | nameList =>
-      <p> {nameList |> Array.of_list |> Js.Array.joinWith(", ") |> R.s} </p>
+    | list =>
+      <p>
+        {list
+         |> List.map((r: Data.resultResponse) => r.name)
+         |> Array.of_list
+         |> Js.Array.joinWith(", ")
+         |> R.s}
+      </p>
+    };
+  };
+
+  let renderComment = (r: Data.resultResponse) => {
+    switch (r.comment) {
+    | Some(comment) => <p> <b> {(r.name ++ ":")->R.s} </b> comment->R.s </p>
+    | None => React.null
+    };
+  };
+
+  let renderResponseComments = (responses: list(Data.resultResponse)) => {
+    switch (responses) {
+    | [] => React.null
+    | list =>
+      <div>
+        {List.map(renderComment, list) |> Array.of_list |> React.array}
+      </div>
     };
   };
 
   <div className="responses-holder">
     {renderResponseCount(result.responseCount)}
     {renderResponseNames(result.responses)}
+    {renderResponseComments(result.responses)}
   </div>;
 };

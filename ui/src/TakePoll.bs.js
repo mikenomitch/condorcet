@@ -68,13 +68,19 @@ function TakePoll(Props) {
         }));
   var changeName = match[1];
   var name = match[0];
-  var match$1 = React.useReducer(reducer, $$Array.of_list(poll.choices));
-  var dispatch = match$1[1];
-  var state = match$1[0];
+  var match$1 = React.useState((function () {
+          return ;
+        }));
+  var changeComment = match$1[1];
+  var comment = match$1[0];
+  var match$2 = React.useReducer(reducer, $$Array.of_list(poll.choices));
+  var dispatch = match$2[1];
+  var state = match$2[0];
   var state_as_list = $$Array.to_list(state);
   var response = {
     id: undefined,
     name: name,
+    comment: comment,
     order: state_as_list
   };
   var submitChoices = function (param) {
@@ -160,6 +166,13 @@ function TakePoll(Props) {
                       return Curry._1(changeName, $$event.target.value);
                     }),
                   label: "Your Name:"
+                }), React.createElement("br", undefined), React.createElement("br", undefined), React.createElement(Input$Condorcet.make, {
+                  placeholder: "(optional)",
+                  value: comment !== undefined ? comment : "",
+                  onChange: (function ($$event) {
+                      return Curry._1(changeComment, $$event.target.value);
+                    }),
+                  label: "Comment:"
                 }), React.createElement("br", undefined), React.createElement("br", undefined), React.createElement("div", {
                   className: "centered"
                 }, React.createElement("button", {

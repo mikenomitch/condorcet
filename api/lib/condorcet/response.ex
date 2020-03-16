@@ -7,6 +7,7 @@ defmodule Condorcet.Response do
 
   schema "responses" do
     field :name, :string
+    field :comment, :string
     field :external_id, Ecto.UUID, autogenerate: true
     field :order, {:array, :string}
     field :poll_id, :id
@@ -17,7 +18,7 @@ defmodule Condorcet.Response do
   @doc false
   def changeset(response, attrs) do
     response
-    |> cast(attrs, [:order, :name])
+    |> cast(attrs, [:order, :name, :comment])
     |> validate_required([:order, :name])
   end
 

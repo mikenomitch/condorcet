@@ -10,6 +10,11 @@ defmodule CondorcetWeb.Api.V1.ResponseView do
   end
 
   def render("response.json", %{response: response}) do
-    %{id: response.external_id, name: response.name, order: response.order}
+    %{
+      id: response.external_id,
+      name: response.name,
+      order: response.order,
+      comment: response.comment
+    }
   end
 end
