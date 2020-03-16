@@ -24,7 +24,7 @@ let make = (~result: Data.result) => {
         <h4> {R.s("Take Poll Link")} </h4>
         <CopyableLink link={Constants.host ++ "/take-poll/" ++ takeToken} />
       </div>
-      <PollResults result />
+      <div className="padding-sm"> <PollResults result /> </div>
       <div>
         {showEditLink
            ? <button
