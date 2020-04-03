@@ -10,8 +10,8 @@ var R$Condorcet = require("./lib/R.bs.js");
 var Api$Condorcet = require("./lib/Api.bs.js");
 var Input$Condorcet = require("./ui/Input.bs.js");
 var RList$Rationale = require("rationale/src/RList.js");
-var Toggle$Condorcet = require("./ui/Toggle.bs.js");
 var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
+var Checkbox$Condorcet = require("./ui/Checkbox.bs.js");
 
 function NewPoll(Props) {
   var notify = Props.notify;
@@ -32,6 +32,7 @@ function NewPoll(Props) {
                     ]
                   ],
                   manageToken: undefined,
+                  allowComments: false,
                   question: ""
                 };
         }));
@@ -43,6 +44,17 @@ function NewPoll(Props) {
   var setHasAdded = match$1[1];
   var hasAdded = match$1[0];
   var showButtons = List.length(poll.choices) > 2;
+  var toggleAllowComments = function (param) {
+    return Curry._1(setPoll, (function (param) {
+                  return {
+                          id: poll.id,
+                          choices: poll.choices,
+                          manageToken: poll.manageToken,
+                          allowComments: !poll.allowComments,
+                          question: poll.question
+                        };
+                }));
+  };
   var addChoice = function (param) {
     Curry._1(setHasAdded, (function (param) {
             return true;
@@ -55,6 +67,7 @@ function NewPoll(Props) {
                                 /* [] */0
                               ]),
                           manageToken: poll.manageToken,
+                          allowComments: poll.allowComments,
                           question: poll.question
                         };
                 }));
@@ -94,6 +107,7 @@ function NewPoll(Props) {
                                               id: poll.id,
                                               choices: newList,
                                               manageToken: poll.manageToken,
+                                              allowComments: poll.allowComments,
                                               question: poll.question
                                             };
                                     }));
@@ -109,6 +123,7 @@ function NewPoll(Props) {
                                                     id: poll.id,
                                                     choices: newChoices,
                                                     manageToken: poll.manageToken,
+                                                    allowComments: poll.allowComments,
                                                     question: poll.question
                                                   };
                                           }));
@@ -133,6 +148,7 @@ function NewPoll(Props) {
                                                     id: poll.id,
                                                     choices: poll.choices,
                                                     manageToken: poll.manageToken,
+                                                    allowComments: poll.allowComments,
                                                     question: question
                                                   };
                                           }));
@@ -150,20 +166,19 @@ function NewPoll(Props) {
                           onClick: addChoice
                         }, React.createElement("i", {
                               className: "fas fa-plus"
-                            }), R$Condorcet.s(" Add Choice")))), React.createElement("div", {
+                            }), R$Condorcet.s(" Add Choice")))), React.createElement("div", undefined, React.createElement("h4", {
+                      className: "centered"
+                    }, R$Condorcet.s("Poll Options")), React.createElement(Checkbox$Condorcet.make, {
+                      checked: poll.allowComments,
+                      onChange: toggleAllowComments,
+                      label: "Allow Public Comments",
+                      name: "allowComments"
+                    })), React.createElement("div", {
                   className: "centered save-holder"
                 }, React.createElement("button", {
                       className: "button button-mdlg",
                       onClick: savePoll
-                    }, R$Condorcet.s("Create Poll"))), React.createElement("div", undefined, React.createElement("h4", {
-                      className: "centered"
-                    }, R$Condorcet.s("Customize Poll")), React.createElement(Toggle$Condorcet.make, {
-                      on: true,
-                      onClick: (function (param) {
-                          return /* () */0;
-                        }),
-                      label: "Allow Comments"
-                    })));
+                    }, R$Condorcet.s("Create Poll"))));
 }
 
 var RList = /* alias */0;

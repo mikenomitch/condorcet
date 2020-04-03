@@ -146,6 +146,7 @@ function TakePoll(Props) {
                     key: choice + String(index)
                   }));
   };
+  var match$3 = poll.allowComments;
   return React.createElement("div", {
               className: "page"
             }, React.createElement("h3", undefined, R$Condorcet.s(poll.question)), React.createElement("div", {
@@ -166,14 +167,14 @@ function TakePoll(Props) {
                       return Curry._1(changeName, $$event.target.value);
                     }),
                   label: "Your Name:"
-                }), React.createElement("br", undefined), React.createElement("br", undefined), React.createElement(Input$Condorcet.make, {
-                  placeholder: "(optional)",
-                  value: comment !== undefined ? comment : "",
-                  onChange: (function ($$event) {
-                      return Curry._1(changeComment, $$event.target.value);
-                    }),
-                  label: "Comment:"
-                }), React.createElement("br", undefined), React.createElement("br", undefined), React.createElement("div", {
+                }), match$3 ? React.createElement("div", undefined, React.createElement("br", undefined), React.createElement("br", undefined), React.createElement(Input$Condorcet.make, {
+                        placeholder: "(optional)",
+                        value: comment !== undefined ? comment : "",
+                        onChange: (function ($$event) {
+                            return Curry._1(changeComment, $$event.target.value);
+                          }),
+                        label: "Comment:"
+                      })) : null, React.createElement("br", undefined), React.createElement("br", undefined), React.createElement("div", {
                   className: "centered"
                 }, React.createElement("button", {
                       className: "button button-mdlg",

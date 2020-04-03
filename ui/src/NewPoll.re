@@ -9,6 +9,7 @@ let make = (~notify) => {
     question: "",
     choices: ["", "", "", ""],
     manageToken: None,
+    allowComments: false,
   };
   let (poll, setPoll) = React.useState(() => blankPoll);
   let (hasAdded, setHasAdded) = React.useState(() => false);
@@ -16,6 +17,10 @@ let make = (~notify) => {
 
   let changeQuestion = question => {
     setPoll(_ => {...poll, question});
+  };
+
+  let toggleAllowComments = _ => {
+    setPoll(_ => {...poll, allowComments: !poll.allowComments});
   };
 
   let changeChoice = (newChoice, idx) => {
@@ -106,14 +111,19 @@ let make = (~notify) => {
         </button>
       </div>
     </div>
+    <div>
+      <h4 className="centered"> {R.s("Poll Options")} </h4>
+      <Checkbox
+        label="Allow Public Comments"
+        name="allowComments"
+        checked={poll.allowComments}
+        onChange=toggleAllowComments
+      />
+    </div>
     <div className="centered save-holder">
       <button className="button button-mdlg" onClick=savePoll>
         {R.s("Create Poll")}
       </button>
-    </div>
-    <div>
-      <h4 className="centered"> {R.s("Customize Poll")} </h4>
-      <Toggle on=true label="Allow Comments" onClick={_ => ignore()} />
     </div>
   </div>;
 };

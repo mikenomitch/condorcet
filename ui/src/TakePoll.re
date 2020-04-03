@@ -142,22 +142,28 @@ let make = (~poll: Data.poll, ~notify) => {
       value=name
       placeholder="..."
     />
-    <br />
-    <br />
-    <Input
-      label="Comment:"
-      onChange={event => {
-        let comment = ReactEvent.Form.target(event)##value;
-        changeComment(comment);
-      }}
-      value={
-        switch (comment) {
-        | Some(cmt) => cmt
-        | None => ""
-        }
-      }
-      placeholder="(optional)"
-    />
+    {switch (poll.allowComments) {
+     | true =>
+       <div>
+         <br />
+         <br />
+         <Input
+           label="Comment:"
+           onChange={event => {
+             let comment = ReactEvent.Form.target(event)##value;
+             changeComment(comment);
+           }}
+           value={
+             switch (comment) {
+             | Some(cmt) => cmt
+             | None => ""
+             }
+           }
+           placeholder="(optional)"
+         />
+       </div>
+     | _ => React.null
+     }}
     <br />
     <br />
     <div className="centered">

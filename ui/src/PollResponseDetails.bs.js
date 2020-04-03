@@ -11,7 +11,7 @@ function PollResponseDetails(Props) {
   var renderResponseCount = function (count) {
     if (count !== 0) {
       if (count !== 1) {
-        return React.createElement("p", undefined, R$Condorcet.s(String(count) + " responses from:"));
+        return React.createElement("p", undefined, R$Condorcet.s(String(count) + " responses:"));
       } else {
         return React.createElement("p", undefined, R$Condorcet.s("1 response from: "));
       }
@@ -33,14 +33,17 @@ function PollResponseDetails(Props) {
     if (match !== undefined) {
       return React.createElement("p", {
                   key: r.id
-                }, React.createElement("b", undefined, R$Condorcet.s(r.name + ":")), R$Condorcet.s(match));
+                }, React.createElement("span", undefined, R$Condorcet.s(r.name + ": ")), R$Condorcet.s(match));
     } else {
       return null;
     }
   };
   var renderResponseComments = function (responses) {
-    if (responses) {
-      return React.createElement("div", undefined, $$Array.of_list(List.map(renderComment, responses)));
+    var with_comment = List.filter((function (r) {
+              return r.comment !== undefined;
+            }))(responses);
+    if (with_comment) {
+      return React.createElement("div", undefined, React.createElement("br", undefined), React.createElement("p", undefined, R$Condorcet.s("Comments:")), $$Array.of_list(List.map(renderComment, with_comment)));
     } else {
       return null;
     }

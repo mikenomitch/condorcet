@@ -9,3 +9,15 @@
   font-size: $font-size-sm;
   color: $color-success;
 }
+
+.checkbox {
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+
+  input {
+    transform: scale(1.2);
+    margin: 0px $spacing;
+  }
+}

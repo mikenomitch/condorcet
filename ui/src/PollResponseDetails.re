@@ -4,7 +4,7 @@ let make = (~result: Data.result) => {
     switch (count) {
     | 0 => <p> {R.s("No responses yet")} </p>
     | 1 => <p> {R.s("1 response from: ")} </p>
-    | count => <p> {R.s(string_of_int(count) ++ " responses from:")} </p>
+    | count => <p> {R.s(string_of_int(count) ++ " responses:")} </p>
     };
   };
 
@@ -25,16 +25,27 @@ let make = (~result: Data.result) => {
   let renderComment = (r: Data.resultResponse) => {
     switch (r.comment) {
     | Some(comment) =>
-      <p key={r.id}> <b> {(r.name ++ ":")->R.s} </b> comment->R.s </p>
+      <p key={r.id}> <span> {(r.name ++ ": ")->R.s} </span> comment->R.s </p>
     | None => React.null
     };
   };
 
   let renderResponseComments = (responses: list(Data.resultResponse)) => {
-    switch (responses) {
+    let with_comment =
+      responses
+      |> List.filter((r: Data.resultResponse) => {
+           switch (r.comment) {
+           | Some(_comment) => true
+           | None => false
+           }
+         });
+
+    switch (with_comment) {
     | [] => React.null
     | list =>
       <div>
+        <br />
+        <p> {R.s("Comments:")} </p>
         {List.map(renderComment, list) |> Array.of_list |> React.array}
       </div>
     };
