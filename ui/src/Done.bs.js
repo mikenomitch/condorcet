@@ -3,16 +3,11 @@
 
 var React = require("react");
 var R$Condorcet = require("./lib/R.bs.js");
-var Link$Condorcet = require("./ui/Link.bs.js");
 
 function Done(Props) {
   return React.createElement("div", {
               className: "page"
-            }, React.createElement("h2", undefined, R$Condorcet.s("Response successfully submitted.")), React.createElement(Link$Condorcet.make, {
-                  linkTo: "/",
-                  className: "centered",
-                  children: R$Condorcet.s("Go to Homepage")
-                }));
+            }, React.createElement("h3", undefined, R$Condorcet.s("Response successfully submitted")));
 }
 
 var make = Done;

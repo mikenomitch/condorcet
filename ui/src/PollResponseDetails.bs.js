@@ -33,7 +33,9 @@ function PollResponseDetails(Props) {
     if (match !== undefined) {
       return React.createElement("p", {
                   key: r.id
-                }, React.createElement("span", undefined, R$Condorcet.s(r.name + ": ")), R$Condorcet.s(match));
+                }, React.createElement("span", {
+                      className: "fw-normal"
+                    }, R$Condorcet.s(r.name + ":  ")), R$Condorcet.s(match));
     } else {
       return null;
     }

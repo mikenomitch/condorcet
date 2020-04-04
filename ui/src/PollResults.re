@@ -17,7 +17,10 @@ let make = (~result: Data.result, ~showLink=false) => {
       {rankedResults
        |> List.mapi((idx, winners) => {
             <div key={idx->string_of_int}>
-              <i> <Ordinal num={idx + 1} /> {R.s(": ")} </i>
+              <i className="fw-normal">
+                <Ordinal num={idx + 1} />
+                {R.s(": ")}
+              </i>
               {winners |> Array.of_list |> Js.Array.joinWith(", ") |> R.s}
             </div>
           })
@@ -45,7 +48,7 @@ let make = (~result: Data.result, ~showLink=false) => {
           })
        |> List.map(({key, res}) => {
             <div key className="full-results">
-              <i> {R.s(key ++ ": ")} </i>
+              <i className="fw-normal"> {R.s(key ++ ": ")} </i>
               {switch (res) {
                | 1 => R.s(res->string_of_int ++ " " ++ unit)
                | _ => R.s(res->string_of_int ++ " " ++ units)
@@ -63,7 +66,7 @@ let make = (~result: Data.result, ~showLink=false) => {
        |> Array.to_list
        |> List.map(key => {
             <div key className="full-results">
-              <i> {R.s(key ++ ": ")} </i>
+              <i className="fw-normal"> {R.s(key ++ ": ")} </i>
               {switch (Js.Dict.get(resultMap, key)) {
                | Some(res) =>
                  switch (res) {

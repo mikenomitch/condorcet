@@ -25,7 +25,10 @@ let make = (~result: Data.result) => {
   let renderComment = (r: Data.resultResponse) => {
     switch (r.comment) {
     | Some(comment) =>
-      <p key={r.id}> <span> {(r.name ++ ": ")->R.s} </span> comment->R.s </p>
+      <p key={r.id}>
+        <span className="fw-normal"> {(r.name ++ ":  ")->R.s} </span>
+        comment->R.s
+      </p>
     | None => React.null
     };
   };

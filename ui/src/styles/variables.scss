@@ -76,7 +76,6 @@ $spacing-md: 1rem;
 $spacing-lg: 2rem;
 $spacing-xl: 4rem;
 $spacing-xxl: 8rem;
-
 $spacing-page: 30rem;
 
 // ==========
@@ -133,5 +132,5 @@ $variableDefaults: (
   primary: $color-primary,
   secondary: $color-secondary,
   tertiary: $color-tertiary,
-  box-shadow: $box-shadow-base
+  box-shadow: $box-shadow-base,
 );

@@ -33,7 +33,9 @@ function PollResults(Props) {
     return React.createElement("div", undefined, $$Array.of_list(List.mapi((function (idx, winners) {
                           return React.createElement("div", {
                                       key: String(idx)
-                                    }, React.createElement("i", undefined, React.createElement(Ordinal$Condorcet.make, {
+                                    }, React.createElement("i", {
+                                          className: "fw-normal"
+                                        }, React.createElement(Ordinal$Condorcet.make, {
                                               num: idx + 1 | 0
                                             }), R$Condorcet.s(": ")), R$Condorcet.s($$Array.of_list(winners).join(", ")));
                         }), rankedResults)));
@@ -45,7 +47,9 @@ function PollResults(Props) {
                           return React.createElement("div", {
                                       key: key,
                                       className: "full-results"
-                                    }, React.createElement("i", undefined, R$Condorcet.s(key + ": ")), res !== 1 ? R$Condorcet.s(String(res) + (" " + units)) : R$Condorcet.s(String(res) + (" " + unit)));
+                                    }, React.createElement("i", {
+                                          className: "fw-normal"
+                                        }, R$Condorcet.s(key + ": ")), res !== 1 ? R$Condorcet.s(String(res) + (" " + units)) : R$Condorcet.s(String(res) + (" " + unit)));
                         }), List.sort((function (a, b) {
                               var match = a.res < b.res;
                               var match$1 = a.res === b.res;
@@ -84,7 +88,9 @@ function PollResults(Props) {
                           return React.createElement("div", {
                                       key: key,
                                       className: "full-results"
-                                    }, React.createElement("i", undefined, R$Condorcet.s(key + ": ")), tmp);
+                                    }, React.createElement("i", {
+                                          className: "fw-normal"
+                                        }, R$Condorcet.s(key + ": ")), tmp);
                         }), $$Array.to_list(Object.keys(resultMap)))));
   };
   var renderWinnerString = function (lst, typ) {

@@ -158,3 +158,27 @@ h5 {
 .p-sm {
   padding: $spacing-sm;
 }
+
+/* =========== */
+/*   HELPERS   */
+/* =========== */
+
+.block {
+  display: block;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.fw-light {
+  font-weight: $font-weight-light;
+}
+
+.fw-normal {
+  font-weight: $font-weight-normal;
+}
+
+.fw-bold {
+  font-weight: $font-weight-bold;
+}
