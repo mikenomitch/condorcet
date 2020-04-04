@@ -11,6 +11,7 @@ defmodule CondorcetWeb.Api.V1.PollView do
       question: poll.question,
       choices: poll.choices,
       allow_comments: poll.allow_comments,
+      public_results: poll.public_results,
       manage_token: poll.manage_token
     }
   end
@@ -20,7 +21,8 @@ defmodule CondorcetWeb.Api.V1.PollView do
       id: poll.take_token,
       question: poll.question,
       choices: poll.choices,
-      allow_comments: poll.allow_comments
+      allow_comments: poll.allow_comments,
+      public_results: poll.public_results
     }
   end
 

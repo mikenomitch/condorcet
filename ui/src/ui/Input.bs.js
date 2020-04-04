@@ -11,7 +11,9 @@ function Input(Props) {
   var onChange = Props.onChange;
   var $staropt$star = Props.focusOnRender;
   var label = Props.label;
+  var $staropt$star$1 = Props.textarea;
   var focusOnRender = $staropt$star !== undefined ? $staropt$star : false;
+  var textarea = $staropt$star$1 !== undefined ? $staropt$star$1 : false;
   var inputRef = React.useRef(undefined);
   React.useEffect((function () {
           if (focusOnRender) {
@@ -23,16 +25,25 @@ function Input(Props) {
           }
           return ;
         }), ([]));
-  var input = React.createElement("input", {
-        ref: (function (elem) {
-            inputRef.current = (elem == null) ? undefined : Caml_option.some(elem);
-            return /* () */0;
-          }),
-        className: "input input-full-width",
-        placeholder: placeholder,
-        value: value,
-        onChange: onChange
-      });
+  var input = textarea ? React.createElement("textarea", {
+          ref: (function (elem) {
+              inputRef.current = (elem == null) ? undefined : Caml_option.some(elem);
+              return /* () */0;
+            }),
+          className: "input input-textarea input-full-width",
+          placeholder: placeholder,
+          value: value,
+          onChange: onChange
+        }) : React.createElement("input", {
+          ref: (function (elem) {
+              inputRef.current = (elem == null) ? undefined : Caml_option.some(elem);
+              return /* () */0;
+            }),
+          className: "input input-full-width",
+          placeholder: placeholder,
+          value: value,
+          onChange: onChange
+        });
   if (label !== undefined) {
     return React.createElement("div", undefined, React.createElement("label", undefined, R$Condorcet.s(label)), React.createElement("div", {
                     className: "m-t-sm"

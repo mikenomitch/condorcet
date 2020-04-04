@@ -8,7 +8,8 @@ defmodule Condorcet.Poll do
     field :question, :string
     field :take_token, :string
     field :manage_token, :string
-    field :allow_comments, :boolean
+    field :allow_comments, :boolean, default: false
+    field :public_results, :boolean, default: true
 
     has_one :result, Result
     has_many :responses, Response
@@ -19,7 +20,14 @@ defmodule Condorcet.Poll do
   @doc false
   def changeset(poll, attrs) do
     poll
-    |> cast(attrs, [:question, :choices, :take_token, :manage_token, :allow_comments])
+    |> cast(attrs, [
+      :question,
+      :choices,
+      :take_token,
+      :manage_token,
+      :allow_comments,
+      :public_results
+    ])
     |> validate_required([:question])
     |> validate_choices_not_blank()
     |> validate_choices_not_same()

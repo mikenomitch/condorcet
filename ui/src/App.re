@@ -15,6 +15,7 @@ let make = () => {
     switch (url.path) {
     | [] => <Home />
     | ["why"] => <Why />
+    | ["done"] => <Done />
     | ["new"] => <NewPoll notify />
     | ["manage-poll", manageToken] => <ManagePollPage manageToken />
     | ["manage-poll", manageToken, "edit-results"] =>

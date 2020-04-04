@@ -17,6 +17,7 @@ function dPoll(json) {
                   return Json_decode.field("manage_token", Json_decode.string, param);
                 }), json),
           allowComments: Json_decode.field("allow_comments", Json_decode.bool, json),
+          publicResults: Json_decode.field("public_results", Json_decode.bool, json),
           question: Json_decode.field("question", Json_decode.string, json)
         };
 }
@@ -178,7 +179,13 @@ function encodePoll(poll) {
                     "allow_comments",
                     poll.allowComments
                   ],
-                  /* [] */0
+                  /* :: */[
+                    /* tuple */[
+                      "public_results",
+                      poll.publicResults
+                    ],
+                    /* [] */0
+                  ]
                 ]
               ]
             ]);

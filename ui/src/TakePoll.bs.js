@@ -89,7 +89,8 @@ function TakePoll(Props) {
       var id = match;
       Api$Condorcet.submitPoll(id, response).then((function (responseVariant) {
               if (responseVariant.tag) {
-                return Promise.resolve(ReasonReactRouter.push("/results/" + id));
+                var path = poll.publicResults ? "/results/" + id : "/done";
+                return Promise.resolve(ReasonReactRouter.push(path));
               } else {
                 Curry._2(notify, "error", "You must provide a name");
                 return Promise.resolve(/* () */0);
@@ -168,12 +169,13 @@ function TakePoll(Props) {
                     }),
                   label: "Your Name:"
                 }), match$3 ? React.createElement("div", undefined, React.createElement("br", undefined), React.createElement("br", undefined), React.createElement(Input$Condorcet.make, {
-                        placeholder: "(optional)",
+                        placeholder: "optional",
                         value: comment !== undefined ? comment : "",
                         onChange: (function ($$event) {
                             return Curry._1(changeComment, $$event.target.value);
                           }),
-                        label: "Comment:"
+                        label: "Comment:",
+                        textarea: true
                       })) : null, React.createElement("br", undefined), React.createElement("br", undefined), React.createElement("div", {
                   className: "centered"
                 }, React.createElement("button", {

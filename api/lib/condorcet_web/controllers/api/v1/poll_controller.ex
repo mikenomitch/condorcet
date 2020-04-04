@@ -22,18 +22,23 @@ defmodule CondorcetWeb.Api.V1.PollController do
 
   @doc false
   def results(conn, %{"poll_id" => poll_token}) do
-    poll = Repo.get_by(Poll, take_token: poll_token)
-    result = Repo.get_by(Result, poll_id: poll.id) || %Result{response_count: 0}
-    query = from(Response, where: [poll_id: ^poll.id])
-    responses = Repo.all(query) || []
+    with {:poll, %Poll{} = poll} <- {:poll, Repo.get_by(Poll, take_token: poll_token)},
+         {:public_results, true} <- {:public_results, poll.public_results},
+         {:result, result} <-
+           {:result, Repo.get_by(Result, poll_id: poll.id) || %Result{response_count: 0}} do
+      query = from(Response, where: [poll_id: ^poll.id])
+      responses = Repo.all(query) || []
 
-    render(
-      conn,
-      "results.json",
-      poll: poll,
-      result: result,
-      responses: responses
-    )
+      render(
+        conn,
+        "results.json",
+        poll: poll,
+        result: result,
+        responses: responses
+      )
+    else
+      _ -> {:error, :not_found}
+    end
   end
 
   @doc false

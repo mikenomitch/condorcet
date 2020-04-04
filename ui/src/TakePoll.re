@@ -69,7 +69,8 @@ let make = (~poll: Data.poll, ~notify) => {
                  notify("error", "You must provide a name");
                  resolve();
                | Data.ResponseRes(_resp) =>
-                 ReasonReactRouter.push("/results/" ++ id) |> resolve
+                 let path = poll.publicResults ? "/results/" ++ id : "/done";
+                 ReasonReactRouter.push(path) |> resolve;
                }
              })
         )
@@ -148,6 +149,7 @@ let make = (~poll: Data.poll, ~notify) => {
          <br />
          <br />
          <Input
+           textarea=true
            label="Comment:"
            onChange={event => {
              let comment = ReactEvent.Form.target(event)##value;
@@ -159,7 +161,7 @@ let make = (~poll: Data.poll, ~notify) => {
              | None => ""
              }
            }
-           placeholder="(optional)"
+           placeholder="optional"
          />
        </div>
      | _ => React.null

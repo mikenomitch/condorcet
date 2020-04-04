@@ -4,6 +4,7 @@
 var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
 var Why$Condorcet = require("./Why.bs.js");
+var Done$Condorcet = require("./Done.bs.js");
 var Home$Condorcet = require("./Home.bs.js");
 var Layout$Condorcet = require("./Layout.bs.js");
 var NewPoll$Condorcet = require("./NewPoll.bs.js");
@@ -43,6 +44,13 @@ function App(Props) {
   var exit = 0;
   if (match$1) {
     switch (match$1[0]) {
+      case "done" :
+          if (match$1[1]) {
+            exit = 1;
+          } else {
+            body = React.createElement(Done$Condorcet.make, { });
+          }
+          break;
       case "manage-poll" :
           var match$2 = match$1[1];
           if (match$2) {

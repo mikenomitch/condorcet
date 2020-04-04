@@ -10,6 +10,7 @@ let make = (~notify) => {
     choices: ["", "", "", ""],
     manageToken: None,
     allowComments: false,
+    publicResults: true,
   };
   let (poll, setPoll) = React.useState(() => blankPoll);
   let (hasAdded, setHasAdded) = React.useState(() => false);
@@ -17,6 +18,10 @@ let make = (~notify) => {
 
   let changeQuestion = question => {
     setPoll(_ => {...poll, question});
+  };
+
+  let togglePublicResults = _ => {
+    setPoll(_ => {...poll, publicResults: !poll.publicResults});
   };
 
   let toggleAllowComments = _ => {
@@ -114,7 +119,15 @@ let make = (~notify) => {
     <div>
       <h4 className="centered"> {R.s("Poll Options")} </h4>
       <Checkbox
-        label="Allow Public Comments"
+        label="Only show results to poll creator"
+        name="publicResults"
+        checked={!poll.publicResults}
+        onChange=togglePublicResults
+      />
+      <br />
+      <br />
+      <Checkbox
+        label="Include comment field"
         name="allowComments"
         checked={poll.allowComments}
         onChange=toggleAllowComments

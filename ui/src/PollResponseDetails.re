@@ -2,9 +2,9 @@
 let make = (~result: Data.result) => {
   let renderResponseCount = count => {
     switch (count) {
-    | 0 => <p> {R.s("No responses yet")} </p>
-    | 1 => <p> {R.s("1 response from: ")} </p>
-    | count => <p> {R.s(string_of_int(count) ++ " responses:")} </p>
+    | 0 => <h5> {R.s("No responses yet")} </h5>
+    | 1 => <h5> {R.s("1 response from: ")} </h5>
+    | count => <h5> {R.s(string_of_int(count) ++ " responses:")} </h5>
     };
   };
 
@@ -44,8 +44,7 @@ let make = (~result: Data.result) => {
     | [] => React.null
     | list =>
       <div>
-        <br />
-        <p> {R.s("Comments:")} </p>
+        <h5> {R.s("Comments:")} </h5>
         {List.map(renderComment, list) |> Array.of_list |> React.array}
       </div>
     };

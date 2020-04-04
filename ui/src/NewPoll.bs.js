@@ -33,6 +33,7 @@ function NewPoll(Props) {
                   ],
                   manageToken: undefined,
                   allowComments: false,
+                  publicResults: true,
                   question: ""
                 };
         }));
@@ -44,6 +45,18 @@ function NewPoll(Props) {
   var setHasAdded = match$1[1];
   var hasAdded = match$1[0];
   var showButtons = List.length(poll.choices) > 2;
+  var togglePublicResults = function (param) {
+    return Curry._1(setPoll, (function (param) {
+                  return {
+                          id: poll.id,
+                          choices: poll.choices,
+                          manageToken: poll.manageToken,
+                          allowComments: poll.allowComments,
+                          publicResults: !poll.publicResults,
+                          question: poll.question
+                        };
+                }));
+  };
   var toggleAllowComments = function (param) {
     return Curry._1(setPoll, (function (param) {
                   return {
@@ -51,6 +64,7 @@ function NewPoll(Props) {
                           choices: poll.choices,
                           manageToken: poll.manageToken,
                           allowComments: !poll.allowComments,
+                          publicResults: poll.publicResults,
                           question: poll.question
                         };
                 }));
@@ -68,6 +82,7 @@ function NewPoll(Props) {
                               ]),
                           manageToken: poll.manageToken,
                           allowComments: poll.allowComments,
+                          publicResults: poll.publicResults,
                           question: poll.question
                         };
                 }));
@@ -108,6 +123,7 @@ function NewPoll(Props) {
                                               choices: newList,
                                               manageToken: poll.manageToken,
                                               allowComments: poll.allowComments,
+                                              publicResults: poll.publicResults,
                                               question: poll.question
                                             };
                                     }));
@@ -124,6 +140,7 @@ function NewPoll(Props) {
                                                     choices: newChoices,
                                                     manageToken: poll.manageToken,
                                                     allowComments: poll.allowComments,
+                                                    publicResults: poll.publicResults,
                                                     question: poll.question
                                                   };
                                           }));
@@ -149,6 +166,7 @@ function NewPoll(Props) {
                                                     choices: poll.choices,
                                                     manageToken: poll.manageToken,
                                                     allowComments: poll.allowComments,
+                                                    publicResults: poll.publicResults,
                                                     question: question
                                                   };
                                           }));
@@ -169,9 +187,14 @@ function NewPoll(Props) {
                             }), R$Condorcet.s(" Add Choice")))), React.createElement("div", undefined, React.createElement("h4", {
                       className: "centered"
                     }, R$Condorcet.s("Poll Options")), React.createElement(Checkbox$Condorcet.make, {
+                      checked: !poll.publicResults,
+                      onChange: togglePublicResults,
+                      label: "Only show results to poll creator",
+                      name: "publicResults"
+                    }), React.createElement("br", undefined), React.createElement("br", undefined), React.createElement(Checkbox$Condorcet.make, {
                       checked: poll.allowComments,
                       onChange: toggleAllowComments,
-                      label: "Allow Public Comments",
+                      label: "Include comment field",
                       name: "allowComments"
                     })), React.createElement("div", {
                   className: "centered save-holder"

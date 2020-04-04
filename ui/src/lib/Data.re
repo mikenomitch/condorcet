@@ -3,6 +3,7 @@ type poll = {
   choices: list(string),
   manageToken: option(string),
   allowComments: bool,
+  publicResults: bool,
   question: string,
 };
 
@@ -68,6 +69,7 @@ module Decode = {
       choices: json |> field("choices", list(string)),
       manageToken: json |> optional(field("manage_token", string)),
       allowComments: json |> field("allow_comments", bool),
+      publicResults: json |> field("public_results", bool),
     };
 
   let dResponse = (json): response =>
@@ -153,6 +155,7 @@ let encodePoll = (poll: poll) =>
     ("question", Json.Encode.string(poll.question)),
     ("choices", Json.Encode.list(Json.Encode.string, poll.choices)),
     ("allow_comments", Json.Encode.bool(poll.allowComments)),
+    ("public_results", Json.Encode.bool(poll.publicResults)),
   ]);
 
 let encodeResponse = (response: response) =>
