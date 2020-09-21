@@ -131,7 +131,10 @@ let make = () => {
        )}
     </p>
     <p>
-      {R.s("If you prefer learning via video, CPG Grey has a ")}
+      {
+        R.s("If you prefer learning via video, CGP Grey has a ");
+      };
+
       <a href="https://www.cgpgrey.com/politics-in-the-animal-kingdom">
         {R.s("YouTube series on this topic")}
       </a>

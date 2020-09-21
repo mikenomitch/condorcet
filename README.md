@@ -1,4 +1,10 @@
-# Condorcet
+# Condorcet/Poller.io
+
+This is the code for [Poller.io](https://poller.io). Poller allows groups to make better decisions using ranked choice voting and alternative election schemes. Results are tallied for Instant Runoff Voting, Borda Counts, the Condorcet Method, and Plurality elections.
+
+The application is written using Elixir and ReasonML. It is hosted on GCP.
+
+For more information on Ranked Choice Voting, check out [CGP Grey's video series](https://www.cgpgrey.com/politics-in-the-animal-kingdom) on the topic.
 
 ## Dependencies
 

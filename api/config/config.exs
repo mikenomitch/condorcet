@@ -13,7 +13,7 @@ config :condorcet,
 # Configures the endpoint
 config :condorcet, CondorcetWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "yCMjdUgZMGLI5BQhI6iFlJwFwUVWU3xDWamLOwP28Wwl1ncOgk00EAyAQO2zkffP",
+  secret_key_base: "yCMjdUgZMGLI5BQhI6iFlJwFwUVWU3xDWamLOwP28Wwl1ncOgk00EAyAQO2zkffP", # dont worry this isn't on prod
   render_errors: [view: CondorcetWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Condorcet.PubSub, adapter: Phoenix.PubSub.PG2]
 
